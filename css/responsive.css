@@ -2,6 +2,36 @@
 
 /* Base styles are mobile-first (already in main.css) */
 
+/* Extra small devices (phones, up to 480px) */
+@media (max-width: 480px) {
+    .header-container {
+        padding: var(--spacing-md) var(--spacing-sm);
+        min-height: 70px;
+    }
+    
+    .logo {
+        font-size: 1.1rem;
+    }
+    
+    .logo-icon {
+        font-size: 1.3em;
+    }
+    
+    .mobile-menu-toggle {
+        font-size: 1.3rem;
+        padding: var(--spacing-xs);
+    }
+    
+    .nav {
+        padding: var(--spacing-md);
+    }
+    
+    .nav-link {
+        font-size: 1rem;
+        padding: var(--spacing-sm) 0;
+    }
+}
+
 /* Small devices (phones, 640px and up) */
 @media (min-width: 640px) {
     .container {
@@ -10,6 +40,14 @@
     
     .hero-buttons {
         justify-content: center;
+    }
+    
+    .header-container {
+        padding: var(--spacing-lg) var(--spacing-lg);
+    }
+    
+    .nav-menu {
+        gap: var(--spacing-md);
     }
 }
 
@@ -33,6 +71,31 @@
     
     .card-image {
         height: 250px;
+    }
+    
+    .mobile-menu-toggle {
+        display: none;
+    }
+    
+    .nav {
+        position: static;
+        flex-direction: row;
+        background: none;
+        box-shadow: none;
+        padding: 0;
+        max-height: none;
+        overflow: visible;
+    }
+    
+    .nav-menu {
+        flex-direction: row;
+        gap: clamp(1rem, 2vw, 2rem);
+    }
+    
+    .nav-link {
+        padding: var(--spacing-sm) var(--spacing-xs);
+        border-bottom: none;
+        font-size: 1rem;
     }
 }
 
