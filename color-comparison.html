@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Scheme Comparison - Shelter Pawtners</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            padding: 2rem;
+            background: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .comparison-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .color-scheme {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .color-scheme h2 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .color-swatch {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .color-box {
+            width: 80px;
+            height: 50px;
+            border-radius: 6px;
+            margin-right: 1rem;
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+        
+        .color-info {
+            flex: 1;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .color-hex {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .gradient-demo {
+            margin-top: 2rem;
+            padding: 2rem;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .current-gradient {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+        }
+        
+        .proposed-gradient {
+            background: linear-gradient(135deg, #6B3FA0 0%, #00A896 100%);
+        }
+        
+        .button-demo {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .demo-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .demo-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .current-btn-primary {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+            color: white;
+        }
+        
+        .current-btn-secondary {
+            background: #F59E0B;
+            color: white;
+        }
+        
+        .proposed-btn-primary {
+            background: linear-gradient(135deg, #6B3FA0 0%, #00A896 100%);
+            color: white;
+        }
+        
+        .proposed-btn-secondary {
+            background: #FF7D00;
+            color: white;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .recommendation {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .recommendation h3 {
+            color: #0369a1;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 2rem; color: #1f2937;">
+        🎨 Shelter Pawtners Color Scheme Comparison
+    </h1>
+    
+    <div class="comparison-container">
+        <!-- Current Colors -->
+        <div class="color-scheme">
+            <h2 style="color: #8B5CF6;">Current Colors (Working)</h2>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #8B5CF6;"></div>
+                <div class="color-info">
+                    <div class="color-name">Primary Purple</div>
+                    <div class="color-hex">#8B5CF6</div>
+                </div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #06B6D4;"></div>
+                <div class="color-info">
+                    <div class="color-name">Secondary Teal</div>
+                    <div class="color-hex">#06B6D4</div>
+                </div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #F59E0B;"></div>
+                <div class="color-info">
+                    <div class="color-name">Accent Amber</div>
+                    <div class="color-hex">#F59E0B</div>
+                </div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #111827;"></div>
+                <div class="color-info">
+                    <div class="color-name">Dark Background</div>
+                    <div class="color-hex">#111827</div>
+                </div>
+            </div>
+            
+            <div class="gradient-demo current-gradient">
+                Current Gradient Hero
+                <div class="button-demo">
+                    <button class="demo-button current-btn-primary">Pet Registration</button>
+                    <button class="demo-button current-btn-secondary">Business Partners</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Proposed Colors -->
+        <div class="color-scheme">
+            <h2 style="color: #6B3FA0;">Proposed Colors</h2>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #6B3FA0;"></div>
+                <div class="color-info">
+                    <div class="color-name">Primary Purple</div>
+                    <div class="color-hex">#6B3FA0</div>
+                </div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #00A896;"></div>
+                <div class="color-info">
+                    <div class="color-name">Secondary Teal</div>
+                    <div class="color-hex">#00A896</div>
+                </div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #FF7D00;"></div>
+                <div class="color-info">
+                    <div class="color-name">Accent Orange</div>
+                    <div class="color-hex">#FF7D00</div>
+                </div>
+            </div>
+            
+            <div class="color-swatch">
+                <div class="color-box" style="background: #121212;"></div>
+                <div class="color-info">
+                    <div class="color-name">Dark Background</div>
+                    <div class="color-hex">#121212</div>
+                </div>
+            </div>
+            
+            <div class="gradient-demo proposed-gradient">
+                Proposed Gradient Hero
+                <div class="button-demo">
+                    <button class="demo-button proposed-btn-primary">Pet Registration</button>
+                    <button class="demo-button proposed-btn-secondary">Business Partners</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Analysis -->
+        <div class="full-width">
+            <h2>Visual Analysis</h2>
+            <p><strong>Key Differences:</strong></p>
+            <ul style="text-align: left; display: inline-block; margin: 1rem 0;">
+                <li><strong>Purple:</strong> Current is brighter/lighter, Proposed is deeper/richer</li>
+                <li><strong>Teal:</strong> Current is more cyan-blue, Proposed is more green-teal</li>
+                <li><strong>Accent:</strong> Current is warm amber, Proposed is vibrant orange</li>
+                <li><strong>Background:</strong> Very similar dark colors</li>
+            </ul>
+            
+            <div class="recommendation">
+                <h3>💡 Recommendation</h3>
+                <p>Your <strong>current colors are already excellent</strong> and very close to the proposed scheme. The current purple-teal gradient is modern, trustworthy, and accessible. Unless you specifically want the slightly different shade variations, I recommend <strong>keeping your current successful color palette</strong>.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

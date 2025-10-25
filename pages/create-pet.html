@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Add a new pet to your Shelter Pawtners account and create their Digital Profile.">
+    <title>Add New Pet - Shelter Pawtners</title>
+    
+    <!-- Preconnect to Google Fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .form-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            color: #F9FAFB;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #F9FAFB;
+            font-weight: 500;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 10px;
+            color: #F9FAFB;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: #9CA3AF;
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-select {
+            cursor: pointer;
+        }
+        
+        .form-select option {
+            background: #1F2937;
+            color: #F9FAFB;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-item:hover {
+            background: rgba(31, 41, 55, 0.8);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #8B5CF6;
+        }
+        
+        .checkbox-item label {
+            color: #F9FAFB;
+            cursor: pointer;
+            margin: 0;
+        }
+        
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 2rem;
+            background: rgba(31, 41, 55, 0.5);
+            border: 2px dashed rgba(139, 92, 246, 0.3);
+            border-radius: 10px;
+            color: #9CA3AF;
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload:hover .file-upload-label {
+            border-color: #8B5CF6;
+            background: rgba(31, 41, 55, 0.8);
+            color: #F9FAFB;
+        }
+        
+        .file-preview {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 10px;
+            color: #10B981;
+            display: none;
+        }
+        
+        .photo-preview {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 1rem 0;
+            border: 3px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .current-photo-label {
+            font-size: 0.875rem;
+            color: #9CA3AF;
+            margin-bottom: 0.5rem;
+        }
+        
+        .message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        
+        .message.success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10B981;
+        }
+        
+        .message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 640px) {
+            .form-container {
+                padding: 1rem;
+            }
+            
+            .form-card {
+                padding: 2rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                ☰
+            </button>
+            
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="dashboard.html" class="nav-link" role="menuitem">Dashboard</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="profiles.html" class="nav-link" role="menuitem">My Pets</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="#" class="nav-link" role="menuitem" aria-haspopup="true">Account</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="profile.html" class="dropdown-link" role="menuitem">Profile Settings</a></li>
+                            <li role="none"><a href="#" class="dropdown-link" role="menuitem" id="logoutBtn">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Add Pet Form -->
+    <section class="section" style="min-height: 100vh; padding: 4rem 0;">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-card">
+                    <div class="text-center mb-lg">
+                        <h1 class="text-gradient" style="font-size: 2.5rem; margin-bottom: 1rem;">
+                            Add New Pet
+                        </h1>
+                        <p style="color: #D1D5DB; font-size: 1.125rem;">
+                            Create a Digital Profile for your shelter pet and unlock ShelterCARD benefits.
+                        </p>
+                    </div>
+
+                    <div id="message" class="message"></div>
+
+                    <form id="addPetForm">
+                        <!-- Basic Information -->
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                🐾 Basic Information
+                            </h2>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="petName" class="form-label">Pet Name *</label>
+                                    <input type="text" id="petName" name="name" class="form-input" placeholder="Buddy" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="species" class="form-label">Species *</label>
+                                    <select id="species" name="species" class="form-select" required>
+                                        <option value="">Select species</option>
+                                        <option value="dog">Dog</option>
+                                        <option value="cat">Cat</option>
+                                        <option value="bird">Bird</option>
+                                        <option value="rabbit">Rabbit</option>
+                                        <option value="fish">Fish</option>
+                                        <option value="hamster">Hamster</option>
+                                        <option value="guinea pig">Guinea Pig</option>
+                                        <option value="reptile">Reptile</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="breed" class="form-label">Breed</label>
+                                    <input type="text" id="breed" name="breed" class="form-input" placeholder="Golden Retriever">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="age" class="form-label">Age (years)</label>
+                                    <input type="number" id="age" name="age" class="form-input" placeholder="3" min="0" max="30" step="0.5">
+                                </div>
+                            </div>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="weight" class="form-label">Weight (lbs)</label>
+                                    <input type="number" id="weight" name="weight" class="form-input" placeholder="45" min="0" max="500" step="0.1">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <select id="gender" name="gender" class="form-select">
+                                        <option value="">Select gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="unknown">Unknown</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea id="description" name="description" class="form-textarea" placeholder="Tell us about your pet's personality, favorite activities, or anything special about them..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Shelter Information -->
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                🏠 Adoption Information
+                            </h2>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="shelterName" class="form-label">Shelter/Rescue Name</label>
+                                    <input type="text" id="shelterName" name="shelter_name" class="form-input" placeholder="Happy Tails Animal Rescue">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="adoption_date">Adoption Date</label>
+                                    <input type="date" id="adoption_date" name="adoption_date" class="form-input">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="microchipId" class="form-label">Microchip ID</label>
+                                <input type="text" id="microchipId" name="microchip_id" class="form-input" placeholder="123456789012345">
+                            </div>
+                        </div>
+
+                        <!-- Health Information -->
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                🏥 Health Status
+                            </h2>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Vaccinations (check all that apply)</label>
+                                <div class="checkbox-group">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="rabies" name="vaccinations" value="rabies">
+                                        <label for="rabies">Rabies</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="dhpp" name="vaccinations" value="dhpp">
+                                        <label for="dhpp">DHPP</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="bordetella" name="vaccinations" value="bordetella">
+                                        <label for="bordetella">Bordetella</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="fvrcp" name="vaccinations" value="fvrcp">
+                                        <label for="fvrcp">FVRCP</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Spayed/Neutered</label>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="spayedNeutered" name="spayed_neutered" value="true">
+                                        <label for="spayedNeutered">Yes, my pet is spayed/neutered</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="healthNotes" class="form-label">Health Notes</label>
+                                <textarea id="healthNotes" name="health_notes" class="form-textarea" placeholder="Any medical conditions, allergies, medications, or special care instructions..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Photo Upload -->
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                📸 Pet Photo
+                            </h2>
+                            
+                            <div class="form-group">
+                                <div class="file-upload">
+                                    <input type="file" id="petPhoto" name="photo" accept="image/*">
+                                    <div class="file-upload-label">
+                                        <span>📷</span>
+                                        <span>Click to upload a photo of your pet</span>
+                                    </div>
+                                </div>
+                                <div id="filePreview" class="file-preview"></div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <a href="my-pets.html" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" id="submitBtn" class="btn btn-primary">Create Pet Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html" class="footer-link">About Us</a></li>
+                        <li><a href="how-it-works.html" class="footer-link">How It Works</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading">For</h3>
+                    <ul class="footer-links">
+                        <li><a href="owners.html" class="footer-link">Pet Owners</a></li>
+                        <li><a href="businesses.html" class="footer-link">Businesses</a></li>
+                        <li><a href="shelters.html" class="footer-link">Shelters</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="footer-link">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Shelter Pawtners. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/navigation.js"></script>
+
+    <script>
+        // Add/Edit Pet Form Logic
+        let editMode = false;
+        let editPetId = null;
+        let currentPetData = null;
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Initialize database and auth manager
+            if (!window.db) {
+                window.db = new ShelterPawtnerDB();
+                await window.db.initialize();
+            }
+            if (!window.authManager) {
+                window.authManager = new AuthManager();
+            }
+            
+            // Check if user is logged in
+            if (!window.authManager.isLoggedIn()) {
+                localStorage.setItem('shelterpawtner_redirect', 'create-pet.html');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Check if we're in edit mode
+            const urlParams = new URLSearchParams(window.location.search);
+            editPetId = urlParams.get('edit');
+            
+            console.log('URL parameters:', window.location.search);
+            console.log('Edit pet ID:', editPetId);
+            
+            if (editPetId) {
+                editMode = true;
+                console.log('Edit mode enabled for pet ID:', editPetId);
+                
+                // Update UI immediately for edit mode
+                document.title = 'Edit Pet - Shelter Pawtners';
+                
+                const heading = document.querySelector('.hero-title');
+                if (heading) {
+                    heading.textContent = '✏️ Edit Pet Profile';
+                    console.log('✅ Updated heading to edit mode');
+                } else {
+                    console.warn('❌ Hero title element not found');
+                }
+                
+                // Wait a moment for DOM to be ready, then update submit button
+                setTimeout(() => {
+                    const submitBtn = document.getElementById('submitBtn');
+                    if (submitBtn) {
+                        submitBtn.textContent = '💾 Update Pet Profile';
+                        console.log('✅ Updated submit button to edit mode');
+                    } else {
+                        console.warn('❌ Submit button not found');
+                    }
+                }, 100);
+                
+                await loadPetForEditing(editPetId);
+            } else {
+                console.log('Create mode - no edit parameter found');
+            }
+
+            const form = document.getElementById('addPetForm');
+            const messageDiv = document.getElementById('message');
+            const submitBtn = document.getElementById('submitBtn');
+            const fileInput = document.getElementById('petPhoto');
+            const filePreview = document.getElementById('filePreview');
+
+            // File upload preview
+            fileInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        filePreview.innerHTML = `
+                            <div class="current-photo-label">New Photo Preview:</div>
+                            <div class="photo-preview">
+                                <img src="${e.target.result}" alt="Photo preview">
+                            </div>
+                        `;
+                        filePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    filePreview.style.display = 'none';
+                }
+            });
+            fileInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    filePreview.innerHTML = `
+                        📁 File selected: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)
+                    `;
+                    filePreview.style.display = 'block';
+                } else {
+                    filePreview.style.display = 'none';
+                }
+            });
+
+            // Load pet data for editing
+            async function loadPetForEditing(petId) {
+                console.log('loadPetForEditing called with pet ID:', petId);
+                
+                try {
+                    // Update submit button text
+                    const submitBtn = document.getElementById('submitBtn');
+                    if (submitBtn) {
+                        submitBtn.textContent = 'Update Pet Profile';
+                        console.log('Updated submit button text');
+                    } else {
+                        console.warn('Submit button not found');
+                    }
+
+                    // Show loading message
+                    const messageDiv = document.getElementById('message');
+                    if (messageDiv) {
+                        messageDiv.innerHTML = '<p style="color: #9CA3AF;">Loading pet data...</p>';
+                        messageDiv.style.display = 'block';
+                    }
+
+                    console.log('Fetching pet data from database...');
+                    
+                    // Load all pets and find the one we're editing
+                    const result = await window.db.getUserPets();
+                    console.log('Database result:', result);
+                    
+                    if (result.success) {
+                        console.log('Available pets:', result.pets.map(p => ({ id: p.id, name: p.name })));
+                        currentPetData = result.pets.find(pet => pet.id === petId);
+                        console.log('Found pet data:', currentPetData);
+                        
+                        if (currentPetData) {
+                            populateForm(currentPetData);
+                            // Clear loading message
+                            if (messageDiv) {
+                                messageDiv.style.display = 'none';
+                            }
+                        } else {
+                            console.error('Pet not found with ID:', petId);
+                            const message = 'Pet not found or you do not have permission to edit this pet.';
+                            if (messageDiv) {
+                                messageDiv.innerHTML = `<p style="color: #F87171;">${message}</p>`;
+                                messageDiv.style.display = 'block';
+                            }
+                            setTimeout(() => {
+                                window.location.href = 'my-pets.html';
+                            }, 3000);
+                        }
+                    } else {
+                        throw new Error(result.message || 'Failed to load pet data');
+                    }
+                } catch (error) {
+                    console.error('Error loading pet for editing:', error);
+                    const messageDiv = document.getElementById('message');
+                    if (messageDiv) {
+                        messageDiv.innerHTML = `<p style="color: #F87171;">Error loading pet data: ${error.message}</p>`;
+                        messageDiv.style.display = 'block';
+                    }
+                }
+            }
+
+            // Populate form with existing pet data
+            function populateForm(petData) {
+                console.log('Populating form with data:', petData);
+                
+                try {
+                    // Basic information
+                    const nameField = document.getElementById('petName');
+                    if (nameField) {
+                        nameField.value = petData.name || '';
+                        console.log('✅ Set name:', petData.name);
+                    } else {
+                        console.warn('❌ Name field not found');
+                    }
+                    
+                    const speciesField = document.getElementById('species');
+                    if (speciesField) {
+                        speciesField.value = petData.species || '';
+                        console.log('✅ Set species:', petData.species);
+                    }
+                    
+                    const breedField = document.getElementById('breed');
+                    if (breedField) {
+                        breedField.value = petData.breed || '';
+                        console.log('✅ Set breed:', petData.breed);
+                    }
+                    
+                    const ageField = document.getElementById('age');
+                    if (ageField) {
+                        ageField.value = petData.age || '';
+                        console.log('✅ Set age:', petData.age);
+                    }
+                    
+                    const weightField = document.getElementById('weight');
+                    if (weightField) {
+                        weightField.value = petData.weight || '';
+                        console.log('✅ Set weight:', petData.weight);
+                    }
+                    
+                    const genderField = document.getElementById('gender');
+                    if (genderField) {
+                        genderField.value = petData.gender || '';
+                        console.log('✅ Set gender:', petData.gender);
+                    }
+                    
+                    const descField = document.getElementById('description');
+                    if (descField) {
+                        descField.value = petData.description || '';
+                        console.log('✅ Set description:', petData.description);
+                    }
+                    
+                    // Adoption information
+                    const shelterField = document.getElementById('shelterName');
+                    if (shelterField) {
+                        shelterField.value = petData.shelter_name || '';
+                        console.log('✅ Set shelter name:', petData.shelter_name);
+                    } else {
+                        console.warn('❌ Shelter name field not found');
+                    }
+                    
+                    const adoptionField = document.getElementById('adoption_date');
+                    if (adoptionField) {
+                        adoptionField.value = petData.adoption_date || '';
+                        console.log('✅ Set adoption date:', petData.adoption_date);
+                    }
+                    
+                    // Medical information
+                    const microchipField = document.getElementById('microchipId');
+                    if (microchipField) {
+                        microchipField.value = petData.microchip_id || '';
+                        console.log('✅ Set microchip ID:', petData.microchip_id);
+                    } else {
+                        console.warn('❌ Microchip field not found');
+                    }
+                    
+                    const healthField = document.getElementById('healthNotes');
+                    if (healthField) {
+                        healthField.value = petData.health_notes || '';
+                        console.log('✅ Set health notes:', petData.health_notes);
+                    } else {
+                        console.warn('❌ Health notes field not found');
+                    }
+                    
+                    // Spayed/Neutered checkbox
+                    const spayedField = document.getElementById('spayedNeutered');
+                    if (spayedField && petData.spayed_neutered !== null) {
+                        spayedField.checked = petData.spayed_neutered;
+                        console.log('✅ Set spayed/neutered:', petData.spayed_neutered);
+                    }
+                    
+                    // Vaccinations (if stored as array)
+                    if (petData.vaccinations && Array.isArray(petData.vaccinations)) {
+                        petData.vaccinations.forEach(vaccination => {
+                            const checkbox = document.querySelector(`input[name="vaccinations"][value="${vaccination}"]`);
+                            if (checkbox) checkbox.checked = true;
+                        });
+                    }
+                    
+                    // Show existing photo preview if available
+                    if (petData.photo_url) {
+                        const previewDiv = document.getElementById('filePreview');
+                        if (previewDiv) {
+                            previewDiv.innerHTML = `
+                                <div class="current-photo-label">Current Photo:</div>
+                                <div class="photo-preview">
+                                    <img src="${petData.photo_url}" alt="Current pet photo">
+                                </div>
+                            `;
+                            previewDiv.style.display = 'block';
+                            console.log('✅ Displayed current photo:', petData.photo_url);
+                        }
+                    }
+                    
+                    console.log('✅ Form populated successfully');
+                } catch (error) {
+                    console.error('❌ Error populating form:', error);
+                }
+            }
+
+            // Form submission
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                
+                // Validate required fields
+                if (!formData.get('name') || !formData.get('species')) {
+                    window.authManager.showMessage(messageDiv, 'Please fill in all required fields (name and species)', true);
+                    return;
+                }
+
+                // Show loading state
+                window.authManager.toggleLoading(submitBtn, true);
+
+                try {
+                    // Collect form data
+                    const petData = {
+                        name: formData.get('name'),
+                        species: formData.get('species'),
+                        breed: formData.get('breed'),
+                        age: formData.get('age') ? parseFloat(formData.get('age')) : null,
+                        weight: formData.get('weight') ? parseFloat(formData.get('weight')) : null,
+                        gender: formData.get('gender'),
+                        description: formData.get('description'),
+                        shelter_name: formData.get('shelter_name'),
+                        adoption_date: formData.get('adoption_date') ? formData.get('adoption_date') : null,
+                        microchip_id: formData.get('microchip_id'),
+                        spayed_neutered: formData.get('spayed_neutered') === 'true',
+                        health_notes: formData.get('health_notes')
+                    };
+
+                    console.log('📋 Form data being submitted:', petData);
+                    console.log('📅 Adoption date raw:', formData.get('adoption_date'));
+                    console.log('📅 Adoption date processed:', petData.adoption_date);
+
+                    // Collect vaccinations
+                    const vaccinations = [];
+                    const vaccinationCheckboxes = document.querySelectorAll('input[name="vaccinations"]:checked');
+                    vaccinationCheckboxes.forEach(checkbox => {
+                        vaccinations.push(checkbox.value);
+                    });
+                    petData.vaccinations = vaccinations;
+
+                    // Handle photo upload
+                    const photoFile = formData.get('photo');
+                    if (photoFile && photoFile.size > 0) {
+                        try {
+                            // Convert photo to base64 for demo mode
+                            const reader = new FileReader();
+                            await new Promise((resolve, reject) => {
+                                reader.onload = () => {
+                                    petData.photo_url = reader.result; // base64 data URL
+                                    console.log('✅ Photo converted to base64');
+                                    resolve();
+                                };
+                                reader.onerror = reject;
+                                reader.readAsDataURL(photoFile);
+                            });
+                        } catch (error) {
+                            console.error('❌ Error processing photo:', error);
+                        }
+                    }
+
+                    // Create or update pet profile
+                    let result;
+                    if (editMode && editPetId) {
+                        result = await window.db.updatePet(editPetId, petData);
+                    } else {
+                        result = await window.db.createPet(petData);
+                    }
+                    
+                    if (result.success) {
+                        const action = editMode ? 'updated' : 'created';
+                        window.authManager.showMessage(messageDiv, `Pet profile ${action} successfully! Redirecting...`, false);
+                        
+                        setTimeout(() => {
+                            if (editMode) {
+                                window.location.href = `pet-details.html?id=${editPetId}`;
+                            } else {
+                                window.location.href = 'dashboard.html';
+                            }
+                        }, 2000);
+                    } else {
+                        const action = editMode ? 'update' : 'create';
+                        window.authManager.showMessage(messageDiv, result.message || `Failed to ${action} pet profile`, true);
+                    }
+                } catch (error) {
+                    const action = editMode ? 'updating' : 'creating';
+                    console.error(`Error ${action} pet:`, error);
+                    window.authManager.showMessage(messageDiv, `An error occurred while ${action} the pet profile`, true);
+                } finally {
+                    window.authManager.toggleLoading(submitBtn, false);
+                }
+            });
+
+            // Setup logout functionality
+            document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.authManager.logout();
+                window.location.href = '../index.html';
+            });
+        });
+    </script>
+</body>
+</html>

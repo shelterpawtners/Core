@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Connection Test - Shelter Pawtners</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #111827;
+            color: #F9FAFB;
+        }
+        .test-container {
+            background: rgba(31, 41, 55, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .success { border-left: 5px solid #10B981; }
+        .error { border-left: 5px solid #EF4444; }
+        .warning { border-left: 5px solid #F59E0B; }
+        button {
+            background: #8B5CF6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #7C3AED; }
+        pre {
+            background: #1F2937;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Supabase Connection Test</h1>
+    
+    <div class="test-container">
+        <h3>Configuration Check</h3>
+        <div id="configResult">Checking...</div>
+    </div>
+    
+    <div class="test-container">
+        <h3>Supabase Connection Test</h3>
+        <button onclick="testConnection()">Test Connection</button>
+        <div id="connectionResult"></div>
+    </div>
+    
+    <div class="test-container">
+        <h3>Database Schema Check</h3>
+        <button onclick="checkSchema()">Check Tables</button>
+        <div id="schemaResult"></div>
+    </div>
+    
+    <div class="test-container">
+        <h3>Registration Test</h3>
+        <button onclick="testRegistration()">Test Registration</button>
+        <div id="registrationResult"></div>
+    </div>
+    
+    <div class="test-container">
+        <h3>Console Output</h3>
+        <pre id="consoleOutput"></pre>
+    </div>
+
+    <!-- Load required scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/database.js"></script>
+    
+    <script>
+        // Capture console output
+        const originalLog = console.log;
+        const originalError = console.error;
+        let consoleOutput = [];
+        
+        console.log = function(...args) {
+            consoleOutput.push('[LOG] ' + args.join(' '));
+            updateConsoleOutput();
+            originalLog.apply(console, args);
+        };
+        
+        console.error = function(...args) {
+            consoleOutput.push('[ERROR] ' + args.join(' '));
+            updateConsoleOutput();
+            originalError.apply(console, args);
+        };
+        
+        function updateConsoleOutput() {
+            document.getElementById('consoleOutput').textContent = consoleOutput.slice(-10).join('\n');
+        }
+        
+        // Test functions
+        function checkConfig() {
+            const result = document.getElementById('configResult');
+            
+            if (typeof window.SUPABASE_CONFIG === 'undefined') {
+                result.innerHTML = '<div class="error">❌ SUPABASE_CONFIG not found</div>';
+                return false;
+            }
+            
+            const config = window.SUPABASE_CONFIG;
+            let issues = [];
+            
+            if (!config.url || config.url.includes('YOUR_SUPABASE_URL_HERE')) {
+                issues.push('URL not configured');
+            }
+            
+            if (!config.anonKey || config.anonKey.includes('YOUR_SUPABASE_ANON_KEY_HERE')) {
+                issues.push('Anon key not configured');
+            }
+            
+            if (issues.length > 0) {
+                result.innerHTML = `<div class="error">❌ Issues: ${issues.join(', ')}</div>`;
+                return false;
+            }
+            
+            result.innerHTML = `
+                <div class="success">✅ Configuration looks good!</div>
+                <p><strong>URL:</strong> ${config.url}</p>
+                <p><strong>Key:</strong> ${config.anonKey.substring(0, 20)}...</p>
+            `;
+            return true;
+        }
+        
+        async function testConnection() {
+            const result = document.getElementById('connectionResult');
+            result.innerHTML = 'Testing connection...';
+            
+            try {
+                if (!window.db) {
+                    window.db = new ShelterPawtnerDB();
+                }
+                
+                if (window.db.demoMode) {
+                    result.innerHTML = '<div class="warning">⚠️ Running in demo mode - check configuration</div>';
+                    return;
+                }
+                
+                // Test basic connection
+                const { data, error } = await window.db.supabase.from('user_profiles').select('count', { count: 'exact' });
+                
+                if (error) {
+                    result.innerHTML = `<div class="error">❌ Connection failed: ${error.message}</div>`;
+                } else {
+                    result.innerHTML = '<div class="success">✅ Connection successful!</div>';
+                }
+                
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+            }
+        }
+        
+        async function checkSchema() {
+            const result = document.getElementById('schemaResult');
+            result.innerHTML = 'Checking database schema...';
+            
+            try {
+                if (!window.db || window.db.demoMode) {
+                    result.innerHTML = '<div class="warning">⚠️ Cannot check schema in demo mode</div>';
+                    return;
+                }
+                
+                const expectedTables = ['user_profiles', 'pets', 'medical_records', 'shelters', 'business_partners'];
+                const tableResults = [];
+                
+                for (const table of expectedTables) {
+                    try {
+                        const { data, error } = await window.db.supabase.from(table).select('*').limit(1);
+                        if (error) {
+                            tableResults.push(`❌ ${table}: ${error.message}`);
+                        } else {
+                            tableResults.push(`✅ ${table}: OK`);
+                        }
+                    } catch (err) {
+                        tableResults.push(`❌ ${table}: ${err.message}`);
+                    }
+                }
+                
+                result.innerHTML = `
+                    <div>Database Tables:</div>
+                    <pre>${tableResults.join('\n')}</pre>
+                `;
+                
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Schema check failed: ${error.message}</div>`;
+            }
+        }
+        
+        async function testRegistration() {
+            const result = document.getElementById('registrationResult');
+            result.innerHTML = 'Testing registration...';
+            
+            try {
+                if (!window.db) {
+                    window.db = new ShelterPawtnerDB();
+                }
+                
+                const testUser = {
+                    firstName: 'Test',
+                    lastName: 'User',
+                    email: `test${Date.now()}@gmail.com`,
+                    password: 'TestPassword123!',
+                    phone: '555-0123'
+                };
+                
+                const registrationResult = await window.db.register(testUser);
+                
+                if (registrationResult.success) {
+                    result.innerHTML = `
+                        <div class="success">✅ Registration test successful!</div>
+                        <pre>${JSON.stringify(registrationResult, null, 2)}</pre>
+                    `;
+                } else {
+                    result.innerHTML = `
+                        <div class="error">❌ Registration test failed</div>
+                        <pre>${JSON.stringify(registrationResult, null, 2)}</pre>
+                    `;
+                }
+                
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Registration test error: ${error.message}</div>`;
+            }
+        }
+        
+        // Run initial checks when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            checkConfig();
+        });
+    </script>
+</body>
+</html>

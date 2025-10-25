@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn how Shelter Pawtners works for pet owners, businesses, and shelters. Simple steps to start saving on pet care.">
-    <title>How It Works - Shelter Pawtners</title>
+    <meta name="description" content="Learn how ShelterPawtners works: from digitizing report cards to adoption verification to lifelong ShelterCARD savings and better outcomes.">
+    <meta name="keywords" content="how it works, digital pet profiles process, ShelterCARD activation, pet adoption support, shelter technology">
+    <title>How It Works - ShelterPawtners</title>
     
+    <!-- Preconnect to Google Fonts for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/navigation.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
+    <!-- Header / Navigation -->
     <header class="header">
         <div class="header-container">
             <a href="../" class="logo">
@@ -27,36 +31,71 @@
                 ☰
             </button>
             
-            <nav class="nav">
-                <ul class="nav-menu">
-                    <li><a href="../" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
-                    <li><a href="pet-owners.html" class="nav-link">For Pet Owners</a></li>
-                    <li><a href="businesses.html" class="nav-link">For Businesses</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="how-it-works.html" class="nav-link" role="menuitem" aria-current="page">How It Works</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="businesses.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
+                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
+                            <li role="none"><a href="pet-owners.html" class="dropdown-link" role="menuitem">Pet Parents</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
+                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 
+                <div class="nav-auth">
+                    <div id="authButtons" class="nav-buttons">
+                        <a href="login.html" class="btn btn-outline">Sign In</a>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
 
-    <main>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
         <section class="hero">
             <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-title">How Shelter Pawtners Works</h1>
-                    <p class="hero-text">
-                        A simple, secure platform connecting rescued pets with lifetime savings
-                    </p>
+                <div class="glass-hero">
+                    <div class="glass-content hero-content">
+                        <h1 class="hero-title text-gradient">How It Works</h1>
+                        <p class="hero-text" style="font-size: 1.25rem; margin-bottom: 2rem;">
+                            From shelter intake to lifelong support, here's how ShelterPawtners creates better outcomes for pets, families, and shelters.
+                        </p>
+                        <div class="hero-buttons" role="group" aria-label="Get started with ShelterPawtners">
+                            <a href="profiles.html" class="btn btn-large btn-hero-primary">
+                                <span aria-hidden="true">� </span>Start with a Digital Pet Profile
+                            </a>
+                            <a href="shelters.html" class="btn btn-large btn-hero-secondary">
+                                <span aria-hidden="true">🏥 </span>Request Shelter Demo
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- For Pet Owners -->
-        <section class="section">
+        <!-- Visual Lifecycle -->
+        <section class="section" aria-labelledby="lifecycle-heading">
             <div class="container">
-                <h2 class="text-center mb-xl">For Pet Owners</h2>
+                <h2 id="lifecycle-heading" class="text-center mb-xl">The Complete Lifecycle</h2>
                 
                 <div class="grid grid-3">
                     <div class="card">
@@ -139,7 +178,7 @@
                 </div>
                 
                 <div class="text-center mt-xl">
-                    <a href="pet-owners.html" class="btn btn-primary btn-large">Sign Up Now</a>
+                    <a href="owners.html" class="btn btn-primary btn-large">Sign Up Now</a>
                 </div>
             </div>
         </section>
@@ -349,7 +388,7 @@
                     </p>
                     
                     <div class="hero-buttons">
-                        <a href="pet-owners.html" class="btn btn-primary btn-large">I'm a Pet Owner</a>
+                        <a href="owners.html" class="btn btn-primary btn-large">I'm a Pet Owner</a>
                         <a href="businesses.html" class="btn btn-secondary btn-large">I'm a Business</a>
                     </div>
                 </div>
@@ -387,7 +426,7 @@
                 <div class="footer-section">
                     <h3>For Users</h3>
                     <ul class="footer-links">
-                        <li><a href="pet-owners.html" class="footer-link">Pet Owners</a></li>
+                        <li><a href="owners.html" class="footer-link">Pet Owners</a></li>
                         <li><a href="businesses.html" class="footer-link">Businesses</a></li>
                         <li><a href="#" class="footer-link">Shelters</a></li>
                         <li><a href="#" class="footer-link">Success Stories</a></li>

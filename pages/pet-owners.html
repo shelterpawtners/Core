@@ -27,16 +27,33 @@
                 ☰
             </button>
             
-            <nav class="nav">
-                <ul class="nav-menu">
-                    <li><a href="../" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
-                    <li><a href="pet-owners.html" class="nav-link">For Pet Owners</a></li>
-                    <li><a href="businesses.html" class="nav-link">For Businesses</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="profiles.html" class="nav-link" role="menuitem">Profiles</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="services.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
+                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
+                            <li role="none"><a href="owners.html" class="dropdown-link" role="menuitem">Pet Owners</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
+                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
+                        </ul>
+                    </li>
                 </ul>
-                
             </nav>
         </div>
     </header>
@@ -70,7 +87,7 @@
                     </div>
                     
                     <div class="feature-box">
-                        <div class="feature-icon">📋</div>
+                        <div class="feature-icon">🏥</div>
                         <h3 class="feature-title">Vet Records Management</h3>
                         <p class="feature-text">
                             Store and organize all your pet's medical records, vaccination history, 
@@ -343,7 +360,7 @@
                 <div class="footer-section">
                     <h3>For Users</h3>
                     <ul class="footer-links">
-                        <li><a href="pet-owners.html" class="footer-link">Pet Owners</a></li>
+                        <li><a href="owners.html" class="footer-link">Pet Owners</a></li>
                         <li><a href="businesses.html" class="footer-link">Businesses</a></li>
                         <li><a href="#" class="footer-link">Shelters</a></li>
                         <li><a href="#" class="footer-link">Success Stories</a></li>

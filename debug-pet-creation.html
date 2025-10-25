@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Pet Creation - Shelter Pawtners</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+        <div class="container mx-auto px-4 py-8">
+            <div class="max-w-2xl mx-auto">
+                <div class="glass-card p-8">
+                    <h1 class="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                        🐾 Debug Pet Creation
+                    </h1>
+                    
+                    <div id="debug-info" class="mb-6 p-4 bg-gray-800 rounded-lg">
+                        <h3 class="text-lg font-semibold mb-2 text-white">Debug Information:</h3>
+                        <div id="debug-content" class="text-sm text-gray-300"></div>
+                    </div>
+                    
+                    <form id="pet-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-200 mb-2">Pet Name</label>
+                            <input type="text" id="name" name="name" required 
+                                   class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-300"
+                                   placeholder="Enter your pet's name" value="Debug Pet">
+                        </div>
+                        
+                        <div>
+                            <label for="species" class="block text-sm font-medium text-gray-200 mb-2">Species</label>
+                            <select id="species" name="species" required 
+                                    class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white">
+                                <option value="">Select species</option>
+                                <option value="dog" selected>Dog</option>
+                                <option value="cat">Cat</option>
+                                <option value="bird">Bird</option>
+                                <option value="rabbit">Rabbit</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="breed" class="block text-sm font-medium text-gray-200 mb-2">Breed</label>
+                            <input type="text" id="breed" name="breed" 
+                                   class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-300"
+                                   placeholder="Enter breed (optional)" value="Mixed">
+                        </div>
+                        
+                        <div>
+                            <label for="age" class="block text-sm font-medium text-gray-200 mb-2">Age</label>
+                            <input type="number" id="age" name="age" min="0" max="30" 
+                                   class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-300"
+                                   placeholder="Enter age in years" value="2">
+                        </div>
+                        
+                        <button type="submit" class="w-full glass-button py-3">
+                            🐾 Create Pet Profile
+                        </button>
+                    </form>
+                    
+                    <div id="result" class="mt-6 p-4 rounded-lg hidden">
+                        <div id="result-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/supabase-config.js"></script>
+    <script src="js/database.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        let db;
+        
+        async function initializeDebug() {
+            try {
+                // Initialize database
+                db = new ShelterPawtnerDB();
+                await db.initialize();
+                
+                const debugContent = document.getElementById('debug-content');
+                let debugInfo = '';
+                
+                // Check Supabase session
+                try {
+                    const { data: { session }, error } = await db.supabase.auth.getSession();
+                    debugInfo += `<div><strong>Supabase Session:</strong> ${session ? 'EXISTS' : 'NONE'}</div>`;
+                    if (session) {
+                        debugInfo += `<div><strong>User ID:</strong> ${session.user.id}</div>`;
+                        debugInfo += `<div><strong>Email:</strong> ${session.user.email}</div>`;
+                        debugInfo += `<div><strong>User Object:</strong> ${JSON.stringify(session.user, null, 2)}</div>`;
+                    }
+                    if (error) {
+                        debugInfo += `<div><strong>Session Error:</strong> ${error.message}</div>`;
+                    }
+                } catch (sessionError) {
+                    debugInfo += `<div><strong>Session Check Error:</strong> ${sessionError.message}</div>`;
+                }
+                
+                // Check auth.getUser()
+                try {
+                    const { data: { user }, error } = await db.supabase.auth.getUser();
+                    debugInfo += `<div><strong>auth.getUser():</strong> ${user ? 'EXISTS' : 'NONE'}</div>`;
+                    if (user) {
+                        debugInfo += `<div><strong>getUser() ID:</strong> ${user.id}</div>`;
+                    }
+                    if (error) {
+                        debugInfo += `<div><strong>getUser() Error:</strong> ${error.message}</div>`;
+                    }
+                } catch (getUserError) {
+                    debugInfo += `<div><strong>getUser() Check Error:</strong> ${getUserError.message}</div>`;
+                }
+                
+                // Check AuthManager
+                if (window.authManager) {
+                    const currentUser = window.authManager.getCurrentUser();
+                    debugInfo += `<div><strong>AuthManager User:</strong> ${currentUser ? 'EXISTS' : 'NONE'}</div>`;
+                    if (currentUser) {
+                        debugInfo += `<div><strong>AuthManager ID:</strong> ${currentUser.id}</div>`;
+                        debugInfo += `<div><strong>AuthManager Object:</strong> ${JSON.stringify(currentUser, null, 2)}</div>`;
+                    }
+                } else {
+                    debugInfo += `<div><strong>AuthManager:</strong> NOT LOADED</div>`;
+                }
+                
+                // Test RLS policy
+                try {
+                    debugInfo += `<div><strong>Testing RLS Policy...</strong></div>`;
+                    const { data, error } = await db.supabase
+                        .from('pets')
+                        .select('*')
+                        .limit(1);
+                    
+                    debugInfo += `<div><strong>RLS Test Result:</strong> ${error ? 'ERROR' : 'SUCCESS'}</div>`;
+                    if (error) {
+                        debugInfo += `<div><strong>RLS Error:</strong> ${error.message}</div>`;
+                    } else {
+                        debugInfo += `<div><strong>RLS Success:</strong> Can query pets table</div>`;
+                    }
+                } catch (rlsError) {
+                    debugInfo += `<div><strong>RLS Test Error:</strong> ${rlsError.message}</div>`;
+                }
+                
+                debugContent.innerHTML = debugInfo;
+                
+            } catch (error) {
+                document.getElementById('debug-content').innerHTML = `<div class="text-red-400">Initialization Error: ${error.message}</div>`;
+            }
+        }
+        
+        document.getElementById('pet-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const resultDiv = document.getElementById('result');
+            const resultContent = document.getElementById('result-content');
+            
+            try {
+                const formData = new FormData(e.target);
+                const petData = {
+                    name: formData.get('name'),
+                    species: formData.get('species'),
+                    breed: formData.get('breed'),
+                    age: parseInt(formData.get('age')) || null
+                };
+                
+                console.log('Attempting to create pet with data:', petData);
+                
+                const result = await db.createPet(petData);
+                
+                resultDiv.className = 'mt-6 p-4 rounded-lg';
+                
+                if (result.success) {
+                    resultDiv.classList.add('bg-green-800');
+                    resultContent.innerHTML = `
+                        <div class="text-green-200">
+                            <h3 class="font-semibold">✅ Success!</h3>
+                            <p>${result.message}</p>
+                            <pre class="mt-2 text-xs">${JSON.stringify(result.pet, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.classList.add('bg-red-800');
+                    resultContent.innerHTML = `
+                        <div class="text-red-200">
+                            <h3 class="font-semibold">❌ Error</h3>
+                            <p>${result.message}</p>
+                        </div>
+                    `;
+                }
+                
+                resultDiv.classList.remove('hidden');
+                
+                // Refresh debug info after attempt
+                setTimeout(initializeDebug, 1000);
+                
+            } catch (error) {
+                resultDiv.className = 'mt-6 p-4 rounded-lg bg-red-800';
+                resultContent.innerHTML = `
+                    <div class="text-red-200">
+                        <h3 class="font-semibold">❌ Unexpected Error</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+                resultDiv.classList.remove('hidden');
+                console.error('Pet creation error:', error);
+            }
+        });
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeDebug);
+    </script>
+</body>
+</html>

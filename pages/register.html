@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your Shelter Pawtners account and start building Digital Pet Profiles for your rescued pets.">
+    <title>Register - Shelter Pawtners</title>
+    
+    <!-- Preconnect to Google Fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <style>
+        .register-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .register-form {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #F9FAFB;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 10px;
+            color: #F9FAFB;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        
+        .form-input::placeholder {
+            color: #9CA3AF;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        
+        .message.success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10B981;
+        }
+        
+        .message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+        }
+        
+        .google-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1F2937;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .google-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-2px);
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(139, 92, 246, 0.3);
+        }
+        
+        .divider span {
+            background: rgba(17, 24, 39, 0.9);
+            padding: 0 1rem;
+            color: #9CA3AF;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 2rem;
+            color: #D1D5DB;
+        }
+        
+        .login-link a {
+            color: #8B5CF6;
+            text-decoration: none;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .register-container {
+                padding: 1rem;
+            }
+            
+            .register-form {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                ☰
+            </button>
+            
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="profiles.html" class="nav-link" role="menuitem">Profiles</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="services.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
+                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
+                            <li role="none"><a href="owners.html" class="dropdown-link" role="menuitem">Pet Owners</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
+                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Registration Section -->
+    <section class="section glass-section" style="min-height: 100vh; display: flex; align-items: center; padding: 2rem 0;">
+        <div class="container">
+            <div class="register-container">
+                <div class="register-form">
+                    <div class="text-center mb-lg">
+                        <h1 class="text-gradient" style="font-size: 2.5rem; margin-bottom: 1rem;">
+                            Join Shelter Pawtners
+                        </h1>
+                        <p style="color: #D1D5DB; font-size: 1.125rem;">
+                            Create your account and start building Digital Pet Profiles for your rescued companions.
+                        </p>
+                    </div>
+
+                    <div id="message" class="message"></div>
+
+                    <!-- Google Sign Up -->
+                    <button type="button" id="googleSignUp" class="google-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Continue with Google
+                    </button>
+
+                    <div class="divider">
+                        <span>or register with email</span>
+                    </div>
+
+                    <!-- Registration Form -->
+                    <form id="registrationForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="firstName" class="form-label">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" class="form-input" placeholder="John" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Smith" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number (Optional)</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 123-4567">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password *</label>
+                            <input type="password" id="password" name="password" class="form-input" placeholder="At least 8 characters" required>
+                            <small style="color: #9CA3AF; font-size: 0.875rem; display: block; margin-top: 0.5rem;">
+                                Must contain uppercase, lowercase, and number
+                            </small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword" class="form-label">Confirm Password *</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Repeat your password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="terms" name="terms" required style="accent-color: #8B5CF6;">
+                                <span>I agree to the <a href="terms.html" style="color: #8B5CF6;">Terms of Service</a> and <a href="privacy.html" style="color: #8B5CF6;">Privacy Policy</a> *</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="btn btn-primary btn-large" style="width: 100%; margin-top: 1rem;">
+                            Create Account
+                        </button>
+                    </form>
+
+                    <div class="login-link">
+                        Already have an account? <a href="login.html">Sign in here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html" class="footer-link">About Us</a></li>
+                        <li><a href="how-it-works.html" class="footer-link">How It Works</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading">For</h3>
+                    <ul class="footer-links">
+                        <li><a href="owners.html" class="footer-link">Pet Owners</a></li>
+                        <li><a href="businesses.html" class="footer-link">Businesses</a></li>
+                        <li><a href="shelters.html" class="footer-link">Shelters</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="footer-link">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Shelter Pawtners. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/navigation.js"></script>
+
+    <script>
+        // Registration Form Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize database and auth manager
+            if (!window.db) {
+                window.db = new ShelterPawtnerDB();
+            }
+            if (!window.authManager) {
+                window.authManager = new AuthManager();
+            }
+            
+            const form = document.getElementById('registrationForm');
+            const messageDiv = document.getElementById('message');
+            const submitBtn = document.getElementById('submitBtn');
+            const googleBtn = document.getElementById('googleSignUp');
+
+            // Check for registration type from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const registrationType = urlParams.get('type');
+            
+            if (registrationType) {
+                updateFormForType(registrationType);
+            }
+
+            // Form submission
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const data = {
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    password: formData.get('password'),
+                    confirmPassword: formData.get('confirmPassword'),
+                    terms: formData.get('terms')
+                };
+
+                // Validate form
+                const errors = window.authManager.validateForm(data);
+                
+                if (!data.terms) {
+                    errors.push('You must agree to the Terms of Service and Privacy Policy');
+                }
+
+                if (errors.length > 0) {
+                    window.authManager.showMessage(messageDiv, errors.join('. '), true);
+                    return;
+                }
+
+                // Show loading state
+                window.authManager.toggleLoading(submitBtn, true);
+
+                try {
+                    const result = await window.authManager.register(data);
+                    
+                    if (result.success) {
+                        window.authManager.showMessage(messageDiv, 'Account created successfully! Redirecting to dashboard...', false);
+                        
+                        // Redirect to dashboard after success
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 2000);
+                    } else {
+                        window.authManager.showMessage(messageDiv, result.message, true);
+                    }
+                } catch (error) {
+                    console.error('Registration error:', error);
+                    window.authManager.showMessage(messageDiv, 'Registration failed. Please try again.', true);
+                } finally {
+                    window.authManager.toggleLoading(submitBtn, false);
+                }
+            });
+
+            // Google sign up
+            googleBtn.addEventListener('click', async function() {
+                window.authManager.toggleLoading(googleBtn, true);
+                
+                try {
+                    const result = await window.authManager.loginWithGoogle();
+                    
+                    if (result.success) {
+                        window.authManager.showMessage(messageDiv, 'Google registration successful! Redirecting...', false);
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 2000);
+                    } else {
+                        window.authManager.showMessage(messageDiv, result.message, true);
+                    }
+                } catch (error) {
+                    console.error('Google registration error:', error);
+                    window.authManager.showMessage(messageDiv, 'Google registration failed. Please try again.', true);
+                } finally {
+                    window.authManager.toggleLoading(googleBtn, false);
+                }
+            });
+
+            // Real-time password validation
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            
+            confirmPasswordInput.addEventListener('input', function() {
+                if (passwordInput.value && confirmPasswordInput.value) {
+                    if (passwordInput.value !== confirmPasswordInput.value) {
+                        confirmPasswordInput.setCustomValidity('Passwords do not match');
+                    } else {
+                        confirmPasswordInput.setCustomValidity('');
+                    }
+                }
+            });
+
+            // Function to update form based on registration type
+            function updateFormForType(type) {
+                const titleElement = document.querySelector('.text-gradient');
+                const descriptionElement = document.querySelector('.text-center p');
+                
+                switch(type) {
+                    case 'pet-parent':
+                        titleElement.textContent = 'Join as Pet Parent';
+                        descriptionElement.textContent = 'Create your account and add your rescued pet to unlock ShelterCARD benefits and lifetime savings.';
+                        break;
+                    case 'business-partner':
+                        titleElement.textContent = 'Join as Business Partner';
+                        descriptionElement.textContent = 'Partner with us to support shelter pets and connect with families who chose adoption over breeders.';
+                        break;
+                    case 'shelter':
+                        titleElement.textContent = 'Join as Shelter Partner';
+                        descriptionElement.textContent = 'Partner with us to provide ShelterCARDs to your adopters and demonstrate successful post-adoption outcomes.';
+                        break;
+                    default:
+                        // Keep default messaging
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

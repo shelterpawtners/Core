@@ -27,16 +27,39 @@
                 ☰
             </button>
             
-            <nav class="nav">
-                <ul class="nav-menu">
-                    <li><a href="../" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="how-it-works.html" class="nav-link">How It Works</a></li>
-                    <li><a href="pet-owners.html" class="nav-link">For Pet Owners</a></li>
-                    <li><a href="businesses.html" class="nav-link">For Businesses</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="businesses.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
+                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
+                            <li role="none"><a href="pet-owners.html" class="dropdown-link" role="menuitem">Pet Parents</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="about.html" class="nav-link" role="menuitem" aria-current="page" aria-haspopup="true">About</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
+                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 
+                <div class="nav-auth">
+                    <div id="authButtons" class="nav-buttons">
+                        <a href="login.html" class="btn btn-outline">Sign In</a>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -205,7 +228,7 @@
                 
                 <div class="grid grid-3">
                     <div class="feature-box">
-                        <div class="feature-icon">🌟</div>
+                        <div class="feature-icon">🐾</div>
                         <h3 class="feature-title">Compassion</h3>
                         <p class="feature-text">
                             Every decision we make is guided by our love for animals and commitment to their wellbeing.
@@ -213,7 +236,7 @@
                     </div>
                     
                     <div class="feature-box">
-                        <div class="feature-icon">🔒</div>
+                        <div class="feature-icon">�️</div>
                         <h3 class="feature-title">Trust</h3>
                         <p class="feature-text">
                             We verify all participants and protect user data to maintain a secure, trustworthy platform.
@@ -229,7 +252,7 @@
                     </div>
                     
                     <div class="feature-box">
-                        <div class="feature-icon">💡</div>
+                        <div class="feature-icon">�</div>
                         <h3 class="feature-title">Innovation</h3>
                         <p class="feature-text">
                             We continuously improve our platform to better serve pets, owners, and businesses.
@@ -237,7 +260,7 @@
                     </div>
                     
                     <div class="feature-box">
-                        <div class="feature-icon">🎯</div>
+                        <div class="feature-icon">�</div>
                         <h3 class="feature-title">Transparency</h3>
                         <p class="feature-text">
                             We're open about how our platform works and how we use data to create value for everyone.
@@ -287,8 +310,12 @@
                         Join us in creating a better world for rescued pets. Together, we can make a difference.
                     </p>
                     <div class="hero-buttons">
-                        <a href="pet-owners.html" class="btn btn-primary btn-large">Join as Pet Owner</a>
-                        <a href="businesses.html" class="btn btn-secondary btn-large">Become a Partner</a>
+                        <a href="owners.html" class="btn btn-primary btn-large">
+                            <span aria-hidden="true">🐾 </span>For Pet Owners
+                        </a>
+                        <a href="services.html" class="btn btn-secondary btn-large">
+                            <span aria-hidden="true">🤝 </span>Partner With Us
+                        </a>
                     </div>
                 </div>
             </div>
@@ -325,7 +352,7 @@
                 <div class="footer-section">
                     <h3>For Users</h3>
                     <ul class="footer-links">
-                        <li><a href="pet-owners.html" class="footer-link">Pet Owners</a></li>
+                        <li><a href="owners.html" class="footer-link">Pet Owners</a></li>
                         <li><a href="businesses.html" class="footer-link">Businesses</a></li>
                         <li><a href="#" class="footer-link">Shelters</a></li>
                         <li><a href="#" class="footer-link">Success Stories</a></li>

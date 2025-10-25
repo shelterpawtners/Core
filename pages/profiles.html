@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Pet Profiles - Shelter Pawtners</title>
+    <!-- Add your CSS links here -->
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="../" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                ☰
+            </button>
+            
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="profiles.html" class="nav-link" role="menuitem" aria-current="page">Profiles</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="services.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
+                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
+                            <li role="none"><a href="owners.html" class="dropdown-link" role="menuitem">Pet Owners</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
+                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="glass-hero">
+                    <div class="glass-content hero-content">
+                        <h1 class="hero-title text-gradient">Digital Pet Profiles</h1>
+                        <p class="hero-text" style="font-size: 1.25rem; margin-bottom: 2rem;">
+                            We digitize shelter "Pet Report Cards" into secure profiles that follow each pet—so adopters, shelters, and vets can make faster, better decisions with fewer repeat tests.
+                        </p>
+                        <div class="hero-buttons" role="group" aria-label="Get started with Digital Pet Profiles">
+                            <a href="#create-profile" class="btn btn-large btn-hero-primary">
+                                <span aria-hidden="true">🐾 </span>Create Profile
+                            </a>
+                            <a href="#demo" class="btn btn-large btn-hero-secondary">
+                                <span aria-hidden="true">🏥 </span>Request Shelter Demo
+                            </a>
+                            <a href="vets.html" class="btn btn-large btn-hero-tertiary">
+                                <span aria-hidden="true">⚕️ </span>Join as a Vet
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fields Captured -->
+        <section class="section" aria-labelledby="fields-heading">
+            <div class="container">
+                <h2 id="fields-heading" class="text-center mb-xl">What's Included in Every Digital Pet Profile</h2>
+                
+                <div class="grid grid-2" style="gap: 2rem;">
+                    <div class="glass-card">
+                        <div class="feature-icon" aria-hidden="true">🩺</div>
+                        <h3 class="feature-title">Medical History</h3>
+                        <ul class="feature-list" style="color: #E5E7EB; margin-top: 1rem;">
+                            <li>Vaccinations and schedules</li>
+                            <li>Current medications</li>
+                            <li>Known allergies and reactions</li>
+                            <li>Health conditions and treatments</li>
+                            <li>Spay/neuter status</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="feature-icon" aria-hidden="true">🐕</div>
+                        <h3 class="feature-title">Behavioral Insights</h3>
+                        <ul class="feature-list" style="color: #E5E7EB; margin-top: 1rem;">
+                            <li>Known commands and tricks</li>
+                            <li>Likes and dislikes</li>
+                            <li>Training level and progress</li>
+                            <li>Exercise needs and preferences</li>
+                            <li>Behavioral notes and triggers</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="feature-icon" aria-hidden="true">🏠</div>
+                        <h3 class="feature-title">Compatibility Data</h3>
+                        <ul class="feature-list" style="color: #E5E7EB; margin-top: 1rem;">
+                            <li>Good with children (ages)</li>
+                            <li>Compatibility with other pets</li>
+                            <li>Living situation preferences</li>
+                            <li>Activity level requirements</li>
+                            <li>Social interaction needs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="feature-icon" aria-hidden="true">🆔</div>
+                        <h3 class="feature-title">Identification & Care</h3>
+                        <ul class="feature-list" style="color: #E5E7EB; margin-top: 1rem;">
+                            <li>Microchip ID and registration</li>
+                            <li>Current photos and markings</li>
+                            <li>Feeding preferences and schedule</li>
+                            <li>Grooming needs and frequency</li>
+                            <li>Emergency contact information</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scanning & Consent -->
+        <section class="section glass-section" aria-labelledby="scanning-heading">
+            <div class="container">
+                <div class="text-center mb-xl">
+                    <h2 id="scanning-heading" class="text-gradient">Scan & Share with Owner Consent</h2>
+                    <p style="font-size: 1.125rem; color: #E5E7EB; max-width: 600px; margin: 0 auto;">
+                        Your pet's profile is accessible anywhere you need it—emergency rooms, boarding facilities, travel—with complete owner control.
+                    </p>
+                </div>
+                
+                <div class="grid grid-3">
+                    <div class="glass-card text-center">
+                        <div class="feature-icon" style="background: var(--glass-gradient-1); color: white; font-size: 2rem;" aria-hidden="true">📱</div>
+                        <h3 class="feature-title">Microchip Scanning</h3>
+                        <p class="feature-text" style="color: #E5E7EB;">
+                            Vets can scan your pet's existing microchip to instantly access their complete Digital Pet Profile with your consent.
+                        </p>
+                    </div>
+                    
+                    <div class="glass-card text-center">
+                        <div class="feature-icon" style="background: var(--glass-gradient-2); color: white; font-size: 2rem;" aria-hidden="true">📱</div>
+                        <h3 class="feature-title">QR Code Access</h3>
+                        <p class="feature-text" style="color: #E5E7EB;">
+                            Show a secure QR code on your phone to instantly share relevant profile information with authorized care providers.
+                        </p>
+                    </div>
+                    
+                    <div class="glass-card text-center">
+                        <div class="feature-icon" style="background: var(--glass-gradient-3); color: white; font-size: 2rem;" aria-hidden="true">🛡️</div>
+                        <h3 class="feature-title">RFID Security</h3>
+                        <p class="feature-text" style="color: #E5E7EB;">
+                            Advanced RFID technology provides secure, contactless access to profile data for emergency situations and routine care.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits for Each Group -->
+        <section class="section" aria-labelledby="benefits-heading">
+            <div class="container">
+                <h2 id="benefits-heading" class="text-center mb-xl">Benefits for Everyone</h2>
+                
+                <div class="grid grid-1" style="gap: 3rem;">
+                    <div class="glass-card" style="padding: 2.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div class="feature-icon" style="font-size: 2rem;" aria-hidden="true">🏠</div>
+                            <h3 class="feature-title" style="margin: 0;">For Adopters</h3>
+                        </div>
+                        <div class="grid grid-2" style="gap: 1.5rem;">
+                            <div>
+                                <h4 style="color: #F9FAFB; margin-bottom: 0.5rem;">Faster Care</h4>
+                                <p style="color: #E5E7EB; margin: 0;">No more repeating medical history at every vet visit. Your pet's complete record is instantly available.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #F9FAFB; margin-bottom: 0.5rem;">Peace of Mind</h4>
+                                <p style="color: #E5E7EB; margin: 0;">Emergency-ready profiles mean better care decisions when every minute counts.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #F9FAFB; margin-bottom: 0.5rem;">Better Training</h4>
+                                <p style="color: #E5E7EB; margin: 0;">Behavioral insights help create customized training plans that work for your specific pet.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #F9FAFB; margin-bottom: 0.5rem;">Fewer Tests</h4>
+                                <p style="color: #E5E7EB; margin: 0;">Complete vaccination and medical history reduces unnecessary duplicate testing and procedures.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card" style="padding: 2.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div class="feature-icon" style="font-size: 2rem;" aria-hidden="true">🏢</div>
+                            <h3 class="feature-title" style="margin: 0;">For Shelters</h3>
+                        </div>
+                        <div class="grid grid-2" style="gap: 1.5rem;">
+                            <div>
+                                <h4 style="color: #F9FAFB; margin-bottom: 0.5rem;">Always Free</h4>
+                                <p style="color: #E5E7EB; margin: 0;">All Digital Pet Profile tools and ShelterCARD programs are completely free for shelters forever.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #F9FAFB; margin-bottom: 0.5rem;">Better Matches</h4>
+                                <p style="color: #E5E7EB; margin: 0;">Complete profiles help families find the right pet, leading to more successful adoptions.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #F9FAFB; margin-bottom: 0.5rem;">Fewer Returns</h4>
+                                <p style="color: #E5E7EB; margin: 0;">When families know what to expect, they're better prepared for successful pet ownership.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #F9FAFB; margin-bottom: 0.5rem;">Staff Time Saved</h4>
+                                <p style="color: #E5E7EB; margin: 0;">Guided intake forms reduce paperwork and ensure consistent, complete information capture.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card" style="padding: 2.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div class="feature-icon" style="font-size: 2rem;" aria-hidden="true">⚕️</div>
+                            <h3 class="feature-title" style="margin: 0;">For Veterinarians</h3>
+                        </div>
+                        <div class="grid grid-2" style="gap: 1.5rem;">
+                            <div>
+                                <h4 style="color: #F9FAFB; margin-bottom: 0.5rem;">Complete History</h4>
+                                <p style="color: #E5E7EB; margin: 0;">See the full medical and behavioral history from day one of the first visit.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #F9FAFB; margin-bottom: 0.5rem;">Faster Triage</h4>
+                                <p style="color: #E5E7EB; margin: 0;">Known allergies, medications, and conditions help prioritize care and avoid dangerous interactions.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #F9FAFB; margin-bottom: 0.5rem;">Reduced Guesswork</h4>
+                                <p style="color: #E5E7EB; margin: 0;">Behavioral insights and compatibility notes inform treatment approaches and handling techniques.</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #F9FAFB; margin-bottom: 0.5rem;">Better Outcomes</h4>
+                                <p style="color: #E5E7EB; margin: 0;">Complete information leads to more accurate diagnoses and more effective treatment plans.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy & Security -->
+        <section class="section glass-section" aria-labelledby="privacy-heading">
+            <div class="container">
+                <div class="text-center mb-xl">
+                    <h2 id="privacy-heading" class="text-gradient">Privacy & Security Promise</h2>
+                    <p style="font-size: 1.125rem; color: #E5E7EB; max-width: 600px; margin: 0 auto;">
+                        Your pet's data is protected with enterprise-grade security and you maintain complete control over who can access it.
+                    </p>
+                </div>
+                
+                <div class="grid grid-2" style="gap: 2rem;">
+                    <div class="glass-card">
+                        <h3 class="feature-title" style="color: #F9FAFB;">Owner Controlled Consent</h3>
+                        <p class="feature-text" style="color: #E5E7EB;">
+                            You decide who can access your pet's profile and what information they can see. Grant or revoke access anytime, anywhere.
+                        </p>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <h3 class="feature-title" style="color: #F9FAFB;">Minimal Data Sharing</h3>
+                        <p class="feature-text" style="color: #E5E7EB;">
+                            Only relevant information is shared with authorized parties. Emergency contacts see emergency info, groomers see grooming notes.
+                        </p>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <h3 class="feature-title" style="color: #F9FAFB;">Complete Audit Trail</h3>
+                        <p class="feature-text" style="color: #E5E7EB;">
+                            See exactly who accessed your pet's profile, when they accessed it, and what information they viewed.
+                        </p>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <h3 class="feature-title" style="color: #F9FAFB;">Enterprise Encryption</h3>
+                        <p class="feature-text" style="color: #E5E7EB;">
+                            All data is encrypted at rest and in transit using industry-standard security protocols. Your pet's information is always protected.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="section">
+            <div class="container">
+                <div class="glass-card text-center" style="max-width: 600px; margin: 0 auto; padding: 3rem 2rem;">
+                    <h2 class="text-gradient" style="margin-bottom: 1.5rem;">Ready to Create Your Pet's Digital Profile?</h2>
+                    <p style="color: #E5E7EB; font-size: 1.125rem; margin-bottom: 2rem;">
+                        Join thousands of pet families who have their pet's complete care history at their fingertips.
+                    </p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+                        <a href="#create-profile" class="btn btn-large btn-hero-primary">
+                            <span aria-hidden="true">🐾 </span>Create Profile
+                        </a>
+                        <a href="#demo" class="btn btn-large btn-hero-secondary">
+                            <span aria-hidden="true">🏥 </span>Request Shelter Demo
+                        </a>
+                        <a href="vets.html" class="btn btn-large btn-hero-tertiary">
+                            <span aria-hidden="true">⚕️ </span>Join as a Vet
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3 class="footer-title">Solutions</h3>
+                    <ul class="footer-links">
+                        <li><a href="profiles.html">Digital Pet Profiles</a></li>
+                        <li><a href="sheltercard.html">ShelterCARD</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Audiences</h3>
+                    <ul class="footer-links">
+                        <li><a href="owners.html">Pet Owners</a></li>
+                        <li><a href="shelters.html">Shelters</a></li>
+                        <li><a href="vets.html">Veterinarians</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Organization</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><span style="color: #D1D5DB;">501(c)(3) Nonprofit</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shelter Pawtners. All rights reserved.</p>
+                <p style="color: #D1D5DB;">Shelters are always free. Partners share value with adopted families and give back to local shelters.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../js/navigation.js"></script>
+    <script src="../js/utils.js"></script>
+</body>
+</html>

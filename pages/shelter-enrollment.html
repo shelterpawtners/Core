@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelter Enrollment - Shelter Pawtners</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                ☰
+            </button>
+            
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="businesses.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
+                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
+                            <li role="none"><a href="pet-owners.html" class="dropdown-link" role="menuitem">Pet Parents</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
+                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="nav-auth">
+                    <div id="authButtons" class="nav-buttons">
+                        <a href="login.html" class="btn btn-outline">Sign In</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="py-xl">
+            <div class="container">
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="text-center" style="margin-bottom: 3rem;">
+                        <h1 class="hero-title text-gradient">🏥 Shelter Partnership Enrollment</h1>
+                        <p class="hero-text">
+                            Join the revolutionary platform that's transforming pet adoption outcomes
+                        </p>
+                    </div>
+
+                    <!-- Organization Information -->
+                    <div class="info-card">
+                        <h2 class="card-title">🏢 Organization Information</h2>
+                        
+                        <form id="enrollmentForm" class="form">
+                            <div class="form-group">
+                                <label for="organizationName">Organization Name *</label>
+                                <input type="text" id="organizationName" name="organizationName" class="form-input" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="organizationType">Organization Type *</label>
+                                <select id="organizationType" name="organizationType" class="form-select" required>
+                                    <option value="">Select organization type</option>
+                                    <option value="animal-shelter">Animal Shelter</option>
+                                    <option value="rescue-organization">Rescue Organization</option>
+                                    <option value="humane-society">Humane Society</option>
+                                    <option value="spca">SPCA</option>
+                                    <option value="municipal-shelter">Municipal Shelter</option>
+                                    <option value="foster-network">Foster Network</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="ein">EIN/Tax ID Number *</label>
+                                <input type="text" id="ein" name="ein" class="form-input" placeholder="12-3456789" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="website">Website</label>
+                                <input type="url" id="website" name="website" class="form-input" placeholder="https://yourorganization.org">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">👤 Primary Contact Information</h2>
+                        
+                        <div class="form-group">
+                            <label for="contactName">Contact Person Name *</label>
+                            <input type="text" id="contactName" name="contactName" class="form-input" form="enrollmentForm" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactTitle">Title/Position *</label>
+                            <input type="text" id="contactTitle" name="contactTitle" class="form-input" form="enrollmentForm" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactEmail">Email Address *</label>
+                            <input type="email" id="contactEmail" name="contactEmail" class="form-input" form="enrollmentForm" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactPhone">Phone Number *</label>
+                            <input type="tel" id="contactPhone" name="contactPhone" class="form-input" form="enrollmentForm" placeholder="(555) 123-4567" required>
+                        </div>
+                    </div>
+
+                    <!-- Address Information -->
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">📍 Address Information</h2>
+                        
+                        <div class="form-group">
+                            <label for="address">Street Address *</label>
+                            <input type="text" id="address" name="address" class="form-input" form="enrollmentForm" required>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="city">City *</label>
+                                <input type="text" id="city" name="city" class="form-input" form="enrollmentForm" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State *</label>
+                                <select id="state" name="state" class="form-select" form="enrollmentForm" required>
+                                    <option value="">Select state</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="CA">California</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="NY">New York</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <!-- Add more states as needed -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="zipCode">ZIP Code *</label>
+                                <input type="text" id="zipCode" name="zipCode" class="form-input" form="enrollmentForm" pattern="[0-9]{5}(-[0-9]{4})?" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Organization Details -->
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">📊 Organization Details</h2>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="yearEstablished">Year Established *</label>
+                                <input type="number" id="yearEstablished" name="yearEstablished" class="form-input" form="enrollmentForm" min="1800" max="2024" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="monthlyAdoptions">Average Monthly Adoptions *</label>
+                                <input type="number" id="monthlyAdoptions" name="monthlyAdoptions" class="form-input" form="enrollmentForm" min="1" max="1000" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="animalTypes">Types of Animals (check all that apply) *</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="animalTypes" value="dogs" form="enrollmentForm">
+                                    <span class="checkbox-custom"></span>
+                                    Dogs
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="animalTypes" value="cats" form="enrollmentForm">
+                                    <span class="checkbox-custom"></span>
+                                    Cats
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="animalTypes" value="rabbits" form="enrollmentForm">
+                                    <span class="checkbox-custom"></span>
+                                    Rabbits
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="animalTypes" value="birds" form="enrollmentForm">
+                                    <span class="checkbox-custom"></span>
+                                    Birds
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="animalTypes" value="other" form="enrollmentForm">
+                                    <span class="checkbox-custom"></span>
+                                    Other Small Animals
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="currentSoftware">Current Shelter Management Software</label>
+                            <select id="currentSoftware" name="currentSoftware" class="form-select" form="enrollmentForm">
+                                <option value="">Select if applicable</option>
+                                <option value="petpoint">PetPoint</option>
+                                <option value="shelterluv">ShelterLuv</option>
+                                <option value="petango">Petango</option>
+                                <option value="chameleon">Chameleon</option>
+                                <option value="rescuegroups">RescueGroups</option>
+                                <option value="adoptapet">Adopt-a-Pet</option>
+                                <option value="other">Other</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Program Interest -->
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">💡 Program Interest</h2>
+                        
+                        <div class="form-group">
+                            <label for="primaryGoals">Primary Goals (check all that apply) *</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="primaryGoals" value="increase-adoptions" form="enrollmentForm">
+                                    <span class="checkbox-custom"></span>
+                                    Increase Adoption Rates
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="primaryGoals" value="reduce-returns" form="enrollmentForm">
+                                    <span class="checkbox-custom"></span>
+                                    Reduce Return Rates
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="primaryGoals" value="post-adoption-support" form="enrollmentForm">
+                                    <span class="checkbox-custom"></span>
+                                    Provide Post-Adoption Support
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="primaryGoals" value="community-engagement" form="enrollmentForm">
+                                    <span class="checkbox-custom"></span>
+                                    Increase Community Engagement
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="primaryGoals" value="data-tracking" form="enrollmentForm">
+                                    <span class="checkbox-custom"></span>
+                                    Better Data Tracking
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="timelineToLaunch">Preferred Timeline to Launch *</label>
+                            <select id="timelineToLaunch" name="timelineToLaunch" class="form-select" form="enrollmentForm" required>
+                                <option value="">Select timeline</option>
+                                <option value="immediately">Immediately</option>
+                                <option value="1-month">Within 1 month</option>
+                                <option value="2-3-months">2-3 months</option>
+                                <option value="3-6-months">3-6 months</option>
+                                <option value="6-12-months">6-12 months</option>
+                                <option value="exploring">Just exploring options</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="additionalInfo">Additional Information or Questions</label>
+                            <textarea id="additionalInfo" name="additionalInfo" class="form-textarea" form="enrollmentForm" rows="5" placeholder="Tell us about any specific needs, challenges, or questions you have..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Submission -->
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">📋 Terms and Agreement</h2>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="agreeTerms" form="enrollmentForm" required>
+                                <span class="checkbox-custom"></span>
+                                I agree to the <a href="terms.html" target="_blank" style="color: #8B5CF6;">Terms of Service</a> and <a href="privacy.html" target="_blank" style="color: #8B5CF6;">Privacy Policy</a> *
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="agreeContact" form="enrollmentForm" required>
+                                <span class="checkbox-custom"></span>
+                                I authorize Shelter Pawtners to contact me regarding this enrollment and partnership opportunities *
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="newsletterOptIn" form="enrollmentForm">
+                                <span class="checkbox-custom"></span>
+                                I would like to receive updates about new features and success stories (optional)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 3rem;">
+                        <button type="submit" form="enrollmentForm" class="btn btn-primary btn-large">
+                            🚀 Submit Enrollment Application
+                        </button>
+                        <a href="shelters.html" class="btn btn-secondary btn-large" style="margin-left: 1rem;">
+                            Cancel
+                        </a>
+                    </div>
+
+                    <div class="info-card" style="margin-top: 2rem; background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3);">
+                        <h3 style="color: #10B981; margin-bottom: 1rem;">✅ What happens next?</h3>
+                        <ul style="color: #E5E7EB; margin: 0; padding-left: 1.5rem;">
+                            <li>We'll review your application within 1-2 business days</li>
+                            <li>A partnership specialist will contact you to discuss your needs</li>
+                            <li>We'll schedule a personalized demo of the platform</li>
+                            <li>If it's a good fit, we'll help you get set up and provide training</li>
+                            <li>You'll start making a bigger impact on pet adoption outcomes!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/navigation.js"></script>
+    <script>
+        document.getElementById('enrollmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate required checkboxes
+            const animalTypes = document.querySelectorAll('input[name="animalTypes"]:checked');
+            const primaryGoals = document.querySelectorAll('input[name="primaryGoals"]:checked');
+            
+            if (animalTypes.length === 0) {
+                alert('Please select at least one type of animal your organization works with.');
+                return;
+            }
+            
+            if (primaryGoals.length === 0) {
+                alert('Please select at least one primary goal for your partnership.');
+                return;
+            }
+            
+            // Show success message
+            alert('🎉 Application submitted successfully! Our partnership team will contact you within 1-2 business days to discuss next steps.');
+            
+            // Redirect to thank you or confirmation page
+            window.location.href = 'shelters.html';
+        });
+    </script>
+
+    <style>
+        .checkbox-group {
+            display: grid;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #E5E7EB;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        .checkbox-custom {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid rgba(75, 85, 99, 0.6);
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            border-color: #8B5CF6;
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkbox-custom::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .form-textarea {
+            background: rgba(75, 85, 99, 0.3);
+            border: 1px solid rgba(75, 85, 99, 0.6);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: #F9FAFB;
+            width: 100%;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        .form-textarea::placeholder {
+            color: #9CA3AF;
+        }
+
+        @media (max-width: 768px) {
+            .form-group > div[style*="grid"] {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</body>
+</html>

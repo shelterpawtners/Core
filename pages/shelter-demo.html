@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelter Demo - Shelter Pawtners Platform</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                ☰
+            </button>
+            
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="businesses.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
+                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
+                            <li role="none"><a href="pet-owners.html" class="dropdown-link" role="menuitem">Pet Parents</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
+                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="nav-auth">
+                    <div id="authButtons" class="nav-buttons">
+                        <a href="login.html" class="btn btn-outline">Sign In</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="py-xl">
+            <div class="container">
+                <div style="max-width: 1000px; margin: 0 auto;">
+                    <div class="text-center" style="margin-bottom: 3rem;">
+                        <h1 class="hero-title text-gradient">🏥 Shelter Partnership Demo</h1>
+                        <p class="hero-text">
+                            See how Shelter Pawtners can transform your adoption outcomes with comprehensive post-adoption support
+                        </p>
+                    </div>
+
+                    <!-- Interactive Demo -->
+                    <div class="info-card">
+                        <h2 class="card-title">📊 Interactive Platform Demo</h2>
+                        
+                        <div class="demo-tabs">
+                            <button class="demo-tab active" onclick="showDemoSection('dashboard')">
+                                📈 Shelter Dashboard
+                            </button>
+                            <button class="demo-tab" onclick="showDemoSection('adoption')">
+                                🏠 Adoption Process
+                            </button>
+                            <button class="demo-tab" onclick="showDemoSection('tracking')">
+                                📱 Pet Tracking
+                            </button>
+                            <button class="demo-tab" onclick="showDemoSection('analytics')">
+                                📊 Success Analytics
+                            </button>
+                        </div>
+
+                        <!-- Dashboard Demo -->
+                        <div id="dashboard" class="demo-section active">
+                            <h3>📈 Your Shelter Dashboard</h3>
+                            <div class="demo-grid">
+                                <div class="demo-stat">
+                                    <div class="stat-value">247</div>
+                                    <div class="stat-label">Active ShelterCARDs</div>
+                                </div>
+                                <div class="demo-stat">
+                                    <div class="stat-value">94%</div>
+                                    <div class="stat-label">Retention Rate</div>
+                                </div>
+                                <div class="demo-stat">
+                                    <div class="stat-value">$2,847</div>
+                                    <div class="stat-label">Average Savings per Pet</div>
+                                </div>
+                                <div class="demo-stat">
+                                    <div class="stat-value">89%</div>
+                                    <div class="stat-label">Owner Satisfaction</div>
+                                </div>
+                            </div>
+                            <p>Track the success of your adopted pets with real-time data and insights.</p>
+                        </div>
+
+                        <!-- Adoption Process Demo -->
+                        <div id="adoption" class="demo-section">
+                            <h3>🏠 Streamlined Adoption Process</h3>
+                            <div class="demo-flow">
+                                <div class="flow-step">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <h4>Pet Profile Creation</h4>
+                                        <p>Create detailed profiles with photos, medical history, and temperament notes</p>
+                                    </div>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <h4>Adopter Matching</h4>
+                                        <p>AI-powered matching system connects pets with ideal families</p>
+                                    </div>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <h4>ShelterCARD Issued</h4>
+                                        <p>Instant digital card with lifetime benefits for the adopted pet</p>
+                                    </div>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="step-number">4</div>
+                                    <div class="step-content">
+                                        <h4>Ongoing Support</h4>
+                                        <p>24/7 support network with vetted care providers and resources</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pet Tracking Demo -->
+                        <div id="tracking" class="demo-section">
+                            <h3>📱 Post-Adoption Pet Tracking</h3>
+                            <div class="tracking-demo">
+                                <div class="pet-card">
+                                    <div class="pet-image">🐕</div>
+                                    <div class="pet-info">
+                                        <h4>Buddy</h4>
+                                        <p><strong>Adopted:</strong> 3 months ago</p>
+                                        <p><strong>Last Vet Visit:</strong> 2 weeks ago ✅</p>
+                                        <p><strong>Owner Satisfaction:</strong> ⭐⭐⭐⭐⭐</p>
+                                        <p><strong>Savings Used:</strong> $340</p>
+                                    </div>
+                                </div>
+                                <div class="pet-card">
+                                    <div class="pet-image">🐱</div>
+                                    <div class="pet-info">
+                                        <h4>Luna</h4>
+                                        <p><strong>Adopted:</strong> 6 months ago</p>
+                                        <p><strong>Last Vet Visit:</strong> 1 month ago ✅</p>
+                                        <p><strong>Owner Satisfaction:</strong> ⭐⭐⭐⭐⭐</p>
+                                        <p><strong>Savings Used:</strong> $520</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>Monitor the wellbeing of your adopted pets with automated check-ins and health tracking.</p>
+                        </div>
+
+                        <!-- Analytics Demo -->
+                        <div id="analytics" class="demo-section">
+                            <h3>📊 Success Analytics & Reporting</h3>
+                            <div class="analytics-charts">
+                                <div class="chart-container">
+                                    <h4>Adoption Success Rate</h4>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 87%;">87%</div>
+                                    </div>
+                                    <p>12% increase from last year</p>
+                                </div>
+                                <div class="chart-container">
+                                    <h4>Average Days to Adoption</h4>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 75%; background: #10B981;">23 days</div>
+                                    </div>
+                                    <p>8 days faster than shelter average</p>
+                                </div>
+                                <div class="chart-container">
+                                    <h4>Return Rate</h4>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 8%; background: #EF4444;">2.1%</div>
+                                    </div>
+                                    <p>78% lower than industry standard</p>
+                                </div>
+                            </div>
+                            <p>Comprehensive reporting demonstrates the impact of your shelter's work to the community.</p>
+                        </div>
+                    </div>
+
+                    <!-- Features Overview -->
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">🚀 Platform Features</h2>
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <span class="feature-icon">📱</span>
+                                <h4>Mobile App</h4>
+                                <p>Easy-to-use mobile app for staff and adopters</p>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">☁️</span>
+                                <h4>Cloud-Based</h4>
+                                <p>Secure, scalable cloud infrastructure</p>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">🔗</span>
+                                <h4>Integration Ready</h4>
+                                <p>Connects with existing shelter management systems</p>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">📊</span>
+                                <h4>Real-Time Analytics</h4>
+                                <p>Live data and reporting dashboards</p>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">🤝</span>
+                                <h4>Partner Network</h4>
+                                <p>Access to verified care providers and services</p>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">💰</span>
+                                <h4>Cost Savings</h4>
+                                <p>Significant savings for adopters encourage adoptions</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ROI Calculator -->
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">💡 ROI Calculator</h2>
+                        <div class="roi-calculator">
+                            <div class="calculator-input">
+                                <label for="adoptionsPerMonth">Average adoptions per month:</label>
+                                <input type="number" id="adoptionsPerMonth" value="15" min="1" max="200">
+                            </div>
+                            <div class="calculator-result">
+                                <div class="roi-metric">
+                                    <div class="metric-value" id="increasedAdoptions">23</div>
+                                    <div class="metric-label">Projected monthly adoptions with ShelterCARD</div>
+                                </div>
+                                <div class="roi-metric">
+                                    <div class="metric-value" id="annualIncrease">96</div>
+                                    <div class="metric-label">Additional pets placed annually</div>
+                                </div>
+                                <div class="roi-metric">
+                                    <div class="metric-value" id="costSavings">$48,000</div>
+                                    <div class="metric-label">Estimated annual care cost savings</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Next Steps -->
+                    <div style="text-align: center; margin-top: 3rem;">
+                        <h2 class="section-title">Ready to Transform Your Shelter?</h2>
+                        <p style="color: #D1D5DB; margin-bottom: 2rem;">
+                            Join the movement to revolutionize pet adoption outcomes
+                        </p>
+                        <div class="cta-buttons">
+                            <a href="shelter-enrollment.html" class="btn btn-primary btn-large">
+                                🏥 Enroll Your Shelter
+                            </a>
+                            <a href="contact.html" class="btn btn-outline btn-large">
+                                📞 Schedule a Call
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/navigation.js"></script>
+    
+    <script>
+        function showDemoSection(sectionName) {
+            // Hide all demo sections
+            const sections = document.querySelectorAll('.demo-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.demo-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // ROI Calculator
+        document.getElementById('adoptionsPerMonth').addEventListener('input', function() {
+            const monthly = parseInt(this.value) || 0;
+            const increased = Math.round(monthly * 1.53); // 53% increase based on data
+            const annual = (increased - monthly) * 12;
+            const savings = annual * 500; // Estimated $500 per pet in care costs
+
+            document.getElementById('increasedAdoptions').textContent = increased;
+            document.getElementById('annualIncrease').textContent = annual;
+            document.getElementById('costSavings').textContent = '$' + savings.toLocaleString();
+        });
+    </script>
+
+    <style>
+        .demo-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .demo-tab {
+            background: rgba(75, 85, 99, 0.5);
+            border: 1px solid rgba(75, 85, 99, 0.6);
+            color: #D1D5DB;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-tab:hover, .demo-tab.active {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.6);
+            color: #F9FAFB;
+        }
+
+        .demo-section {
+            display: none;
+        }
+
+        .demo-section.active {
+            display: block;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .demo-stat {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #8B5CF6;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #D1D5DB;
+            font-size: 0.875rem;
+        }
+
+        .demo-flow {
+            display: grid;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 0.75rem;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            color: #F9FAFB;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            color: #D1D5DB;
+            margin: 0;
+        }
+
+        .tracking-demo {
+            display: grid;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .pet-card {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 0.75rem;
+        }
+
+        .pet-image {
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .pet-info h4 {
+            color: #F9FAFB;
+            margin-bottom: 0.5rem;
+        }
+
+        .pet-info p {
+            color: #D1D5DB;
+            margin: 0.25rem 0;
+            font-size: 0.875rem;
+        }
+
+        .analytics-charts {
+            display: grid;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .chart-container {
+            padding: 1rem;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 0.75rem;
+        }
+
+        .chart-container h4 {
+            color: #F9FAFB;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            background: rgba(75, 85, 99, 0.5);
+            height: 2rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            transition: width 0.3s ease;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 0.75rem;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h4 {
+            color: #F9FAFB;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            color: #D1D5DB;
+            margin: 0;
+        }
+
+        .roi-calculator {
+            background: rgba(31, 41, 55, 0.5);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .calculator-input {
+            margin-bottom: 2rem;
+        }
+
+        .calculator-input label {
+            display: block;
+            color: #F9FAFB;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .calculator-input input {
+            background: rgba(75, 85, 99, 0.5);
+            border: 1px solid rgba(75, 85, 99, 0.6);
+            color: #F9FAFB;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            width: 200px;
+        }
+
+        .calculator-result {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .roi-metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #10B981;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: #D1D5DB;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .demo-tabs {
+                flex-direction: column;
+            }
+
+            .demo-tab {
+                text-align: center;
+            }
+
+            .calculator-input input {
+                width: 100%;
+            }
+        }
+    </style>
+</body>
+</html>

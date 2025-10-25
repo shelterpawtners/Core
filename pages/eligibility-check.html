@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShelterCARD Eligibility Check - Shelter Pawtners</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                ☰
+            </button>
+            
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="businesses.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
+                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
+                            <li role="none"><a href="pet-owners.html" class="dropdown-link" role="menuitem">Pet Parents</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
+                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="nav-auth">
+                    <div id="authButtons" class="nav-buttons">
+                        <a href="login.html" class="btn btn-outline">Sign In</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="py-xl">
+            <div class="container">
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="text-center" style="margin-bottom: 3rem;">
+                        <h1 class="hero-title text-gradient">🎫 ShelterCARD Eligibility Check</h1>
+                        <p class="hero-text">
+                            Verify your pet's adoption status to unlock lifelong ShelterCARD benefits and savings!
+                        </p>
+                    </div>
+
+                    <div class="info-card">
+                        <h2 class="card-title">📋 Pet Information</h2>
+                        
+                        <form id="eligibilityForm" class="form">
+                            <div class="form-group">
+                                <label for="petName">Pet's Name *</label>
+                                <input type="text" id="petName" name="petName" class="form-input" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="petSpecies">Species *</label>
+                                <select id="petSpecies" name="petSpecies" class="form-select" required>
+                                    <option value="">Select species</option>
+                                    <option value="dog">Dog</option>
+                                    <option value="cat">Cat</option>
+                                    <option value="rabbit">Rabbit</option>
+                                    <option value="bird">Bird</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="microchipId">Microchip ID (if available)</label>
+                                <input type="text" id="microchipId" name="microchipId" class="form-input" placeholder="123456789012345">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">🏠 Adoption Information</h2>
+                        
+                        <div class="form-group">
+                            <label for="shelterName">Shelter/Rescue Name *</label>
+                            <input type="text" id="shelterName" name="shelterName" class="form-input" form="eligibilityForm" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shelterEmail">Shelter Contact Email</label>
+                            <input type="email" id="shelterEmail" name="shelterEmail" class="form-input" form="eligibilityForm">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="shelterPhone">Shelter Contact Phone</label>
+                            <input type="tel" id="shelterPhone" name="shelterPhone" class="form-input" form="eligibilityForm" placeholder="(555) 123-4567">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="adoptionDate">Adoption Date *</label>
+                            <input type="date" id="adoptionDate" name="adoptionDate" class="form-input" form="eligibilityForm" required>
+                        </div>
+                    </div>
+
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">📄 Adoption Documentation</h2>
+                        <p style="color: #9CA3AF; margin-bottom: 1.5rem;">
+                            Please upload a photo or scan of your adoption papers to verify your pet's shelter origin.
+                        </p>
+                        
+                        <div class="form-group">
+                            <label for="adoptionPapers">Adoption Papers/Documentation *</label>
+                            <div class="file-upload">
+                                <input type="file" id="adoptionPapers" name="adoptionPapers" accept="image/*,.pdf" form="eligibilityForm" required>
+                                <div class="file-upload-label">
+                                    <span>📄</span>
+                                    <span>Click to upload adoption documentation</span>
+                                </div>
+                            </div>
+                            <div id="filePreview" class="file-preview"></div>
+                        </div>
+                    </div>
+
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">📧 Your Contact Information</h2>
+                        
+                        <div class="form-group">
+                            <label for="ownerName">Your Full Name *</label>
+                            <input type="text" id="ownerName" name="ownerName" class="form-input" form="eligibilityForm" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ownerEmail">Your Email Address *</label>
+                            <input type="email" id="ownerEmail" name="ownerEmail" class="form-input" form="eligibilityForm" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ownerPhone">Your Phone Number</label>
+                            <input type="tel" id="ownerPhone" name="ownerPhone" class="form-input" form="eligibilityForm" placeholder="(555) 123-4567">
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 3rem;">
+                        <button type="submit" form="eligibilityForm" class="btn btn-primary btn-large">
+                            🔍 Submit for Verification
+                        </button>
+                        <a href="sheltercard.html" class="btn btn-secondary btn-large" style="margin-left: 1rem;">
+                            Cancel
+                        </a>
+                    </div>
+
+                    <div class="info-card" style="margin-top: 2rem; background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3);">
+                        <h3 style="color: #10B981; margin-bottom: 1rem;">✅ What happens next?</h3>
+                        <ul style="color: #E5E7EB; margin: 0; padding-left: 1.5rem;">
+                            <li>We'll verify your adoption information with the shelter</li>
+                            <li>You'll receive confirmation within 24-48 hours</li>
+                            <li>Once approved, your ShelterCARD benefits activate immediately</li>
+                            <li>Start saving on vet care, food, toys, and more!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Supabase -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/auth.js"></script>
+    
+    <script>
+        // Initialize Supabase client
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+
+        let uploadedFileName = null;
+        let uploadedFileUrl = null;
+
+        // File upload preview and handling
+        document.getElementById('adoptionPapers').addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('filePreview');
+            
+            if (file) {
+                // Show upload progress
+                preview.innerHTML = `
+                    <div style="color: #F59E0B; margin-top: 1rem;">
+                        📤 Uploading: ${file.name}...
+                    </div>
+                `;
+                preview.style.display = 'block';
+
+                try {
+                    // Upload file to Supabase Storage
+                    const fileExt = file.name.split('.').pop().toLowerCase();
+                    const fileName = `adoption-docs/${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+                    
+                    const { data, error } = await supabaseClient.storage
+                        .from('pet-documents')
+                        .upload(fileName, file);
+
+                    if (error) {
+                        // Handle specific error types
+                        if (error.message.includes('Bucket not found')) {
+                            throw new Error('Storage not configured. Please set up the pet-documents bucket in Supabase Dashboard first.');
+                        } else if (error.message.includes('permissions')) {
+                            throw new Error('Upload permissions not configured. Please check storage policies.');
+                        } else {
+                            throw error;
+                        }
+                    }
+
+                    // Get public URL
+                    const { data: urlData } = supabaseClient.storage
+                        .from('pet-documents')
+                        .getPublicUrl(fileName);
+
+                    uploadedFileName = file.name;
+                    uploadedFileUrl = urlData.publicUrl;
+
+                    preview.innerHTML = `
+                        <div style="color: #10B981; margin-top: 1rem;">
+                            ✅ File uploaded successfully: ${file.name}
+                        </div>
+                    `;
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    preview.innerHTML = `
+                        <div style="color: #EF4444; margin-top: 1rem;">
+                            ❌ Upload failed: ${error.message}
+                            <br><br>
+                            <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <strong style="color: #F59E0B;">Options:</strong>
+                                <br>1. Continue without upload - we'll contact you for documents
+                                <br>2. Or contact support to set up file storage
+                            </div>
+                        </div>
+                    `;
+                    // Store file name but no URL for manual processing
+                    uploadedFileName = file.name;
+                    uploadedFileUrl = null;
+                }
+            } else {
+                preview.style.display = 'none';
+                uploadedFileName = null;
+                uploadedFileUrl = null;
+            }
+        });
+
+        // Form submission with Supabase integration
+        document.getElementById('eligibilityForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '⏳ Submitting Application...';
+            submitBtn.disabled = true;
+
+            try {
+                // Collect form data
+                const formData = new FormData(e.target);
+                const applicationData = {
+                    // Pet Information
+                    pet_name: formData.get('petName'),
+                    pet_species: formData.get('petSpecies'),
+                    microchip_id: formData.get('microchipId') || null,
+                    
+                    // Shelter Information
+                    shelter_name: formData.get('shelterName'),
+                    shelter_email: formData.get('shelterEmail') || null,
+                    shelter_phone: formData.get('shelterPhone') || null,
+                    adoption_date: formData.get('adoptionDate'),
+                    
+                    // Owner Information
+                    owner_name: formData.get('ownerName'),
+                    owner_email: formData.get('ownerEmail'),
+                    owner_phone: formData.get('ownerPhone') || null,
+                    
+                    // Document Information
+                    document_filename: uploadedFileName,
+                    document_url: uploadedFileUrl,
+                    
+                    // Status and Timestamps
+                    application_status: 'pending',
+                    submitted_at: new Date().toISOString(),
+                    
+                    // Additional fields for tracking
+                    user_agent: navigator.userAgent
+                };
+
+                // Validate required fields
+                if (!applicationData.pet_name || !applicationData.pet_species || !applicationData.shelter_name || 
+                    !applicationData.adoption_date || !applicationData.owner_name || !applicationData.owner_email) {
+                    throw new Error('Please fill in all required fields');
+                }
+
+                // Insert into Supabase
+                const { data, error } = await supabaseClient
+                    .from('eligibility_applications')
+                    .insert([applicationData])
+                    .select();
+
+                if (error) {
+                    throw error;
+                }
+
+                console.log('Application submitted successfully:', data);
+                
+                // Show success message with application ID
+                const applicationId = data[0].id.substring(0, 8).toUpperCase();
+                alert(`✅ Application submitted successfully!\n\nApplication ID: ${applicationId}\n\nYou will receive a confirmation email within 24-48 hours with your verification status.`);
+                
+                // Redirect to ShelterCARD page
+                window.location.href = 'sheltercard.html';
+
+            } catch (error) {
+                console.error('Submission error:', error);
+                let errorMessage = 'Error submitting application: ' + error.message;
+                
+                if (error.message.includes('relation "eligibility_applications" does not exist')) {
+                    errorMessage = 'Database not set up. Please run the SQL setup script first.';
+                }
+                
+                alert('❌ ' + errorMessage + '\n\nPlease try again or contact support.');
+                
+                // Restore button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

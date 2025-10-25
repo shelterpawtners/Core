@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage all your pets' profiles and records in one place.">
+    <title>My Pets - Shelter Pawtners</title>
+    
+    <!-- Preconnect to Google Fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <style>
+        .pets-header {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .pets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .pet-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .pet-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.4);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+        
+        .pet-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pet-avatar img,
+        .pet-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .fallback-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .pet-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #F9FAFB;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pet-details {
+            color: #D1D5DB;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .pet-detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+        }
+        
+        .pet-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            border-radius: 8px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #9CA3AF;
+        }
+        
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .loading-card {
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            color: #9CA3AF;
+        }
+        
+        .species-icon {
+            font-size: 2.5rem;
+        }
+        
+        .pet-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(34, 197, 94, 0.2);
+            color: #22C55E;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        .filters-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-select {
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            color: #F9FAFB;
+            font-size: 0.875rem;
+        }
+        
+        .pets-count {
+            color: #9CA3AF;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="../" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                ☰
+            </button>
+            
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="../" class="nav-link" role="menuitem">Home</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="dashboard.html" class="nav-link" role="menuitem">Dashboard</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="my-pets.html" class="nav-link" role="menuitem" aria-current="page">My Pets</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="create-pet.html" class="nav-link" role="menuitem">Add Pet</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                </ul>
+                
+                <div class="nav-auth">
+                    <div id="userMenu" class="user-menu" style="display: none;">
+                        <button class="user-button" id="userButton">
+                            <span id="userEmail">Loading...</span>
+                            <span class="user-dropdown-arrow">▼</span>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="dashboard.html" class="dropdown-link">Dashboard</a>
+                            <a href="my-pets.html" class="dropdown-link">My Pets</a>
+                            <div class="dropdown-divider"></div>
+                            <button id="logoutBtn" class="dropdown-link logout-btn">Sign Out</button>
+                        </div>
+                    </div>
+                    <div id="authButtons" class="nav-buttons">
+                        <a href="login.html" class="btn btn-outline">Sign In</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page Header -->
+        <section class="pets-header">
+            <div class="container">
+                <div class="text-center">
+                    <h1 class="hero-title text-gradient">🐾 My Pets</h1>
+                    <p class="hero-subtitle">
+                        Manage all your pets' digital profiles and records in one place.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pets Management -->
+        <section class="py-xl">
+            <div class="container">
+                <!-- Filters and Actions -->
+                <div class="filters-bar">
+                    <select id="speciesFilter" class="filter-select">
+                        <option value="">All Species</option>
+                        <option value="dog">Dogs</option>
+                        <option value="cat">Cats</option>
+                        <option value="bird">Birds</option>
+                        <option value="rabbit">Rabbits</option>
+                        <option value="other">Other</option>
+                    </select>
+                    
+                    <select id="sortBy" class="filter-select">
+                        <option value="name">Sort by Name</option>
+                        <option value="species">Sort by Species</option>
+                        <option value="age">Sort by Age</option>
+                        <option value="created">Recently Added</option>
+                    </select>
+                    
+                    <div class="pets-count" id="petsCount">
+                        Loading pets...
+                    </div>
+                    
+                    <div style="margin-left: auto;">
+                        <a href="create-pet.html" class="btn btn-primary">
+                            ➕ Add New Pet
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pets Grid -->
+                <div id="petsContainer">
+                    <!-- Loading state -->
+                    <div class="pets-grid">
+                        <div class="loading-card">
+                            <div class="loading-spinner" style="margin: 0 auto 1rem;"></div>
+                            <p>Loading your pets...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <span class="logo-icon">🐾</span>
+                        <span>Shelter Pawtners</span>
+                    </div>
+                    <p class="footer-description">
+                        The digital backbone for post-adoption success, helping pets get out of shelters faster.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="my-pets.html">My Pets</a></li>
+                        <li><a href="create-pet.html">Add Pet</a></li>
+                        <li><a href="sheltercard.html">ShelterCARD</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shelter Pawtners. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/navigation.js"></script>
+    
+    <script>
+        let allPets = [];
+        let filteredPets = [];
+
+        // Species icons mapping
+        const speciesIcons = {
+            dog: '🐕',
+            cat: '🐱',
+            bird: '🦜',
+            rabbit: '🐰',
+            fish: '🐠',
+            reptile: '🦎',
+            other: '🐾'
+        };
+
+        // Wait for all scripts to load
+        function waitForScripts() {
+            return new Promise((resolve) => {
+                const checkScripts = () => {
+                    if (typeof ShelterPawtnerDB !== 'undefined' && 
+                        typeof AuthManager !== 'undefined' && 
+                        typeof SUPABASE_CONFIG !== 'undefined') {
+                        resolve();
+                    } else {
+                        setTimeout(checkScripts, 100);
+                    }
+                };
+                checkScripts();
+            });
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('My Pets page loaded');
+            
+            try {
+                // Wait for all scripts to load
+                await waitForScripts();
+                
+                // Initialize database
+                if (!window.db) {
+                    window.db = new ShelterPawtnerDB();
+                    await window.db.initialize();
+                }
+
+                // Initialize auth manager
+                if (!window.authManager) {
+                    window.authManager = new AuthManager();
+                }
+
+                // Check authentication
+                const isAuthenticated = await window.authManager.checkAuth();
+                if (!isAuthenticated) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                // Load pets
+                await loadPets();
+                
+                // Setup event listeners
+                setupEventListeners();
+                
+            } catch (error) {
+                console.error('Page initialization error:', error);
+                showError('Failed to initialize page. Please refresh and try again.');
+            }
+        });
+
+        async function loadPets() {
+            try {
+                console.log('Loading pets...');
+                const result = await window.db.getUserPets();
+                
+                if (result.success) {
+                    allPets = result.pets || [];
+                    filteredPets = [...allPets];
+                    renderPets();
+                    updatePetsCount();
+                } else {
+                    console.error('Failed to load pets:', result.message);
+                    showError('Failed to load your pets: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error loading pets:', error);
+                showError('An error occurred while loading your pets.');
+            }
+        }
+
+        function renderPets() {
+            const container = document.getElementById('petsContainer');
+            
+            if (filteredPets.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🐾</div>
+                        <h3 style="color: #F9FAFB; margin-bottom: 1rem;">No pets found</h3>
+                        <p style="margin-bottom: 2rem;">
+                            ${allPets.length === 0 
+                                ? "You haven't added any pets yet. Get started by creating your first pet profile!" 
+                                : "No pets match your current filters. Try adjusting your search criteria."
+                            }
+                        </p>
+                        ${allPets.length === 0 
+                            ? '<a href="create-pet.html" class="btn btn-primary">Add Your First Pet</a>'
+                            : '<button onclick="clearFilters()" class="btn btn-secondary">Clear Filters</button>'
+                        }
+                    </div>
+                `;
+                return;
+            }
+
+            const petsHtml = filteredPets.map(pet => `
+                <div class="pet-card">
+                    <div class="pet-status">Active</div>
+                    <div class="pet-avatar">
+                        ${pet.photo_url ? 
+                            `<img src="${pet.photo_url}" alt="${escapeHtml(pet.name)}" class="pet-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                             <span class="species-icon fallback-icon" style="display: none;">${speciesIcons[pet.species] || speciesIcons.other}</span>` 
+                            : 
+                            `<span class="species-icon">${speciesIcons[pet.species] || speciesIcons.other}</span>`
+                        }
+                    </div>
+                    <h3 class="pet-name">${escapeHtml(pet.name)}</h3>
+                    <div class="pet-details">
+                        <div class="pet-detail-item">
+                            <span>Species:</span>
+                            <span>${capitalize(pet.species)}</span>
+                        </div>
+                        ${pet.breed ? `
+                        <div class="pet-detail-item">
+                            <span>Breed:</span>
+                            <span>${escapeHtml(pet.breed)}</span>
+                        </div>
+                        ` : ''}
+                        ${pet.age ? `
+                        <div class="pet-detail-item">
+                            <span>Age:</span>
+                            <span>${pet.age} year${pet.age !== 1 ? 's' : ''}</span>
+                        </div>
+                        ` : ''}
+                        <div class="pet-detail-item">
+                            <span>Added:</span>
+                            <span>${formatDate(pet.created_at)}</span>
+                        </div>
+                    </div>
+                    <div class="pet-actions">
+                        <a href="pet-details.html?id=${pet.id}" class="btn btn-primary btn-small">
+                            View Details
+                        </a>
+                        <button onclick="editPet('${pet.id}')" class="btn btn-secondary btn-small">
+                            Edit
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = `<div class="pets-grid">${petsHtml}</div>`;
+        }
+
+        function setupEventListeners() {
+            // Species filter
+            document.getElementById('speciesFilter').addEventListener('change', function() {
+                filterPets();
+            });
+
+            // Sort by filter
+            document.getElementById('sortBy').addEventListener('change', function() {
+                sortPets();
+            });
+        }
+
+        function filterPets() {
+            const speciesFilter = document.getElementById('speciesFilter').value;
+            
+            filteredPets = allPets.filter(pet => {
+                if (speciesFilter && pet.species !== speciesFilter) return false;
+                return true;
+            });
+            
+            sortPets();
+        }
+
+        function sortPets() {
+            const sortBy = document.getElementById('sortBy').value;
+            
+            filteredPets.sort((a, b) => {
+                switch (sortBy) {
+                    case 'name':
+                        return a.name.localeCompare(b.name);
+                    case 'species':
+                        return a.species.localeCompare(b.species);
+                    case 'age':
+                        return (b.age || 0) - (a.age || 0);
+                    case 'created':
+                        return new Date(b.created_at) - new Date(a.created_at);
+                    default:
+                        return 0;
+                }
+            });
+            
+            renderPets();
+            updatePetsCount();
+        }
+
+        function updatePetsCount() {
+            const countElement = document.getElementById('petsCount');
+            const total = allPets.length;
+            const filtered = filteredPets.length;
+            
+            if (filtered === total) {
+                countElement.textContent = `${total} pet${total !== 1 ? 's' : ''}`;
+            } else {
+                countElement.textContent = `${filtered} of ${total} pets`;
+            }
+        }
+
+        function clearFilters() {
+            document.getElementById('speciesFilter').value = '';
+            document.getElementById('sortBy').value = 'name';
+            filteredPets = [...allPets];
+            renderPets();
+            updatePetsCount();
+        }
+
+        function editPet(petId) {
+            // For now, redirect to create-pet page with edit mode
+            window.location.href = `create-pet.html?edit=${petId}`;
+        }
+
+        function showError(message) {
+            const container = document.getElementById('petsContainer');
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">⚠️</div>
+                    <h3 style="color: #F87171; margin-bottom: 1rem;">Error</h3>
+                    <p style="margin-bottom: 2rem;">${escapeHtml(message)}</p>
+                    <button onclick="loadPets()" class="btn btn-primary">Try Again</button>
+                </div>
+            `;
+        }
+
+        // Utility functions
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric', 
+                year: 'numeric' 
+            });
+        }
+    </script>
+</body>
+</html>

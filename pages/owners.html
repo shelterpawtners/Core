@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Owners - Shelter Pawtners</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="../" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                ☰
+            </button>
+            
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="profiles.html" class="nav-link" role="menuitem">Profiles</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="services.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
+                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
+                            <li role="none"><a href="owners.html" class="dropdown-link" role="menuitem" aria-current="page">Pet Owners</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
+                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="glass-hero">
+                    <div class="glass-content hero-content">
+                        <h1 class="hero-title text-gradient">Adopt with confidence. Support for the journey.</h1>
+                        <p class="hero-text" style="font-size: 1.25rem; margin-bottom: 2rem;">
+                            When you choose to adopt, you deserve all the support and savings you need to give your rescue pet the best life possible.
+                        </p>
+                        <div class="hero-buttons" role="group" aria-label="Get started as pet owner">
+                            <a href="#create-profile" class="btn btn-large btn-hero-primary">
+                                <span aria-hidden="true">� </span>Create Profile
+                            </a>
+                            <a href="#activate-card" class="btn btn-large btn-hero-secondary">
+                                <span aria-hidden="true">💳 </span>Activate ShelterCARD
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Bullets -->
+        <section class="section" aria-labelledby="benefits-heading">
+            <div class="container">
+                <h2 id="benefits-heading" class="text-center mb-xl">Everything You Need for Your Adopted Pet</h2>
+                
+                <div class="grid grid-1" style="gap: 3rem; max-width: 900px; margin: 0 auto;">
+                    <div class="glass-card" style="padding: 2.5rem;">
+                        <div style="display: flex; align-items: center; gap: 2rem; margin-bottom: 1.5rem;">
+                            <div class="feature-icon" style="font-size: 2rem; min-width: 4rem;" aria-hidden="true">🐾</div>
+                            <div>
+                                <h3 class="feature-title" style="margin: 0;">Your pet's medical and behavior history, always at hand</h3>
+                                <p style="color: #D1D5DB; margin: 0;">Complete Digital Pet Profile accessible anywhere, anytime</p>
+                            </div>
+                        </div>
+                        <p style="color: #E5E7EB; font-size: 1.125rem;">
+                            Never wonder about your pet's vaccination history, medication allergies, or behavioral quirks again. Your Digital Pet Profile keeps everything organized and accessible—perfect for vet visits, emergencies, boarding, or travel. Your pet's complete story travels with them wherever they go.
+                        </p>
+                    </div>
+
+                    <div class="glass-card" style="padding: 2.5rem;">
+                        <div style="display: flex; align-items: center; gap: 2rem; margin-bottom: 1.5rem;">
+                            <div class="feature-icon" style="font-size: 2rem; min-width: 4rem;" aria-hidden="true">💳</div>
+                            <div>
+                                <h3 class="feature-title" style="margin: 0;">Lifelong savings with ShelterCARD on real-world care</h3>
+                                <p style="color: #D1D5DB; margin: 0;">Exclusive discounts for adopted pets only</p>
+                            </div>
+                        </div>
+                        <p style="color: #E5E7EB; font-size: 1.125rem;">
+                            Your choice to adopt deserves to be rewarded. ShelterCARD provides exclusive, lifelong discounts on veterinary care, premium nutrition, professional grooming, training classes, boarding services, and more. Because adopted pets deserve the very best care at prices that work for your family.
+                        </p>
+                    </div>
+
+                    <div class="glass-card" style="padding: 2.5rem;">
+                        <div style="display: flex; align-items: center; gap: 2rem; margin-bottom: 1.5rem;">
+                            <div class="feature-icon" style="font-size: 2rem; min-width: 4rem;" aria-hidden="true">🚨</div>
+                            <div>
+                                <h3 class="feature-title" style="margin: 0;">Emergency-ready profile: ER, boarding, travel</h3>
+                                <p style="color: #D1D5DB; margin: 0;">Critical information available when seconds count</p>
+                            </div>
+                        </div>
+                        <p style="color: #E5E7EB; font-size: 1.125rem;">
+                            When emergencies happen, every second counts. Your pet's Digital Pet Profile provides instant access to critical information—known allergies, current medications, emergency contacts, and behavioral notes. Whether it's a late-night ER visit or last-minute boarding, the information is always there when you need it most.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works for Owners -->
+        <section class="section glass-section" aria-labelledby="process-heading">
+            <div class="container">
+                <h2 id="process-heading" class="text-center mb-xl text-gradient">Simple Setup, Lifetime Benefits</h2>
+                
+                <div class="grid grid-3" style="gap: 2rem;">
+                    <div class="glass-card text-center">
+                        <div class="feature-icon" style="background: var(--glass-gradient-1); color: white; font-size: 2rem; margin-bottom: 1.5rem;" aria-hidden="true">🏠</div>
+                        <h3 class="feature-title">1. Create Profile</h3>
+                        <p class="feature-text" style="color: #E5E7EB;">
+                            Start with your pet's adoption information and let us transfer their complete Digital Pet Profile from the shelter.
+                        </p>
+                    </div>
+                    
+                    <div class="glass-card text-center">
+                        <div class="feature-icon" style="background: var(--glass-gradient-2); color: white; font-size: 2rem; margin-bottom: 1.5rem;" aria-hidden="true">❤️</div>
+                        <h3 class="feature-title">2. Verify Adoption</h3>
+                        <p class="feature-text" style="color: #E5E7EB;">
+                            We verify your pet's adoption status with the shelter, automatically qualifying them for lifelong ShelterCARD benefits.
+                        </p>
+                    </div>
+                    
+                    <div class="glass-card text-center">
+                        <div class="feature-icon" style="background: var(--glass-gradient-3); color: white; font-size: 2rem; margin-bottom: 1.5rem;" aria-hidden="true">💰</div>
+                        <h3 class="feature-title">3. Start Saving</h3>
+                        <p class="feature-text" style="color: #E5E7EB;">
+                            Browse partner offers, scan your QR code at participating businesses, and start saving on everything your pet needs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Features -->
+        <section class="section" aria-labelledby="features-heading">
+            <div class="container">
+                <h2 id="features-heading" class="text-center mb-xl">Your Digital Pet Profile Includes</h2>
+                
+                <div class="grid grid-2" style="gap: 2rem;">
+                    <div class="glass-card">
+                        <div class="feature-icon" aria-hidden="true">🩺</div>
+                        <h3 class="feature-title">Complete Medical Records</h3>
+                        <ul class="feature-list" style="color: #E5E7EB; margin-top: 1rem;">
+                            <li>Full vaccination history and schedules</li>
+                            <li>Current medications and dosages</li>
+                            <li>Known allergies and adverse reactions</li>
+                            <li>Previous treatments and procedures</li>
+                            <li>Microchip ID and registration details</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="feature-icon" aria-hidden="true">🐾</div>
+                        <h3 class="feature-title">Behavioral & Care Notes</h3>
+                        <ul class="feature-list" style="color: #E5E7EB; margin-top: 1rem;">
+                            <li>Known commands and training level</li>
+                            <li>Likes, dislikes, and preferences</li>
+                            <li>Exercise needs and restrictions</li>
+                            <li>Socialization with kids and other pets</li>
+                            <li>Feeding schedule and dietary needs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="feature-icon" aria-hidden="true">🚨</div>
+                        <h3 class="feature-title">Emergency Information</h3>
+                        <ul class="feature-list" style="color: #E5E7EB; margin-top: 1rem;">
+                            <li>Emergency contact information</li>
+                            <li>Preferred veterinary clinic details</li>
+                            <li>Critical medical alerts and conditions</li>
+                            <li>Behavioral handling instructions</li>
+                            <li>Insurance and payment information</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="feature-icon" aria-hidden="true">📱</div>
+                        <h3 class="feature-title">Easy Access Anywhere</h3>
+                        <ul class="feature-list" style="color: #E5E7EB; margin-top: 1rem;">
+                            <li>Secure QR code for instant sharing</li>
+                            <li>Microchip scanning integration</li>
+                            <li>Mobile app access on any device</li>
+                            <li>Owner-controlled privacy settings</li>
+                            <li>Real-time updates and notifications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ShelterCARD Benefits -->
+        <section class="section glass-section" aria-labelledby="sheltercard-heading">
+            <div class="container">
+                <h2 id="sheltercard-heading" class="text-center mb-xl text-gradient">ShelterCARD Exclusive Savings</h2>
+                
+                <div class="grid grid-3" style="gap: 2rem;">
+                    <div class="glass-card text-center">
+                        <div class="feature-icon" style="background: var(--glass-gradient-1); color: white; font-size: 2rem; margin-bottom: 1rem;" aria-hidden="true">⚕️</div>
+                        <h3 class="feature-title">Veterinary Care</h3>
+                        <p class="feature-text" style="color: #E5E7EB; margin-bottom: 1rem;">
+                            Save on wellness exams, vaccinations, dental care, and emergency treatments with verified veterinarians.
+                        </p>
+                        <div style="background: rgba(139, 92, 246, 0.1); padding: 1rem; border-radius: 0.5rem;">
+                            <p style="color: #D1D5DB; font-size: 0.9rem; margin: 0;">
+                                Average savings: <strong>$300-600/year</strong>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card text-center">
+                        <div class="feature-icon" style="background: var(--glass-gradient-2); color: white; font-size: 2rem; margin-bottom: 1rem;" aria-hidden="true">🥘</div>
+                        <h3 class="feature-title">Premium Nutrition</h3>
+                        <p class="feature-text" style="color: #E5E7EB; margin-bottom: 1rem;">
+                            Exclusive discounts on premium pet food brands, treats, and specialized diets from trusted retailers.
+                        </p>
+                        <div style="background: rgba(6, 182, 212, 0.1); padding: 1rem; border-radius: 0.5rem;">
+                            <p style="color: #D1D5DB; font-size: 0.9rem; margin: 0;">
+                                Average savings: <strong>$200-400/year</strong>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card text-center">
+                        <div class="feature-icon" style="background: var(--glass-gradient-3); color: white; font-size: 2rem; margin-bottom: 1rem;" aria-hidden="true">✂️</div>
+                        <h3 class="feature-title">Grooming & Training</h3>
+                        <p class="feature-text" style="color: #E5E7EB; margin-bottom: 1rem;">
+                            Professional grooming, training classes, and behavioral consultations at partner locations nationwide.
+                        </p>
+                        <div style="background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 0.5rem;">
+                            <p style="color: #D1D5DB; font-size: 0.9rem; margin: 0;">
+                                Average savings: <strong>$150-300/year</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center" style="margin-top: 3rem;">
+                    <p style="color: #E5E7EB; font-size: 1.125rem; margin-bottom: 1rem;">
+                        <strong>Total Average Annual Savings: $650-1,300</strong>
+                    </p>
+                    <p style="color: #D1D5DB; font-size: 0.95rem;">
+                        *Savings vary by location and usage. All benefits are exclusive to shelter-adopted pets only.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Stories -->
+        <section class="section" aria-labelledby="stories-heading">
+            <div class="container">
+                <h2 id="stories-heading" class="text-center mb-xl">Real Stories from Real Adopters</h2>
+                
+                <div class="grid grid-2" style="gap: 2rem;">
+                    <div class="glass-card" style="padding: 2rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div class="feature-icon" style="background: var(--glass-gradient-1); color: white; font-size: 1.5rem;" aria-hidden="true">🐕</div>
+                            <div>
+                                <h3 style="color: #F9FAFB; margin: 0;">Luna's Emergency</h3>
+                                <p style="color: #D1D5DB; font-size: 0.9rem; margin: 0;">Sarah & Luna, Border Collie Mix</p>
+                            </div>
+                        </div>
+                        <blockquote style="color: #E5E7EB; font-style: italic; margin-bottom: 1rem;">
+                            "When Luna had a reaction at 2 AM, the emergency vet scanned her microchip and immediately knew she was allergic to certain antibiotics. Having her complete history saved us hours of tests and probably saved her life."
+                        </blockquote>
+                        <p style="color: #D1D5DB; font-size: 0.9rem;">
+                            <strong>Outcome:</strong> Fast treatment, $800 in avoided tests, peace of mind
+                        </p>
+                    </div>
+                    
+                    <div class="glass-card" style="padding: 2rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div class="feature-icon" style="background: var(--glass-gradient-2); color: white; font-size: 1.5rem;" aria-hidden="true">🐱</div>
+                            <div>
+                                <h3 style="color: #F9FAFB; margin: 0;">Max's First Year</h3>
+                                <p style="color: #D1D5DB; font-size: 0.9rem; margin: 0;">Jennifer & Max, Tabby Cat</p>
+                            </div>
+                        </div>
+                        <blockquote style="color: #E5E7EB; font-style: italic; margin-bottom: 1rem;">
+                            "ShelterCARD saved us over $1,200 in Max's first year alone—premium food, vet visits, grooming, and training classes. I can afford to give him the best care, and it shows!"
+                        </blockquote>
+                        <p style="color: #D1D5DB; font-size: 0.9rem;">
+                            <strong>Outcome:</strong> $1,200 saved, healthier pet, happier family
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="text-center" style="margin-top: 3rem;">
+                    <p style="color: #E5E7EB; font-size: 1.125rem;">
+                        Join thousands of families who chose adoption and are thriving with ShelterPawtners support.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="section">
+            <div class="container">
+                <div class="glass-card text-center" style="max-width: 600px; margin: 0 auto; padding: 3rem 2rem;">
+                    <h2 class="text-gradient" style="margin-bottom: 1.5rem;">Ready to Give Your Rescue Pet the Best?</h2>
+                    <p style="color: #E5E7EB; font-size: 1.125rem; margin-bottom: 2rem;">
+                        Create your Digital Pet Profile today and unlock lifelong ShelterCARD savings. Because choosing adoption deserves to be rewarded.
+                    </p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+                        <a href="#create-profile" class="btn btn-large btn-hero-primary">
+                            <span aria-hidden="true">� </span>Create Profile
+                        </a>
+                        <a href="#activate-card" class="btn btn-large btn-hero-secondary">
+                            <span aria-hidden="true">💳 </span>Activate ShelterCARD
+                        </a>
+                    </div>
+                    <p style="color: #D1D5DB; font-size: 0.9rem; margin-top: 1.5rem;">
+                        Always free to get started • Instant access to savings • Lifetime benefits
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3 class="footer-title">Solutions</h3>
+                    <ul class="footer-links">
+                        <li><a href="profiles.html">Digital Pet Profiles</a></li>
+                        <li><a href="sheltercard.html">ShelterCARD</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Audiences</h3>
+                    <ul class="footer-links">
+                        <li><a href="owners.html">Pet Owners</a></li>
+                        <li><a href="shelters.html">Shelters</a></li>
+                        <li><a href="vets.html">Veterinarians</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Organization</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><span style="color: #D1D5DB;">501(c)(3) Nonprofit</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shelter Pawtners. All rights reserved.</p>
+                <p style="color: #D1D5DB;">Shelters are always free. Partners share value with adopted families and give back to local shelters.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../js/navigation.js"></script>
+    <script src="../js/utils.js"></script>
+</body>
+</html>

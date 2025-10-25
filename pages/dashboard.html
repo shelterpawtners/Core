@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your Shelter Pawtners dashboard - manage your pets' Digital Profiles and access ShelterCARD benefits.">
+    <title>Dashboard - Shelter Pawtners</title>
+    
+    <!-- Preconnect to Google Fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <style>
+        .dashboard-header {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .dashboard-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-title {
+            color: #F9FAFB;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+            opacity: 0.8;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #8B5CF6;
+            display: block;
+        }
+        
+        .stat-label {
+            color: #D1D5DB;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+
+        
+        .pet-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .pet-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+        
+        .pet-info h4 {
+            color: #F9FAFB;
+            margin: 0 0 0.25rem 0;
+        }
+        
+        .pet-info p {
+            color: #9CA3AF;
+            margin: 0;
+            font-size: 0.875rem;
+        }
+        
+        .pet-actions {
+            margin-left: auto;
+        }
+        
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            border-radius: 8px;
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #9CA3AF;
+        }
+        
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #9CA3AF;
+            border-radius: 50%;
+            border-top-color: #8B5CF6;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .welcome-message {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10B981;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+            }
+            
+            .pet-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .pet-avatar {
+                margin: 0 0 1rem 0;
+            }
+            
+            .pet-actions {
+                margin: 1rem 0 0 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                ☰
+            </button>
+            
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="dashboard.html" class="nav-link active" role="menuitem">Dashboard</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="#" class="nav-link" role="menuitem" aria-haspopup="true">Account</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="profile.html" class="dropdown-link" role="menuitem">Profile Settings</a></li>
+                            <li role="none"><a href="#" class="dropdown-link" role="menuitem" id="logoutBtn">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Dashboard Header -->
+    <section class="dashboard-header">
+        <div class="container">
+            <h1 class="text-gradient" id="welcomeTitle" style="font-size: 2.5rem; margin-bottom: 0.5rem;">
+                Welcome Back!
+            </h1>
+            <p style="color: #D1D5DB; font-size: 1.125rem;">
+                Manage your pets' Digital Profiles and access your ShelterCARD benefits.
+            </p>
+        </div>
+    </section>
+
+    <!-- Dashboard Content -->
+    <section class="section">
+        <div class="container">
+            <!-- Welcome message for new users -->
+            <div id="welcomeMessage" class="welcome-message" style="display: none;">
+                🎉 Welcome to Shelter Pawtners! Your account has been created successfully. Start by adding your first pet to create their Digital Profile.
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Quick Stats Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Your Stats</h2>
+                        <span class="card-icon">📊</span>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value" id="petCount">-</span>
+                            <div class="stat-label">Pets</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="profilesComplete">-</span>
+                            <div class="stat-label">Complete Profiles</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="appointmentsCount">-</span>
+                            <div class="stat-label">Upcoming Appointments</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="savingsAmount">$0</span>
+                            <div class="stat-label">Savings This Year</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Pets Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">My Pets</h2>
+                        <span class="card-icon">🐕</span>
+                    </div>
+                    
+                    <div id="petsList" class="pet-list">
+                        <div class="loading-spinner" style="margin: 2rem auto;"></div>
+                    </div>
+                    
+                    <div class="quick-actions" style="margin-top: 1.5rem;">
+                        <a href="create-pet.html" class="btn btn-primary btn-small">Add New Pet</a>
+                        <a href="my-pets.html" class="btn btn-secondary btn-small">View All Pets</a>
+                    </div>
+                </div>
+
+                <!-- ShelterCARD Benefits Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">ShelterCARD Benefits</h2>
+                        <span class="card-icon">💳</span>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <div class="stat-item">
+                            <span class="stat-value">Active</span>
+                            <div class="stat-label">Card Status</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <a href="sheltercard.html" class="btn btn-primary btn-small">View Card</a>
+                        <a href="vets.html" class="btn btn-secondary btn-small">Find Vets</a>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Recent Activity</h2>
+                        <span class="card-icon">📋</span>
+                    </div>
+                    
+                    <div id="recentActivity">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📝</div>
+                            <p>No recent activity yet.</p>
+                            <p style="font-size: 0.875rem;">Activity will appear here as you use your account.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html" class="footer-link">About Us</a></li>
+                        <li><a href="how-it-works.html" class="footer-link">How It Works</a></li>
+                        <li><a href="contact.html" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading">For</h3>
+                    <ul class="footer-links">
+                        <li><a href="owners.html" class="footer-link">Pet Owners</a></li>
+                        <li><a href="businesses.html" class="footer-link">Businesses</a></li>
+                        <li><a href="shelters.html" class="footer-link">Shelters</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-heading">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="footer-link">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Shelter Pawtners. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/navigation.js"></script>
+
+    <script>
+        // Dashboard Logic
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Initialize database and auth manager
+            if (!window.db) {
+                window.db = new ShelterPawtnerDB();
+            }
+            if (!window.authManager) {
+                window.authManager = new AuthManager();
+            }
+            
+            // Check if user is logged in
+            if (!window.authManager.isLoggedIn()) {
+                // Store current URL for redirect after login
+                localStorage.setItem('shelterpawtner_redirect', 'dashboard.html');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const user = window.authManager.getCurrentUser();
+            
+            // Update welcome title with user's name
+            if (user && user.name) {
+                document.getElementById('welcomeTitle').textContent = `Welcome back, ${user.name.split(' ')[0]}!`;
+            }
+            
+            // Show welcome message for new users (registered in last 24 hours)
+            if (user && user.created_at) {
+                const createdAt = new Date(user.created_at);
+                const dayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+                
+                if (createdAt > dayAgo) {
+                    document.getElementById('welcomeMessage').style.display = 'block';
+                }
+            }
+
+            // Load dashboard data
+            await loadDashboardData();
+
+            // Setup logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.authManager.logout();
+                window.location.href = '../index.html';
+            });
+        });
+
+        async function loadDashboardData() {
+            try {
+                // Load user's pets
+                const result = await window.db.getUserPets();
+                
+                if (result.success) {
+                    const pets = result.pets || [];
+                    updatePetStats(pets);
+                    renderPetsList(pets);
+                    updateDashboardStats(pets);
+                } else {
+                    console.error('Failed to load pets:', result.message);
+                    document.getElementById('petsList').innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">❌</div>
+                            <p>Error loading your pets.</p>
+                            <p style="font-size: 0.875rem;">${result.message || 'Please try refreshing the page.'}</p>
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                // Show error state
+                document.getElementById('petsList').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">❌</div>
+                        <p>Error loading your pets.</p>
+                        <p style="font-size: 0.875rem;">Please try refreshing the page.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function updatePetStats(pets) {
+            document.getElementById('petCount').textContent = pets.length;
+            
+            // Calculate complete profiles (pets with all required fields)
+            const completeProfiles = pets.filter(pet => 
+                pet.name && pet.breed && pet.age && pet.weight
+            ).length;
+            document.getElementById('profilesComplete').textContent = completeProfiles;
+        }
+
+        function renderPetsList(pets) {
+            const petsList = document.getElementById('petsList');
+            
+            if (pets.length === 0) {
+                petsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🐾</div>
+                        <p>No pets added yet.</p>
+                        <p style="font-size: 0.875rem;">Add your first pet to get started!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Show up to 3 pets in dashboard
+            const displayPets = pets.slice(0, 3);
+            
+            petsList.innerHTML = displayPets.map(pet => `
+                <div class="pet-item">
+                    <div class="pet-avatar">
+                        ${getPetEmoji(pet.species || 'dog')}
+                    </div>
+                    <div class="pet-info">
+                        <h4>${pet.name}</h4>
+                        <p>${pet.breed || 'Mixed breed'} • ${pet.age || 'Unknown'} years old</p>
+                        <p>Last updated: ${formatDate(pet.updated_at)}</p>
+                    </div>
+                    <div class="pet-actions">
+                        <a href="pet-details.html?id=${pet.id}" class="btn btn-secondary btn-small">View Profile</a>
+                    </div>
+                </div>
+            `).join('');
+
+            // Show "View All" if there are more pets
+            if (pets.length > 3) {
+                petsList.innerHTML += `
+                    <div class="pet-item" style="justify-content: center; border: 2px dashed rgba(139, 92, 246, 0.3);">
+                        <div style="text-align: center;">
+                            <p style="color: #9CA3AF; margin: 0;">+${pets.length - 3} more pets</p>
+                            <a href="my-pets.html" class="btn btn-secondary btn-small" style="margin-top: 0.5rem;">View All Pets</a>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function updateDashboardStats(pets) {
+            // Mock data for demo - would be real data in production
+            document.getElementById('appointmentsCount').textContent = Math.floor(Math.random() * 3);
+            document.getElementById('savingsAmount').textContent = `$${(pets.length * 150 + Math.floor(Math.random() * 200)).toLocaleString()}`;
+        }
+
+        function getPetEmoji(species) {
+            const emojis = {
+                'dog': '🐕',
+                'cat': '🐱',
+                'bird': '🐦',
+                'rabbit': '🐰',
+                'fish': '🐠',
+                'hamster': '🐹',
+                'guinea pig': '🐹',
+                'reptile': '🦎'
+            };
+            return emojis[species.toLowerCase()] || '🐾';
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return 'Never';
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) return 'Today';
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+            if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+            return date.toLocaleDateString();
+        }
+    </script>
+</body>
+</html>

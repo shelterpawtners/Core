@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Creation Test - Shelter Pawtners</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #111827;
+            color: #F9FAFB;
+        }
+        .test-container {
+            background: rgba(31, 41, 55, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .success { border-left: 5px solid #10B981; }
+        .error { border-left: 5px solid #EF4444; }
+        .warning { border-left: 5px solid #F59E0B; }
+        button {
+            background: #8B5CF6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #7C3AED; }
+        pre {
+            background: #1F2937;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🐾 Pet Creation Test</h1>
+    
+    <div class="test-container">
+        <h3>Supabase Connection Test</h3>
+        <button onclick="testConnection()">Test Connection</button>
+        <div id="connectionResult"></div>
+    </div>
+    
+    <div class="test-container">
+        <h3>Pet Creation Test</h3>
+        <button onclick="testPetCreation()">Test Pet Creation</button>
+        <div id="petResult"></div>
+    </div>
+    
+    <div class="test-container">
+        <h3>Console Output</h3>
+        <pre id="consoleOutput"></pre>
+    </div>
+
+    <!-- Load required scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/database.js"></script>
+    
+    <script>
+        // Capture console output
+        const originalLog = console.log;
+        const originalError = console.error;
+        let consoleOutput = [];
+        
+        console.log = function(...args) {
+            consoleOutput.push('[LOG] ' + args.join(' '));
+            updateConsoleOutput();
+            originalLog.apply(console, args);
+        };
+        
+        console.error = function(...args) {
+            consoleOutput.push('[ERROR] ' + args.join(' '));
+            updateConsoleOutput();
+            originalError.apply(console, args);
+        };
+        
+        function updateConsoleOutput() {
+            document.getElementById('consoleOutput').textContent = consoleOutput.slice(-10).join('\n');
+        }
+        
+        async function testConnection() {
+            const result = document.getElementById('connectionResult');
+            result.innerHTML = 'Testing connection...';
+            
+            try {
+                if (!window.db) {
+                    window.db = new ShelterPawtnerDB();
+                }
+                
+                if (window.db.demoMode) {
+                    result.innerHTML = '<div class="warning">⚠️ Running in demo mode</div>';
+                    return;
+                }
+                
+                // Test basic connection
+                const { data, error } = await window.db.supabase.from('pets').select('count', { count: 'exact' });
+                
+                if (error) {
+                    result.innerHTML = `<div class="error">❌ Connection failed: ${error.message}</div>`;
+                } else {
+                    result.innerHTML = '<div class="success">✅ Connection successful!</div>';
+                }
+                
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testPetCreation() {
+            const result = document.getElementById('petResult');
+            result.innerHTML = 'Testing pet creation...';
+            
+            try {
+                if (!window.db) {
+                    window.db = new ShelterPawtnerDB();
+                }
+                
+                // For testing purposes, create a mock authenticated user
+                if (!window.authManager) {
+                    window.authManager = {
+                        getCurrentUser: () => ({
+                            id: 'test-user-' + Date.now(),
+                            email: 'test@example.com'
+                        })
+                    };
+                }
+                
+                const testPet = {
+                    name: 'Test Buddy',
+                    species: 'dog',
+                    breed: 'Golden Retriever',
+                    age: 3,
+                    weight: 65,
+                    gender: 'male',
+                    description: 'Test pet for database verification',
+                    vaccinations: ['rabies', 'dhpp'],
+                    spayed_neutered: true
+                };
+                
+                const createResult = await window.db.createPet(testPet);
+                
+                if (createResult.success) {
+                    result.innerHTML = `
+                        <div class="success">✅ Pet creation successful!</div>
+                        <pre>${JSON.stringify(createResult, null, 2)}</pre>
+                    `;
+                } else {
+                    result.innerHTML = `
+                        <div class="error">❌ Pet creation failed</div>
+                        <pre>${JSON.stringify(createResult, null, 2)}</pre>
+                        <p><strong>Note:</strong> This test page needs a mock user. Try the actual create-pet.html page after logging in.</p>
+                    `;
+                }
+                
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Pet creation error: ${error.message}</div>`;
+                console.error('Pet creation test error:', error);
+            }
+        }
+        
+        // Run initial checks when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Pet Creation Test Page Loaded');
+        });
+    </script>
+</body>
+</html>

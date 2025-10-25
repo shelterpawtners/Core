@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Offers - ShelterCARD Benefits - Shelter Pawtners</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                ☰
+            </button>
+            
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="businesses.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
+                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
+                            <li role="none"><a href="pet-owners.html" class="dropdown-link" role="menuitem">Pet Parents</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
+                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="nav-auth">
+                    <div id="authButtons" class="nav-buttons">
+                        <a href="login.html" class="btn btn-outline">Sign In</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="py-xl bg-gradient">
+            <div class="container">
+                <div class="text-center max-w-4xl mx-auto">
+                    <h1 class="hero-title text-gradient">💳 ShelterCARD Partner Offers</h1>
+                    <p class="hero-text">
+                        Exclusive discounts and benefits for shelter-adopted pets. Join thousands of families saving on quality pet care!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="py-lg">
+            <div class="container">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <label for="categoryFilter">Category:</label>
+                        <select id="categoryFilter" class="form-select">
+                            <option value="">All Offers</option>
+                            <option value="veterinary">Veterinary Care</option>
+                            <option value="food">Pet Food & Treats</option>
+                            <option value="grooming">Grooming & Spa</option>
+                            <option value="training">Training & Behavior</option>
+                            <option value="supplies">Pet Supplies</option>
+                            <option value="boarding">Boarding & Daycare</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="locationFilter">Location:</label>
+                        <select id="locationFilter" class="form-select">
+                            <option value="">All Locations</option>
+                            <option value="austin">Austin, TX</option>
+                            <option value="dallas">Dallas, TX</option>
+                            <option value="houston">Houston, TX</option>
+                            <option value="san-antonio">San Antonio, TX</option>
+                            <option value="online">Online/Nationwide</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="discountFilter">Discount:</label>
+                        <select id="discountFilter" class="form-select">
+                            <option value="">All Discounts</option>
+                            <option value="10-19">10-19% Off</option>
+                            <option value="20-29">20-29% Off</option>
+                            <option value="30-plus">30%+ Off</option>
+                            <option value="bogo">Buy One Get One</option>
+                            <option value="free">Free Services</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Offers Grid -->
+        <section class="py-lg">
+            <div class="container">
+                <div class="offers-grid">
+                    <!-- Veterinary Offers -->
+                    <div class="offer-card" data-category="veterinary" data-location="austin" data-discount="20-29">
+                        <div class="offer-header">
+                            <div class="partner-logo">🏥</div>
+                            <div class="discount-badge">25% OFF</div>
+                        </div>
+                        <h3 class="offer-title">Austin Animal Hospital</h3>
+                        <p class="offer-description">
+                            Comprehensive veterinary care with 25% off first visit for ShelterCARD holders.
+                        </p>
+                        <div class="offer-details">
+                            <span class="location">📍 Austin, TX</span>
+                            <span class="category">Veterinary Care</span>
+                        </div>
+                        <div class="offer-validity">Valid until: Dec 31, 2024</div>
+                        <button class="btn btn-primary offer-btn" onclick="showOffer('austin-animal-hospital')">
+                            View Offer
+                        </button>
+                    </div>
+
+                    <!-- Pet Food Offers -->
+                    <div class="offer-card" data-category="food" data-location="online" data-discount="20-29">
+                        <div class="offer-header">
+                            <div class="partner-logo">🥘</div>
+                            <div class="discount-badge">20% OFF</div>
+                        </div>
+                        <h3 class="offer-title">Premium Pet Nutrition</h3>
+                        <p class="offer-description">
+                            High-quality, natural pet food with ongoing 20% discount for ShelterCARD members.
+                        </p>
+                        <div class="offer-details">
+                            <span class="location">📍 Nationwide Shipping</span>
+                            <span class="category">Pet Food</span>
+                        </div>
+                        <div class="offer-validity">Ongoing benefit</div>
+                        <button class="btn btn-primary offer-btn" onclick="showOffer('premium-pet-nutrition')">
+                            View Offer
+                        </button>
+                    </div>
+
+                    <!-- Grooming Offers -->
+                    <div class="offer-card" data-category="grooming" data-location="dallas" data-discount="30-plus">
+                        <div class="offer-header">
+                            <div class="partner-logo">✂️</div>
+                            <div class="discount-badge">30% OFF</div>
+                        </div>
+                        <h3 class="offer-title">Pawsome Grooming Spa</h3>
+                        <p class="offer-description">
+                            Full-service grooming with luxury spa treatments. 30% off all services.
+                        </p>
+                        <div class="offer-details">
+                            <span class="location">📍 Dallas, TX</span>
+                            <span class="category">Grooming</span>
+                        </div>
+                        <div class="offer-validity">Valid until: Mar 31, 2025</div>
+                        <button class="btn btn-primary offer-btn" onclick="showOffer('pawsome-grooming')">
+                            View Offer
+                        </button>
+                    </div>
+
+                    <!-- Training Offers -->
+                    <div class="offer-card" data-category="training" data-location="houston" data-discount="bogo">
+                        <div class="offer-header">
+                            <div class="partner-logo">🎾</div>
+                            <div class="discount-badge">BOGO</div>
+                        </div>
+                        <h3 class="offer-title">Happy Tails Training</h3>
+                        <p class="offer-description">
+                            Professional dog training classes. Buy one session, get one free for shelter pets.
+                        </p>
+                        <div class="offer-details">
+                            <span class="location">📍 Houston, TX</span>
+                            <span class="category">Training</span>
+                        </div>
+                        <div class="offer-validity">Valid until: Jun 30, 2024</div>
+                        <button class="btn btn-primary offer-btn" onclick="showOffer('happy-tails-training')">
+                            View Offer
+                        </button>
+                    </div>
+
+                    <!-- Pet Supplies Offers -->
+                    <div class="offer-card" data-category="supplies" data-location="online" data-discount="10-19">
+                        <div class="offer-header">
+                            <div class="partner-logo">🎒</div>
+                            <div class="discount-badge">15% OFF</div>
+                        </div>
+                        <h3 class="offer-title">Pet Essentials Plus</h3>
+                        <p class="offer-description">
+                            Everything your pet needs - toys, accessories, and more with 15% ongoing savings.
+                        </p>
+                        <div class="offer-details">
+                            <span class="location">📍 Online Store</span>
+                            <span class="category">Pet Supplies</span>
+                        </div>
+                        <div class="offer-validity">Ongoing benefit</div>
+                        <button class="btn btn-primary offer-btn" onclick="showOffer('pet-essentials-plus')">
+                            View Offer
+                        </button>
+                    </div>
+
+                    <!-- Boarding Offers -->
+                    <div class="offer-card" data-category="boarding" data-location="san-antonio" data-discount="free">
+                        <div class="offer-header">
+                            <div class="partner-logo">🏨</div>
+                            <div class="discount-badge">FREE</div>
+                        </div>
+                        <h3 class="offer-title">Cozy Paws Boarding</h3>
+                        <p class="offer-description">
+                            Premium pet boarding and daycare. First night free for ShelterCARD members.
+                        </p>
+                        <div class="offer-details">
+                            <span class="location">📍 San Antonio, TX</span>
+                            <span class="category">Boarding</span>
+                        </div>
+                        <div class="offer-validity">Valid until: Sep 30, 2024</div>
+                        <button class="btn btn-primary offer-btn" onclick="showOffer('cozy-paws-boarding')">
+                            View Offer
+                        </button>
+                    </div>
+                </div>
+
+                <!-- No Results Message -->
+                <div id="noResults" class="no-results" style="display: none;">
+                    <div class="info-card text-center">
+                        <h3>No offers found</h3>
+                        <p>Try adjusting your filters to see more partner offers.</p>
+                        <button class="btn btn-outline" onclick="clearFilters()">Clear All Filters</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-xl bg-gradient-reverse">
+            <div class="container">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="section-title text-gradient">Don't have a ShelterCARD yet?</h2>
+                    <p class="section-text">
+                        Join thousands of pet parents saving money while supporting shelter animals.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="eligibility-check.html" class="btn btn-primary btn-large">
+                            Check Eligibility
+                        </a>
+                        <a href="sheltercard.html" class="btn btn-outline btn-large">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Offer Modal -->
+    <div id="offerModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Offer Details</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modalContent">
+                    <!-- Dynamic content will be loaded here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal()">Close</button>
+                <button class="btn btn-primary" onclick="redeemOffer()">Redeem Offer</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Partners</h3>
+                    <ul class="footer-links">
+                        <li><a href="businesses.html">For Businesses</a></li>
+                        <li><a href="shelters.html">For Shelters</a></li>
+                        <li><a href="pet-owners.html">For Pet Parents</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Connect</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shelter Pawtners. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/navigation.js"></script>
+    <script>
+        // Filter functionality
+        function filterOffers() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const locationFilter = document.getElementById('locationFilter').value;
+            const discountFilter = document.getElementById('discountFilter').value;
+            
+            const offers = document.querySelectorAll('.offer-card');
+            let visibleCount = 0;
+            
+            offers.forEach(offer => {
+                const category = offer.dataset.category;
+                const location = offer.dataset.location;
+                const discount = offer.dataset.discount;
+                
+                const matchesCategory = !categoryFilter || category === categoryFilter;
+                const matchesLocation = !locationFilter || location === locationFilter;
+                const matchesDiscount = !discountFilter || discount === discountFilter;
+                
+                if (matchesCategory && matchesLocation && matchesDiscount) {
+                    offer.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    offer.style.display = 'none';
+                }
+            });
+            
+            // Show/hide no results message
+            const noResults = document.getElementById('noResults');
+            if (visibleCount === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+        
+        function clearFilters() {
+            document.getElementById('categoryFilter').value = '';
+            document.getElementById('locationFilter').value = '';
+            document.getElementById('discountFilter').value = '';
+            filterOffers();
+        }
+        
+        // Add event listeners to filters
+        document.getElementById('categoryFilter').addEventListener('change', filterOffers);
+        document.getElementById('locationFilter').addEventListener('change', filterOffers);
+        document.getElementById('discountFilter').addEventListener('change', filterOffers);
+        
+        // Modal functionality
+        function showOffer(offerId) {
+            const modal = document.getElementById('offerModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Simulate loading offer details
+            const offerDetails = {
+                'austin-animal-hospital': {
+                    title: 'Austin Animal Hospital - 25% Off First Visit',
+                    content: `
+                        <div class="offer-detail">
+                            <h4>🏥 Austin Animal Hospital</h4>
+                            <p><strong>Offer:</strong> 25% off your pet's first comprehensive exam</p>
+                            <p><strong>Address:</strong> 123 Pet Care Lane, Austin, TX 78701</p>
+                            <p><strong>Phone:</strong> (512) 555-PETS</p>
+                            <p><strong>How to Redeem:</strong> Show your ShelterCARD when scheduling your appointment</p>
+                            <p><strong>Terms:</strong> Valid for new clients only. Cannot be combined with other offers.</p>
+                        </div>
+                    `
+                },
+                // Add other offer details as needed
+            };
+            
+            const details = offerDetails[offerId] || {
+                title: 'Offer Details',
+                content: '<p>Offer details will be available soon. Please contact the partner directly.</p>'
+            };
+            
+            modalTitle.textContent = details.title;
+            modalContent.innerHTML = details.content;
+            modal.style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('offerModal').style.display = 'none';
+        }
+        
+        function redeemOffer() {
+            alert('✅ Offer saved to your ShelterCARD! Check your email for redemption details.');
+            closeModal();
+        }
+        
+        // Close modal on outside click
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('offerModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+
+    <style>
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .offer-card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(75, 85, 99, 0.6);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2);
+        }
+        
+        .offer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .partner-logo {
+            font-size: 2rem;
+        }
+        
+        .discount-badge {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .offer-title {
+            color: #F9FAFB;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .offer-description {
+            color: #D1D5DB;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .offer-details {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .offer-details span {
+            color: #9CA3AF;
+            font-size: 0.875rem;
+        }
+        
+        .offer-validity {
+            color: #F59E0B;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .offer-btn {
+            width: 100%;
+        }
+        
+        .filter-bar {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            background: rgba(31, 41, 55, 0.8);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            color: #F9FAFB;
+            font-weight: 500;
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: rgba(31, 41, 55, 0.95);
+            border: 1px solid rgba(75, 85, 99, 0.6);
+            border-radius: 1rem;
+            max-width: 600px;
+            width: 90%;
+            backdrop-filter: blur(20px);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+        }
+        
+        .modal-header h3 {
+            color: #F9FAFB;
+            margin: 0;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: #9CA3AF;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .modal-footer {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            border-top: 1px solid rgba(75, 85, 99, 0.3);
+        }
+        
+        .offer-detail h4 {
+            color: #F9FAFB;
+            margin-bottom: 1rem;
+        }
+        
+        .offer-detail p {
+            color: #D1D5DB;
+            margin-bottom: 0.5rem;
+        }
+        
+        .no-results {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .filter-bar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .filter-group {
+                min-width: auto;
+            }
+            
+            .offers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

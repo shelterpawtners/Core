@@ -2,6 +2,42 @@
 
 /* Base styles are mobile-first (already in main.css) */
 
+/* Glass-Morphism Responsive Optimizations */
+@media (max-width: 768px) {
+    /* Reduce backdrop blur on mobile for better performance */
+    .glass-card, .glass-hero {
+        backdrop-filter: var(--blur-sm);
+    }
+    
+    .header {
+        backdrop-filter: var(--blur-md);
+    }
+    
+    /* Adjust glass hero padding on mobile */
+    .glass-hero {
+        border-radius: 16px;
+        margin: 0 var(--spacing-sm);
+    }
+    
+    .glass-content {
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+    
+    /* Enhance mobile button spacing */
+    .hero-buttons {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        align-items: center;
+    }
+    
+    .btn-hero-primary,
+    .btn-hero-secondary,
+    .btn-hero-tertiary {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
 /* CRITICAL: Mobile Navigation Fix - Ensure nav is hidden when not active */
 @media (max-width: 767px) {
     .header .nav:not(.active) {
@@ -83,6 +119,23 @@
     }
 }
 
+/* Glass-Morphism Performance Optimization for Low-End Devices */
+@media (max-width: 480px) {
+    /* Reduce blur effects for better performance on older phones */
+    .glass-card {
+        backdrop-filter: blur(5px);
+        box-shadow: var(--glass-shadow-sm);
+    }
+    
+    .glass-hero {
+        backdrop-filter: blur(8px);
+    }
+    
+    .header {
+        backdrop-filter: blur(8px);
+    }
+}
+
 /* Small devices (phones, 640px and up) */
 @media (min-width: 640px) {
     .container {
@@ -110,6 +163,16 @@
     
     .nav-menu {
         gap: var(--spacing-md);
+    }
+    
+    /* Enhanced glass effects for larger screens */
+    .glass-hero {
+        border-radius: 20px;
+        margin: 0;
+    }
+    
+    .glass-content {
+        padding: var(--spacing-2xl);
     }
     
     .hero {
@@ -248,7 +311,76 @@
     */
 }
 
-/* Print Optimization */
+/* Enhanced Glass-Morphism for High-End Devices */
+@media (min-width: 1024px) and (min-resolution: 2dppx) {
+    /* Full glass-morphism effects for high-end devices */
+    .glass-card {
+        backdrop-filter: var(--blur-lg);
+        box-shadow: var(--glass-shadow-lg);
+        transition: all var(--transition-normal), transform 0.3s ease;
+    }
+    
+    .glass-card:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: var(--glass-shadow-xl);
+    }
+    
+    .glass-hero {
+        backdrop-filter: var(--blur-lg);
+        box-shadow: var(--glass-shadow-xl);
+    }
+    
+    .header {
+        backdrop-filter: var(--blur-lg);
+        box-shadow: var(--glass-shadow-md);
+    }
+    
+    /* Enhanced button effects */
+    .btn-hero-primary,
+    .btn-hero-secondary {
+        transition: all var(--transition-normal), transform 0.3s ease;
+    }
+    
+    .btn-hero-primary:hover,
+    .btn-hero-secondary:hover {
+        transform: translateY(-3px) scale(1.05);
+    }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .glass-card,
+    .btn,
+    * {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+    
+    .glass-card:hover {
+        transform: none !important;
+    }
+    
+    .btn:hover {
+        transform: none !important;
+    }
+}
+
+/* Dark Mode Enhancements (if system prefers dark) */
+@media (prefers-color-scheme: dark) {
+    /* Enhance glass effects for dark mode */
+    .glass-card {
+        background: var(--glass-surface-dark);
+        border-color: rgba(139, 92, 246, 0.3);
+    }
+    
+    .glass-hero {
+        background: var(--glass-surface-medium);
+        border-color: rgba(139, 92, 246, 0.4);
+    }
+}
+
+/* Print styles */
 @media print {
     .header,
     .footer,

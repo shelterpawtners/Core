@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View and manage your pet's complete digital profile and medical records.">
+    <title>Pet Details - Shelter Pawtners</title>
+    
+    <!-- Preconnect to Google Fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <style>
+        .pet-header {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .pet-profile {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .pet-avatar-large {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pet-avatar-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .pet-info h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #F9FAFB;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pet-meta {
+            display: flex;
+            gap: 2rem;
+            color: #D1D5DB;
+            font-size: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .info-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #F9FAFB;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .info-label {
+            font-size: 0.875rem;
+            color: #9CA3AF;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: #F9FAFB;
+            font-weight: 600;
+        }
+        
+        .info-value.status-positive {
+            color: #10B981;
+        }
+        
+        .info-value.status-negative {
+            color: #EF4444;
+        }
+        
+        .info-item.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .info-item.full-width .info-value {
+            margin-top: 0.5rem;
+            padding: 0.75rem;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .section-header {
+            grid-column: 1 / -1;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #8B5CF6;
+            margin: 1.5rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .section-header:first-child {
+            margin-top: 0;
+        }
+        
+        .medical-record {
+            background: rgba(31, 41, 55, 0.5);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .record-type {
+            background: rgba(139, 92, 246, 0.2);
+            color: #A78BFA;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .record-date {
+            color: #9CA3AF;
+            font-size: 0.875rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .back-button {
+            color: #9CA3AF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        
+        .back-button:hover {
+            color: #F9FAFB;
+        }
+        
+        .loading-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #9CA3AF;
+        }
+        
+        .error-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #F87171;
+        }
+        
+        .empty-records {
+            text-align: center;
+            color: #9CA3AF;
+            padding: 2rem;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(34, 197, 94, 0.2);
+            color: #22C55E;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pet-profile {
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .pet-meta {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="../" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                ☰
+            </button>
+            
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="../" class="nav-link" role="menuitem">Home</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="dashboard.html" class="nav-link" role="menuitem">Dashboard</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="create-pet.html" class="nav-link" role="menuitem">Add Pet</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
+                    </li>
+                </ul>
+                
+                <div class="nav-auth">
+                    <div id="userMenu" class="user-menu" style="display: none;">
+                        <button class="user-button" id="userButton">
+                            <span id="userEmail">Loading...</span>
+                            <span class="user-dropdown-arrow">▼</span>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="dashboard.html" class="dropdown-link">Dashboard</a>
+                            <a href="my-pets.html" class="dropdown-link">My Pets</a>
+                            <div class="dropdown-divider"></div>
+                            <button id="logoutBtn" class="dropdown-link logout-btn">Sign Out</button>
+                        </div>
+                    </div>
+                    <div id="authButtons" class="nav-buttons">
+                        <a href="login.html" class="btn btn-outline">Sign In</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Loading State -->
+        <div id="loadingState" class="loading-state">
+            <div class="loading-spinner" style="margin: 0 auto 1rem;"></div>
+            <p>Loading pet details...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="error-state" style="display: none;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+            <h2>Pet Not Found</h2>
+            <p id="errorMessage">The requested pet could not be found.</p>
+            <div style="margin-top: 2rem;">
+                <a href="my-pets.html" class="btn btn-primary">Back to My Pets</a>
+            </div>
+        </div>
+
+        <!-- Pet Details Content -->
+        <div id="petContent" style="display: none;">
+            <!-- Pet Header -->
+            <section class="pet-header">
+                <div class="container">
+                    <a href="my-pets.html" class="back-button">
+                        ← Back to My Pets
+                    </a>
+                    <div class="pet-profile">
+                        <div class="pet-avatar-large" id="petAvatar">
+                            🐾
+                        </div>
+                        <div class="pet-info">
+                            <h1 id="petName">Loading...</h1>
+                            <div class="pet-meta">
+                                <span id="petSpecies">Species</span>
+                                <span id="petAge">Age</span>
+                                <span class="status-badge">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pet Details Content -->
+            <section class="py-xl">
+                <div class="container">
+                    <div class="content-grid">
+                        <!-- Main Content -->
+                        <div class="main-content">
+                            <!-- Pet Profile -->
+                            <div class="info-card">
+                                <h2 class="card-title">
+                                    📋 Complete Pet Profile
+                                </h2>
+                                <div class="info-grid" id="basicInfo">
+                                    <!-- Content will be populated by JavaScript -->
+                                </div>
+                            </div>
+
+                            <!-- Medical Records -->
+                            <div class="info-card">
+                                <h2 class="card-title">
+                                    🏥 Medical Records
+                                </h2>
+                                <div id="medicalRecords">
+                                    <!-- Content will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar -->
+                        <div class="sidebar">
+                            <!-- Quick Actions -->
+                            <div class="info-card">
+                                <h2 class="card-title">
+                                    ⚡ Quick Actions
+                                </h2>
+                                <div class="action-buttons" style="flex-direction: column; margin-top: 0;">
+                                    <button id="editPetBtn" class="btn btn-primary">
+                                        ✏️ Edit Pet Profile
+                                    </button>
+                                    <button id="addMedicalRecordBtn" class="btn btn-secondary">
+                                        🏥 Add Medical Record
+                                    </button>
+                                    <button id="downloadProfileBtn" class="btn btn-secondary">
+                                        📄 Download Profile
+                                    </button>
+                                    <button id="sharePetBtn" class="btn btn-secondary">
+                                        🔗 Share Pet
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Pet Stats -->
+                            <div class="info-card">
+                                <h2 class="card-title">
+                                    📊 Pet Statistics
+                                </h2>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">Profile Created</span>
+                                        <span class="info-value" id="createdDate">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Last Updated</span>
+                                        <span class="info-value" id="updatedDate">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Medical Records</span>
+                                        <span class="info-value" id="recordCount">0</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Profile ID</span>
+                                        <span class="info-value" id="petId">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <span class="logo-icon">🐾</span>
+                        <span>Shelter Pawtners</span>
+                    </div>
+                    <p class="footer-description">
+                        The digital backbone for post-adoption success, helping pets get out of shelters faster.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="my-pets.html">My Pets</a></li>
+                        <li><a href="create-pet.html">Add Pet</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shelter Pawtners. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/navigation.js"></script>
+    
+    <script>
+        let currentPet = null;
+        let petId = null;
+
+        // Species icons mapping
+        const speciesIcons = {
+            dog: '🐕',
+            cat: '🐱',
+            bird: '🦜',
+            rabbit: '🐰',
+            fish: '🐠',
+            reptile: '🦎',
+            other: '🐾'
+        };
+
+        // Wait for all scripts to load
+        function waitForScripts() {
+            return new Promise((resolve) => {
+                const checkScripts = () => {
+                    if (typeof ShelterPawtnerDB !== 'undefined' && 
+                        typeof AuthManager !== 'undefined' && 
+                        typeof SUPABASE_CONFIG !== 'undefined') {
+                        resolve();
+                    } else {
+                        setTimeout(checkScripts, 100);
+                    }
+                };
+                checkScripts();
+            });
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Pet details page loaded');
+            
+            try {
+                // Wait for all scripts to load
+                await waitForScripts();
+                
+                // Get pet ID from URL
+                const urlParams = new URLSearchParams(window.location.search);
+                petId = urlParams.get('id');
+                
+                if (!petId) {
+                    showError('No pet ID provided in URL');
+                    return;
+                }
+
+                // Initialize database
+                if (!window.db) {
+                    window.db = new ShelterPawtnerDB();
+                    await window.db.initialize();
+                }
+
+                // Initialize auth manager
+                if (!window.authManager) {
+                    window.authManager = new AuthManager();
+                }
+
+                // Check authentication
+                const isAuthenticated = await window.authManager.checkAuth();
+                if (!isAuthenticated) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                // Load pet details
+                await loadPetDetails();
+                
+                // Setup event listeners
+                setupEventListeners();
+                
+            } catch (error) {
+                console.error('Page initialization error:', error);
+                showError('Failed to initialize page: ' + error.message);
+            }
+        });
+
+        async function loadPetDetails() {
+            try {
+                console.log('Loading pet details for ID:', petId);
+                
+                // For now, we'll get all pets and find the one we need
+                // Later we can add a getPetById method to the database
+                const result = await window.db.getUserPets();
+                
+                if (result.success) {
+                    const pets = result.pets || [];
+                    currentPet = pets.find(pet => pet.id === petId);
+                    
+                    if (currentPet) {
+                        renderPetDetails();
+                        // Load medical records (placeholder for now)
+                        loadMedicalRecords();
+                    } else {
+                        showError('Pet not found or you do not have permission to view this pet.');
+                    }
+                } else {
+                    showError('Failed to load pet details: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error loading pet details:', error);
+                showError('An error occurred while loading pet details.');
+            }
+        }
+
+        function renderPetDetails() {
+            // Update page title
+            document.title = `${currentPet.name} - Pet Details - Shelter Pawtners`;
+            
+            // Update pet header
+            document.getElementById('petName').textContent = currentPet.name;
+            document.getElementById('petSpecies').textContent = capitalize(currentPet.species);
+            document.getElementById('petAge').textContent = currentPet.age ? `${currentPet.age} year${currentPet.age !== 1 ? 's' : ''}` : 'Age unknown';
+            
+            // Update pet avatar
+            const avatarElement = document.getElementById('petAvatar');
+            const speciesIcon = speciesIcons[currentPet.species] || speciesIcons.other;
+            
+            if (currentPet.photo_url) {
+                avatarElement.innerHTML = `
+                    <img src="${currentPet.photo_url}" alt="${escapeHtml(currentPet.name)}" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; position: relative; z-index: 2;">
+                    <span style="font-size: 4rem; display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; align-items: center; justify-content: center; z-index: 1;">${speciesIcon}</span>
+                `;
+            } else {
+                avatarElement.innerHTML = `<span style="font-size: 4rem;">${speciesIcon}</span>`;
+            }
+            
+            // Update basic information with all fields
+            const basicInfoHtml = `
+                <!-- Basic Pet Details -->
+                <div class="section-header">🐾 Basic Details</div>
+                <div class="info-item">
+                    <span class="info-label">Name</span>
+                    <span class="info-value">${escapeHtml(currentPet.name)}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Species</span>
+                    <span class="info-value">${capitalize(currentPet.species)}</span>
+                </div>
+                ${currentPet.breed ? `
+                <div class="info-item">
+                    <span class="info-label">Breed</span>
+                    <span class="info-value">${escapeHtml(currentPet.breed)}</span>
+                </div>
+                ` : ''}
+                ${currentPet.age ? `
+                <div class="info-item">
+                    <span class="info-label">Age</span>
+                    <span class="info-value">${currentPet.age} year${currentPet.age !== 1 ? 's' : ''}</span>
+                </div>
+                ` : ''}
+                ${currentPet.gender ? `
+                <div class="info-item">
+                    <span class="info-label">Gender</span>
+                    <span class="info-value">${capitalize(currentPet.gender)}</span>
+                </div>
+                ` : ''}
+                ${currentPet.weight ? `
+                <div class="info-item">
+                    <span class="info-label">Weight</span>
+                    <span class="info-value">${currentPet.weight} lbs</span>
+                </div>
+                ` : ''}
+                ${currentPet.description ? `
+                <div class="info-item">
+                    <span class="info-label">Description</span>
+                    <span class="info-value">${escapeHtml(currentPet.description)}</span>
+                </div>
+                ` : ''}
+                
+                <!-- Adoption Information -->
+                <div class="section-header">🏠 Adoption Information</div>
+                ${currentPet.shelter_name ? `
+                <div class="info-item">
+                    <span class="info-label">Shelter/Rescue Name</span>
+                    <span class="info-value">${escapeHtml(currentPet.shelter_name)}</span>
+                </div>
+                ` : ''}
+                ${currentPet.adoption_date ? `
+                <div class="info-item">
+                    <span class="info-label">Adoption Date</span>
+                    <span class="info-value">${formatDate(currentPet.adoption_date)}</span>
+                </div>
+                ` : ''}
+                
+                <!-- Medical Information -->
+                <div class="section-header">🏥 Medical Information</div>
+                ${currentPet.microchip_id ? `
+                <div class="info-item">
+                    <span class="info-label">Microchip ID</span>
+                    <span class="info-value">${escapeHtml(currentPet.microchip_id)}</span>
+                </div>
+                ` : ''}
+                
+                <!-- Vaccination Status -->
+                <div class="section-header">💉 Vaccination Status</div>
+                <div class="info-item">
+                    <span class="info-label">Rabies Vaccination</span>
+                    <span class="info-value ${currentPet.vaccinations && currentPet.vaccinations.includes('rabies') ? 'status-positive' : 'status-negative'}">
+                        ${currentPet.vaccinations && currentPet.vaccinations.includes('rabies') ? '✅ Yes' : '❌ No'}
+                    </span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">DHPP Vaccination</span>
+                    <span class="info-value ${currentPet.vaccinations && currentPet.vaccinations.includes('dhpp') ? 'status-positive' : 'status-negative'}">
+                        ${currentPet.vaccinations && currentPet.vaccinations.includes('dhpp') ? '✅ Yes' : '❌ No'}
+                    </span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Bordetella Vaccination</span>
+                    <span class="info-value ${currentPet.vaccinations && currentPet.vaccinations.includes('bordetella') ? 'status-positive' : 'status-negative'}">
+                        ${currentPet.vaccinations && currentPet.vaccinations.includes('bordetella') ? '✅ Yes' : '❌ No'}
+                    </span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">FVRCP Vaccination</span>
+                    <span class="info-value ${currentPet.vaccinations && currentPet.vaccinations.includes('fvrcp') ? 'status-positive' : 'status-negative'}">
+                        ${currentPet.vaccinations && currentPet.vaccinations.includes('fvrcp') ? '✅ Yes' : '❌ No'}
+                    </span>
+                </div>
+                
+                <!-- Spay/Neuter Status -->
+                <div class="section-header">🔪 Spay/Neuter Status</div>
+                <div class="info-item">
+                    <span class="info-label">Spayed/Neutered</span>
+                    <span class="info-value ${currentPet.spayed_neutered ? 'status-positive' : 'status-negative'}">
+                        ${currentPet.spayed_neutered ? '✅ Yes' : '❌ No'}
+                    </span>
+                </div>
+                
+                <!-- Health Notes -->
+                ${currentPet.health_notes ? `
+                <div class="info-item full-width">
+                    <span class="info-label">Health Notes</span>
+                    <span class="info-value">${escapeHtml(currentPet.health_notes)}</span>
+                </div>
+                ` : ''}
+            `;
+            document.getElementById('basicInfo').innerHTML = basicInfoHtml;
+            
+            // Update pet stats
+            document.getElementById('createdDate').textContent = formatDate(currentPet.created_at);
+            document.getElementById('updatedDate').textContent = formatDate(currentPet.updated_at || currentPet.created_at);
+            document.getElementById('petId').textContent = currentPet.id.split('-')[0] + '...';
+            
+            // Show the content
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('petContent').style.display = 'block';
+        }
+
+        function loadMedicalRecords() {
+            // Placeholder for medical records
+            // In the future, this would load from the database
+            const medicalRecordsHtml = `
+                <div class="empty-records">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🏥</div>
+                    <p>No medical records yet.</p>
+                    <p style="font-size: 0.875rem; color: #9CA3AF;">Medical records will appear here when added.</p>
+                </div>
+            `;
+            document.getElementById('medicalRecords').innerHTML = medicalRecordsHtml;
+            document.getElementById('recordCount').textContent = '0';
+        }
+
+        function setupEventListeners() {
+            // Edit pet button
+            document.getElementById('editPetBtn').addEventListener('click', function() {
+                window.location.href = `create-pet.html?edit=${petId}`;
+            });
+
+            // Add medical record button
+            document.getElementById('addMedicalRecordBtn').addEventListener('click', function() {
+                alert('Medical records feature coming soon!');
+            });
+
+            // Download profile button
+            document.getElementById('downloadProfileBtn').addEventListener('click', function() {
+                downloadPetProfile();
+            });
+
+            // Share pet button
+            document.getElementById('sharePetBtn').addEventListener('click', function() {
+                sharePet();
+            });
+        }
+
+        function downloadPetProfile() {
+            // Create a simple text profile for download
+            const profileData = `
+Pet Profile: ${currentPet.name}
+================================
+
+Basic Information:
+- Name: ${currentPet.name}
+- Species: ${capitalize(currentPet.species)}
+- Breed: ${currentPet.breed || 'Not specified'}
+- Age: ${currentPet.age ? `${currentPet.age} years` : 'Not specified'}
+- Gender: ${currentPet.gender || 'Not specified'}
+- Weight: ${currentPet.weight ? `${currentPet.weight} lbs` : 'Not specified'}
+- Microchip ID: ${currentPet.microchip_id || 'Not specified'}
+
+Profile Details:
+- Profile Created: ${formatDate(currentPet.created_at)}
+- Last Updated: ${formatDate(currentPet.updated_at || currentPet.created_at)}
+- Profile ID: ${currentPet.id}
+
+Generated by Shelter Pawtners
+${new Date().toLocaleString()}
+            `.trim();
+
+            const blob = new Blob([profileData], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${currentPet.name.replace(/[^a-zA-Z0-9]/g, '_')}_profile.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function sharePet() {
+            const shareData = {
+                title: `${currentPet.name}'s Pet Profile`,
+                text: `Check out ${currentPet.name}'s digital pet profile on Shelter Pawtners!`,
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData);
+            } else {
+                // Fallback: copy to clipboard
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('Pet profile link copied to clipboard!');
+                });
+            }
+        }
+
+        function showError(message) {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorState').style.display = 'block';
+        }
+
+        // Utility functions
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric',
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+    </script>
+</body>
+</html>
