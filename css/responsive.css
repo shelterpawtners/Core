@@ -1,0 +1,156 @@
+/* Responsive Styles - Mobile First Approach */
+
+/* Base styles are mobile-first (already in main.css) */
+
+/* Small devices (phones, 640px and up) */
+@media (min-width: 640px) {
+    .container {
+        padding: 0 var(--spacing-lg);
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .section {
+        padding: var(--spacing-2xl) 0;
+    }
+    
+    .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hero {
+        padding: 4rem 0;
+    }
+    
+    .card-image {
+        height: 250px;
+    }
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media (min-width: 1024px) {
+    .container {
+        padding: 0 var(--spacing-xl);
+    }
+    
+    .section {
+        padding: 5rem 0;
+    }
+    
+    .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .hero {
+        padding: 5rem 0;
+    }
+    
+    .feature-box {
+        padding: var(--spacing-2xl);
+    }
+}
+
+/* Extra large devices (large desktops, 1280px and up) */
+@media (min-width: 1280px) {
+    .hero {
+        padding: 6rem 0;
+    }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Dark Mode Support (optional future enhancement) */
+@media (prefers-color-scheme: dark) {
+    /* Uncomment when dark mode is desired
+    :root {
+        --dark-color: #F9FAFB;
+        --light-color: #1F2937;
+        --white-color: #111827;
+    }
+    
+    body {
+        background-color: #111827;
+        color: #F9FAFB;
+    }
+    */
+}
+
+/* Print Optimization */
+@media print {
+    .header,
+    .footer,
+    .mobile-menu-toggle,
+    .auth-buttons,
+    .hero-buttons,
+    .btn,
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        color: #000;
+        background: #fff;
+    }
+    
+    a {
+        color: #000;
+        text-decoration: underline;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    .section {
+        padding: 1rem 0;
+        page-break-inside: avoid;
+    }
+    
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .btn {
+        border: 2px solid currentColor;
+    }
+    
+    .card {
+        border: 2px solid var(--dark-color);
+    }
+}
+
+/* Landscape Orientation Adjustments for Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        padding: var(--spacing-xl) 0;
+    }
+    
+    .section {
+        padding: var(--spacing-lg) 0;
+    }
+}

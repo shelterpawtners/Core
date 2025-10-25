@@ -1,0 +1,222 @@
+/* ShelterPAWtners - Main Stylesheet */
+
+/* CSS Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Colors */
+    --primary-color: #4A90E2;
+    --secondary-color: #F97316;
+    --accent-color: #10B981;
+    --dark-color: #1F2937;
+    --light-color: #F3F4F6;
+    --white-color: #FFFFFF;
+    
+    /* Typography */
+    --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-2xl: 4rem;
+    
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-normal: 250ms ease-in-out;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    line-height: 1.6;
+    color: var(--dark-color);
+    background-color: var(--white-color);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+    color: var(--dark-color);
+}
+
+h1 {
+    font-size: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
+}
+
+h2 {
+    font-size: clamp(1.75rem, 1.5rem + 1.25vw, 2.5rem);
+}
+
+h3 {
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+}
+
+h4 {
+    font-size: clamp(1.25rem, 1.125rem + 0.625vw, 1.5rem);
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+/* Container and Layout */
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.section {
+    padding: var(--spacing-2xl) 0;
+}
+
+.section-alt {
+    background-color: var(--light-color);
+}
+
+/* Grid System */
+.grid {
+    display: grid;
+    gap: var(--spacing-lg);
+}
+
+.grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+
+.grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.text-primary {
+    color: var(--primary-color);
+}
+
+.text-secondary {
+    color: var(--secondary-color);
+}
+
+.text-accent {
+    color: var(--accent-color);
+}
+
+.bg-primary {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.bg-secondary {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+}
+
+.bg-light {
+    background-color: var(--light-color);
+}
+
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mt-xl { margin-top: var(--spacing-xl); }
+
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.mb-xl { margin-bottom: var(--spacing-xl); }
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: var(--spacing-md);
+    padding-left: var(--spacing-lg);
+}
+
+li {
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: var(--spacing-md);
+    margin: var(--spacing-lg) 0;
+    font-style: italic;
+    color: #6B7280;
+}
+
+/* Accessibility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus States */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none;
+    }
+}
