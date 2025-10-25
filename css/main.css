@@ -9,12 +9,19 @@
 
 :root {
     /* Colors */
-    --primary-color: #4A90E2;
-    --secondary-color: #F97316;
-    --accent-color: #10B981;
-    --dark-color: #1F2937;
-    --light-color: #F3F4F6;
-    --white-color: #FFFFFF;
+    --primary-color: #8B5CF6; /* Purple */
+    --secondary-color: #06B6D4; /* Teal/Cyan */
+    --accent-color: #F59E0B; /* Amber accent */
+    --dark-color: #111827; /* Darker grey background */
+    --light-color: #374151; /* Medium grey */
+    --white-color: #F9FAFB; /* Off-white for text on dark */
+    --surface-color: #1F2937; /* Card/surface color */
+    
+    /* Gradient Colors */
+    --gradient-primary: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+    --gradient-secondary: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
+    --gradient-accent: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
+    --gradient-dark: linear-gradient(135deg, #111827 0%, #1F2937 100%);
     
     /* Typography */
     --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -51,8 +58,9 @@ body {
     font-family: var(--font-body);
     font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
     line-height: 1.6;
-    color: var(--dark-color);
-    background-color: var(--white-color);
+    color: var(--white-color);
+    background: var(--gradient-dark);
+    min-height: 100vh;
 }
 
 /* Typography */
@@ -61,7 +69,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: var(--spacing-md);
-    color: var(--dark-color);
+    color: var(--white-color);
 }
 
 h1 {
@@ -107,7 +115,7 @@ a:hover {
 }
 
 .section-alt {
-    background-color: var(--light-color);
+    background: var(--gradient-secondary);
 }
 
 /* Grid System */
@@ -142,17 +150,18 @@ a:hover {
 }
 
 .bg-primary {
-    background-color: var(--primary-color);
+    background: var(--gradient-primary);
     color: var(--white-color);
 }
 
 .bg-secondary {
-    background-color: var(--secondary-color);
+    background: var(--gradient-secondary);
     color: var(--white-color);
 }
 
 .bg-light {
-    background-color: var(--light-color);
+    background-color: var(--surface-color);
+    color: var(--white-color);
 }
 
 .mt-sm { margin-top: var(--spacing-sm); }
