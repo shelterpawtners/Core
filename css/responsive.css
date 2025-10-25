@@ -2,6 +2,31 @@
 
 /* Base styles are mobile-first (already in main.css) */
 
+/* CRITICAL: Mobile Navigation Fix - Ensure nav is hidden when not active */
+@media (max-width: 767px) {
+    .header .nav:not(.active) {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        max-height: 0 !important;
+        overflow: hidden !important;
+        padding: 0 !important;
+    }
+    
+    .header .nav:not(.active) .nav-menu,
+    .header .nav:not(.active) .nav-link {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+    
+    /* Ensure mobile toggle is visible */
+    .mobile-menu-toggle {
+        display: block !important;
+    }
+}
+
 /* Extra small devices (phones, up to 480px) */
 @media (max-width: 480px) {
     .header-container {

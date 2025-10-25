@@ -76,6 +76,78 @@
     width: 100%;
 }
 
+/* Enhanced Hero Buttons */
+.btn-hero-primary {
+    border: 3px solid var(--white-color);
+    box-shadow: 0 8px 32px rgba(6, 182, 212, 0.3);
+    position: relative;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: pulse-glow 2s infinite;
+}
+
+.btn-hero-primary:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 12px 40px rgba(6, 182, 212, 0.5);
+    transform: translateY(-3px) scale(1.02);
+}
+
+.btn-hero-secondary {
+    border: 3px solid var(--white-color);
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.btn-hero-secondary:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 12px 40px rgba(139, 92, 246, 0.5);
+    transform: translateY(-3px) scale(1.02);
+    background: var(--gradient-primary);
+}
+
+/* Pulse animation for primary hero button */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 8px 32px rgba(6, 182, 212, 0.3);
+    }
+    50% {
+        box-shadow: 0 8px 32px rgba(6, 182, 212, 0.6);
+    }
+}
+
+/* Enhanced CTA Buttons */
+.btn-cta-enhanced {
+    border: 2px solid currentColor;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-cta-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-cta-enhanced:hover::before {
+    left: 100%;
+}
+
+.btn-cta-enhanced:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
 /* Cards */
 .card {
     background-color: var(--surface-color);

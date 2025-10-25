@@ -162,11 +162,12 @@ Shelter Pawtners is a revolutionary platform connecting shelter-adopted pets, th
 - Optimistic and hopeful
 
 ## Call-to-Action Language
-- "Join the Pack"
+- "Add your Paws to the Pack"
+- "Microchips with Vet Records"
 - "Get Started Today"
 - "Save on Pet Care for Life"
-- "Partner with Us"
-- "Make a Difference"
+- "Partner with Resources that care"
+- "Make a Difference with data"
 
 ## Key Messages
 1. Rescued pets deserve the best care

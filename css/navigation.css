@@ -141,10 +141,11 @@
         padding: 0;
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+        transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
         z-index: 1000;
         opacity: 0;
         visibility: hidden;
+        display: flex !important; /* Override any other display settings */
     }
     
     .nav.active {
@@ -161,6 +162,7 @@
         align-items: stretch;
         margin: 0;
         padding: 0;
+        display: flex; /* Ensure nav-menu is always flex */
     }
     
     .nav-link {
@@ -182,9 +184,40 @@
         border-bottom: none;
     }
     
-    /* Hide navigation on mobile by default */
+    /* Ensure navigation is properly hidden on mobile by default */
     .nav:not(.active) {
-        display: none;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        max-height: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    /* Extra precaution: hide nav links when parent nav is not active */
+    .nav:not(.active) .nav-menu,
+    .nav:not(.active) .nav-link {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+}
+
+/* Critical fix: Ensure mobile menu is absolutely hidden when not active */
+@media (max-width: 767px) {
+    .header .nav:not(.active) {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        max-height: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    .header .nav:not(.active) .nav-menu {
+        display: none !important;
+    }
+    
+    .header .nav:not(.active) .nav-link {
+        display: none !important;
     }
 }
 
