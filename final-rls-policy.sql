@@ -7,7 +7,7 @@ DROP POLICY IF EXISTS "Allow all operations on pets" ON public.pets;
 -- Create proper working policies
 -- INSERT: Allow authenticated users to create pets
 CREATE POLICY "Authenticated users can create pets" ON public.pets
-    FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+    FOR INSERT WITH CHECK (auth.uid() IS NOT NULL AND auth.uid() = owner_id);
 
 -- SELECT: Users can view their own pets
 CREATE POLICY "Users can view own pets" ON public.pets
@@ -15,7 +15,8 @@ CREATE POLICY "Users can view own pets" ON public.pets
 
 -- UPDATE: Users can update their own pets  
 CREATE POLICY "Users can update own pets" ON public.pets
-    FOR UPDATE USING (auth.uid() = owner_id);
+    FOR UPDATE USING (auth.uid() = owner_id)
+    WITH CHECK (auth.uid() = owner_id);
 
 -- DELETE: Users can delete their own pets
 CREATE POLICY "Users can delete own pets" ON public.pets
