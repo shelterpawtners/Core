@@ -1,7 +1,7 @@
-# ShelterPAWtners Website Specifications
+# Shelter Pawtners Website Specifications
 
 ## Overview
-ShelterPAWtners is a revolutionary platform connecting shelter-adopted pets, their owners, and local businesses to provide lifetime discounts and benefits for rescued animals.
+Shelter Pawtners is a revolutionary platform connecting shelter-adopted pets, their owners, and local businesses to provide lifetime discounts and benefits for rescued animals.
 
 ## Target Personas
 
@@ -30,7 +30,7 @@ ShelterPAWtners is a revolutionary platform connecting shelter-adopted pets, the
 
 ### Pages Required
 1. **index.html** - Homepage with hero section and key value propositions
-2. **/pages/about.html** - About ShelterPAWtners mission and story
+2. **/pages/about.html** - About Shelter Pawtners mission and story
 3. **/pages/how-it-works.html** - Detailed explanation of the platform
 4. **/pages/pet-owners.html** - Sign up page for pet owners
 5. **/pages/businesses.html** - Sign up page for businesses
@@ -41,7 +41,7 @@ ShelterPAWtners is a revolutionary platform connecting shelter-adopted pets, the
 ### Shared Design Elements
 
 #### Header Navigation
-- Logo: "ShelterPAWtners" with paw icon
+- Logo: "Shelter Pawtners" with paw icon
 - Navigation menu:
   - Home
   - About
