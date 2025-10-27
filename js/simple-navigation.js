@@ -111,17 +111,30 @@ class SimpleUnifiedNavigation {
                 <!-- Mobile Navigation -->
                 <nav class="mobile-nav">
                     <ul class="nav-menu">
-                        <li><a href="${basePath}pages/how-it-works.html" class="nav-link">How It Works</a></li>
-                        <li><a href="${basePath}pages/about.html" class="nav-link">About Us</a></li>
-                        <li><a href="${basePath}pages/contact.html" class="nav-link">Contact</a></li>
-                        <li><a href="${basePath}pages/sheltercard.html" class="nav-link">ShelterCARD</a></li>
-                        <li><a href="${basePath}pages/vets.html" class="nav-link">Vets</a></li>
-                        <li><a href="${basePath}pages/shelters.html" class="nav-link">Shelters</a></li>
-                        <li><a href="${basePath}pages/businesses.html" class="nav-link">Partners</a></li>
-                        ${this.isAuthenticated 
-                            ? '<li><a href="' + basePath + 'pages/dashboard.html" class="nav-link">My Account</a></li>'
-                            : '<li><a href="' + basePath + 'pages/login.html" class="nav-link">Sign In</a></li>'
-                        }
+                        <li class="nav-item nav-dropdown mobile-dropdown">
+                            <button class="nav-link dropdown-toggle">
+                                How It Works <span class="dropdown-arrow">▼</span>
+                            </button>
+                            <ul class="dropdown-menu mobile-submenu">
+                                <li><a href="${basePath}pages/how-it-works.html" class="dropdown-link">How It Works</a></li>
+                                <li><a href="${basePath}pages/about.html" class="dropdown-link">About Us</a></li>
+                                <li><a href="${basePath}pages/contact.html" class="dropdown-link">Contact</a></li>
+                                <li><a href="${basePath}pages/faq.html" class="dropdown-link">FAQ</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="${basePath}pages/sheltercard.html" class="nav-link">ShelterCARD</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="${basePath}pages/vets.html" class="nav-link">Vets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="${basePath}pages/shelters.html" class="nav-link">Shelters</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="${basePath}pages/businesses.html" class="nav-link">Partners</a>
+                        </li>
+                        ${this.getMobileAuthSection(basePath)}
                     </ul>
                 </nav>
             </div>
@@ -129,7 +142,7 @@ class SimpleUnifiedNavigation {
     }
 
     /**
-     * Get authentication section
+     * Get authentication section for desktop
      */
     getAuthSection(basePath) {
         if (this.isAuthenticated) {
@@ -156,6 +169,33 @@ class SimpleUnifiedNavigation {
     }
 
     /**
+     * Get authentication section for mobile
+     */
+    getMobileAuthSection(basePath) {
+        if (this.isAuthenticated) {
+            return `
+                <li class="nav-item nav-dropdown mobile-dropdown">
+                    <button class="nav-link dropdown-toggle">
+                        My Account <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <ul class="dropdown-menu mobile-submenu">
+                        <li><a href="${basePath}pages/dashboard.html" class="dropdown-link">Dashboard</a></li>
+                        <li><a href="${basePath}pages/my-pets.html" class="dropdown-link">My Pets</a></li>
+                        <li><a href="${basePath}pages/profile.html" class="dropdown-link">Profile</a></li>
+                        <li><button class="dropdown-link" onclick="logout()">Sign Out</button></li>
+                    </ul>
+                </li>
+            `;
+        } else {
+            return `
+                <li class="nav-item">
+                    <a href="${basePath}pages/login.html" class="nav-link">Sign In</a>
+                </li>
+            `;
+        }
+    }
+
+    /**
      * Setup mobile menu toggle
      */
     setupMobileMenu() {
@@ -171,7 +211,7 @@ class SimpleUnifiedNavigation {
     }
 
     /**
-     * Setup dropdown functionality
+     * Setup dropdown functionality for both desktop and mobile
      */
     setupDropdowns() {
         const dropdowns = document.querySelectorAll('.nav-dropdown');
@@ -183,16 +223,49 @@ class SimpleUnifiedNavigation {
             if (toggle && menu) {
                 toggle.addEventListener('click', (e) => {
                     e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Close other dropdowns first
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
                     dropdown.classList.toggle('active');
                 });
                 
-                // Close on outside click
-                document.addEventListener('click', (e) => {
-                    if (!dropdown.contains(e.target)) {
-                        dropdown.classList.remove('active');
-                    }
+                // Prevent menu from closing when clicking inside it
+                menu.addEventListener('click', (e) => {
+                    e.stopPropagation();
                 });
             }
+        });
+        
+        // Close dropdowns on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-dropdown')) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+        
+        // Close dropdowns when clicking mobile menu links
+        const mobileLinks = document.querySelectorAll('.mobile-nav .dropdown-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Close the mobile menu after clicking a link
+                setTimeout(() => {
+                    const mobileNav = document.querySelector('.mobile-nav');
+                    const toggle = document.querySelector('.nav-toggle');
+                    if (mobileNav && toggle) {
+                        mobileNav.classList.remove('active');
+                        toggle.classList.remove('active');
+                    }
+                }, 100);
+            });
         });
     }
 

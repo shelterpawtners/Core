@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation & Footer Improvements Test</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/simple-navigation.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        .improvements-showcase {
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .improvement-section {
+            background: var(--glass-surface-dark);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .before, .after {
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .before {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+        
+        .after {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+        
+        .mobile-demo {
+            background: var(--glass-surface);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .hamburger-demo {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 1rem;
+        }
+        
+        .hamburger-demo-line {
+            width: 24px;
+            height: 3px;
+            background-color: #FFFFFF;
+            margin: 5px 0;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        }
+        
+        .footer-preview {
+            background: var(--gradient-dark);
+            color: #E5E7EB;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .footer-preview-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            font-size: 0.8rem;
+        }
+        
+        .footer-preview-section h4 {
+            color: #F9FAFB;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-preview-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-preview-section li {
+            padding: 0.2rem 0;
+            color: #E5E7EB;
+        }
+        
+        @media (max-width: 768px) {
+            .before-after {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-preview-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- IMPROVED NAVIGATION -->
+    <header class="header">
+        <!-- Navigation automatically loaded by simple-navigation.js -->
+    </header>
+
+    <main>
+        <div class="improvements-showcase">
+            <section class="hero">
+                <div class="container">
+                    <h1>🚀 Navigation & Footer Improvements</h1>
+                    <p class="subtitle">Testing enhanced mobile navigation visibility and compact footer layout</p>
+                </div>
+            </section>
+
+            <div class="improvement-section">
+                <h2>📱 Mobile Navigation Enhancement</h2>
+                <p>Enhanced the mobile hamburger menu for maximum visibility and better user experience.</p>
+                
+                <div class="before-after">
+                    <div class="before">
+                        <h3>❌ Before</h3>
+                        <ul>
+                            <li>Hard to see hamburger icon</li>
+                            <li>No dropdown menus in mobile</li>
+                            <li>Basic styling without contrast</li>
+                            <li>Missing subpage access</li>
+                        </ul>
+                    </div>
+                    <div class="after">
+                        <h3>✅ After</h3>
+                        <ul>
+                            <li>White hamburger with strong border</li>
+                            <li>Full dropdown functionality</li>
+                            <li>Glass background with shadows</li>
+                            <li>All subpages accessible</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mobile-demo">
+                    <h4>📱 Enhanced Mobile Hamburger Menu</h4>
+                    <div class="hamburger-demo">
+                        <div class="hamburger-demo-line"></div>
+                        <div class="hamburger-demo-line"></div>
+                        <div class="hamburger-demo-line"></div>
+                    </div>
+                    <p>White lines with strong border and glass background</p>
+                </div>
+            </div>
+
+            <div class="improvement-section">
+                <h2>🗂️ Footer Layout Enhancement</h2>
+                <p>Redesigned footer to be compact, horizontal, and organized in 4 columns for better usability.</p>
+                
+                <div class="before-after">
+                    <div class="before">
+                        <h3>❌ Before</h3>
+                        <ul>
+                            <li>Too much vertical spacing</li>
+                            <li>Inefficient use of space</li>
+                            <li>Hard to scan quickly</li>
+                            <li>Too much padding</li>
+                        </ul>
+                    </div>
+                    <div class="after">
+                        <h3>✅ After</h3>
+                        <ul>
+                            <li>Compact 4-column layout</li>
+                            <li>Efficient horizontal organization</li>
+                            <li>Quick scanning and navigation</li>
+                            <li>Minimal, clean spacing</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-preview">
+                    <h4>🎯 New Compact Footer Layout</h4>
+                    <div class="footer-preview-content">
+                        <div class="footer-preview-section">
+                            <h4>🐾 About</h4>
+                            <ul>
+                                <li>Mission</li>
+                                <li>How It Works</li>
+                                <li>Success Stories</li>
+                            </ul>
+                        </div>
+                        <div class="footer-preview-section">
+                            <h4>🔗 Quick Links</h4>
+                            <ul>
+                                <li>ShelterCARD</li>
+                                <li>Find Vets</li>
+                                <li>Contact</li>
+                            </ul>
+                        </div>
+                        <div class="footer-preview-section">
+                            <h4>👥 Community</h4>
+                            <ul>
+                                <li>Pet Parents</li>
+                                <li>Businesses</li>
+                                <li>Shelters</li>
+                            </ul>
+                        </div>
+                        <div class="footer-preview-section">
+                            <h4>📄 Legal</h4>
+                            <ul>
+                                <li>Privacy</li>
+                                <li>Terms</li>
+                                <li>Support</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="improvement-section">
+                <h2>🧪 Testing Instructions</h2>
+                <div class="hero-buttons">
+                    <button onclick="testMobileNav()" class="btn btn-primary">
+                        📱 Test Mobile Navigation
+                    </button>
+                    <button onclick="scrollToFooter()" class="btn btn-secondary">
+                        👇 View Compact Footer
+                    </button>
+                    <button onclick="showMobileView()" class="btn btn-outline">
+                        📏 Simulate Mobile View
+                    </button>
+                </div>
+                
+                <div style="background: var(--glass-primary-light); padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+                    <h3>📋 Test Checklist:</h3>
+                    <ol>
+                        <li><strong>Mobile Navigation:</strong> Resize window to under 768px width</li>
+                        <li><strong>Hamburger Visibility:</strong> Look for white hamburger icon with border</li>
+                        <li><strong>Dropdown Functionality:</strong> Click "How It Works" to see submenu</li>
+                        <li><strong>Subpage Access:</strong> Verify access to About, Contact, FAQ</li>
+                        <li><strong>Footer Layout:</strong> Check 4-column horizontal layout at bottom</li>
+                        <li><strong>Compact Design:</strong> Confirm footer is not too tall</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- IMPROVED COMPACT FOOTER -->
+    <footer id="footer" class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🐾 About Shelter Pawtners</h3>
+                    <p>The digital backbone for post-adoption success, connecting shelter-adopted pets with lifetime support.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Facebook">📘</a>
+                        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>🔗 Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="pages/about.html" class="footer-link">About Us</a></li>
+                        <li><a href="pages/how-it-works.html" class="footer-link">How It Works</a></li>
+                        <li><a href="pages/contact.html" class="footer-link">Contact</a></li>
+                        <li><a href="pages/faq.html" class="footer-link">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>👥 Community</h3>
+                    <ul class="footer-links">
+                        <li><a href="pages/pet-owners.html" class="footer-link">Pet Parents</a></li>
+                        <li><a href="pages/businesses.html" class="footer-link">Businesses</a></li>
+                        <li><a href="pages/shelters.html" class="footer-link">Shelters</a></li>
+                        <li><a href="pages/vets.html" class="footer-link">Veterinarians</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>📄 Legal & Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="pages/privacy.html" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="pages/terms.html" class="footer-link">Terms of Service</a></li>
+                        <li><a href="pages/contact.html" class="footer-link">Support</a></li>
+                        <li><a href="pages/sheltercard.html" class="footer-link">ShelterCARD</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 Shelter Pawtners. All rights reserved.</p>
+                    <ul class="footer-legal">
+                        <li><a href="pages/privacy.html" class="footer-link">Privacy</a></li>
+                        <li><a href="pages/terms.html" class="footer-link">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/utils.js"></script>
+    <script src="js/forms.js"></script>
+    <script src="js/simple-navigation.js"></script>
+    
+    <script>
+        function testMobileNav() {
+            if (window.innerWidth > 768) {
+                alert('📱 Please resize your browser window to under 768px width to test mobile navigation, or view on a mobile device.');
+            } else {
+                alert('📱 Mobile view active! Look for the white hamburger menu in the top-right corner. Click it to test dropdown functionality.');
+            }
+        }
+        
+        function scrollToFooter() {
+            document.getElementById('footer').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                alert('👇 Check out the new compact footer with 4-column horizontal layout!');
+            }, 1000);
+        }
+        
+        function showMobileView() {
+            const width = window.innerWidth;
+            const isMobile = width <= 768;
+            alert(`📏 Current screen width: ${width}px\n\n${isMobile ? '📱 Mobile view is active!\n\n✅ Hamburger menu should be visible\n✅ Footer should show 2 columns on mobile' : '🖥️ Desktop view is active\n\n📱 Resize window to under 768px for mobile view\n🖥️ Footer shows all 4 columns on desktop'}`);
+        }
+        
+        // Show improvement summary on load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const improvements = [
+                    '📱 Mobile hamburger menu now WHITE with strong border',
+                    '🗂️ Mobile navigation includes dropdown menus',
+                    '📏 Footer redesigned to compact 4-column layout',
+                    '🎯 Both improvements enhance user experience'
+                ];
+                
+                console.log('🚀 Navigation & Footer Improvements Applied:');
+                improvements.forEach(improvement => console.log(improvement));
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

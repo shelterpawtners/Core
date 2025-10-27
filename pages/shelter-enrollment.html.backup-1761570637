@@ -8,7 +8,6 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/navigation.css">
-    <link rel="stylesheet" href="../css/simple-navigation.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/responsive.css">
 </head>
@@ -433,12 +432,5 @@
             }
         }
     </style>
-
-    <!-- UNIFIED FOOTER -->
-    <footer class="footer">
-        <!-- Footer content automatically loaded by simple-footer.js -->
-    </footer>
-
-    <!-- SIMPLE UNIFIED FOOTER - Consistent footer for all pages -->
-    <script src="../js/simple-footer.js"></script>
 </body>
+</html>

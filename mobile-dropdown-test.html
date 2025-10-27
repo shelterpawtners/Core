@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Dropdown Navigation Test</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/simple-navigation.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        .test-container {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .test-section {
+            background: var(--glass-surface-dark);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        
+        .status-success {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22C55E;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        .status-info {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3B82F6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .instruction-list {
+            background: var(--glass-primary-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .instruction-list ol {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .instruction-list li {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: var(--glass-surface);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .screen-size-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--glass-surface-dark);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 10001;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- ENHANCED NAVIGATION WITH MOBILE DROPDOWNS -->
+    <header class="header">
+        <!-- Navigation automatically loaded by simple-navigation.js -->
+    </header>
+
+    <main>
+        <div class="test-container">
+            <section class="hero">
+                <div class="container">
+                    <h1>📱 Mobile Dropdown Navigation Test</h1>
+                    <p class="subtitle">Testing enhanced mobile navigation with expandable dropdown menus</p>
+                    
+                    <div class="status-indicator status-success">
+                        ✅ Mobile Dropdowns ENHANCED
+                    </div>
+                    <div class="status-indicator status-info">
+                        📱 Resize window to test mobile view
+                    </div>
+                </div>
+            </section>
+
+            <div class="test-section">
+                <h2>🎯 What's New in Mobile Navigation</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>📋 Expandable Dropdowns</h3>
+                        <p>Mobile navigation now includes expandable dropdown menus for "How It Works" and "My Account" sections.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎨 Enhanced Visual Design</h3>
+                        <p>White hamburger icon with glass background and border for maximum visibility.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔧 Smooth Animations</h3>
+                        <p>Smooth expand/collapse animations with proper transitions and transforms.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>👆 Touch-Friendly</h3>
+                        <p>44px minimum touch targets and proper spacing for mobile interaction.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-section">
+                <h2>🧪 Testing Instructions</h2>
+                <div class="instruction-list">
+                    <h3>Mobile View Testing:</h3>
+                    <ol>
+                        <li><strong>Resize Window:</strong> Make your browser window narrow (under 768px wide) OR view on mobile device</li>
+                        <li><strong>Find Hamburger Menu:</strong> Look for the white hamburger icon with border in the top-right</li>
+                        <li><strong>Open Menu:</strong> Click/tap the hamburger to open mobile navigation</li>
+                        <li><strong>Test Dropdowns:</strong> Click "How It Works ▼" to see submenu expand</li>
+                        <li><strong>Check Subpages:</strong> Verify you can see: How It Works, About Us, Contact, FAQ</li>
+                        <li><strong>Test Auth Menu:</strong> If authenticated, test "My Account ▼" dropdown</li>
+                        <li><strong>Close Menu:</strong> Click hamburger again or select a menu item</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="test-section">
+                <h2>📋 Mobile Navigation Structure</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🔗 Main Menu Items</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li>📖 How It Works (Dropdown)</li>
+                            <li style="padding-left: 1rem;">• How It Works</li>
+                            <li style="padding-left: 1rem;">• About Us</li>
+                            <li style="padding-left: 1rem;">• Contact</li>
+                            <li style="padding-left: 1rem;">• FAQ</li>
+                            <li>💳 ShelterCARD</li>
+                            <li>🏥 Vets</li>
+                            <li>🏠 Shelters</li>
+                            <li>🏢 Partners</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h3>👤 Authentication Menu</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li><strong>Logged Out:</strong></li>
+                            <li>🔐 Sign In</li>
+                            <li><br><strong>Logged In:</strong></li>
+                            <li>👤 My Account (Dropdown)</li>
+                            <li style="padding-left: 1rem;">• Dashboard</li>
+                            <li style="padding-left: 1rem;">• My Pets</li>
+                            <li style="padding-left: 1rem;">• Profile</li>
+                            <li style="padding-left: 1rem;">• Sign Out</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-section">
+                <h2>🎨 Visual Enhancements</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>📱 Hamburger Menu</h3>
+                        <ul>
+                            <li>White color for maximum visibility</li>
+                            <li>Glass background with border</li>
+                            <li>44px minimum touch target</li>
+                            <li>Hover/focus effects with lift animation</li>
+                            <li>Smooth X transformation when active</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📋 Dropdown Menus</h3>
+                        <ul>
+                            <li>Smooth expand/collapse animations</li>
+                            <li>Glass background with blur effects</li>
+                            <li>Left border accent on hover</li>
+                            <li>Proper spacing and touch targets</li>
+                            <li>Auto-close after selection</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-section">
+                <h2>🔍 Quick Test Actions</h2>
+                <div class="hero-buttons">
+                    <button onclick="simulateMobileAuth()" class="btn btn-primary">
+                        🔐 Test Authenticated Mobile Menu
+                    </button>
+                    <button onclick="simulateLogout()" class="btn btn-outline">
+                        🚪 Test Logout Mobile Menu
+                    </button>
+                    <button onclick="showScreenSize()" class="btn btn-secondary">
+                        📏 Show Screen Size
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Screen Size Indicator -->
+    <div class="screen-size-indicator" id="screenSize">
+        Screen: <span id="screenWidth"></span>px
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/utils.js"></script>
+    <script src="js/forms.js"></script>
+    <script src="js/simple-navigation.js"></script>
+    
+    <script>
+        function simulateMobileAuth() {
+            localStorage.setItem('userAuthenticated', 'true');
+            alert('🔐 Authentication simulated! Reload to see "My Account" dropdown in mobile menu.');
+            setTimeout(() => window.location.reload(), 1000);
+        }
+        
+        function simulateLogout() {
+            localStorage.removeItem('userAuthenticated');
+            sessionStorage.removeItem('userAuthenticated');
+            alert('🚪 Logged out! Reload to see "Sign In" button in mobile menu.');
+            setTimeout(() => window.location.reload(), 1000);
+        }
+        
+        function showScreenSize() {
+            const width = window.innerWidth;
+            const isMobile = width <= 768;
+            alert(`📏 Screen Width: ${width}px\n${isMobile ? '📱 Mobile View Active' : '🖥️ Desktop View Active'}\n\n${isMobile ? 'Hamburger menu should be visible!' : 'Resize window to under 768px for mobile view.'}`);
+        }
+        
+        function updateScreenSize() {
+            const width = window.innerWidth;
+            document.getElementById('screenWidth').textContent = width;
+            
+            const indicator = document.getElementById('screenSize');
+            if (width <= 768) {
+                indicator.style.background = 'var(--glass-success)';
+                indicator.style.borderColor = 'rgba(34, 197, 94, 0.3)';
+            } else {
+                indicator.style.background = 'var(--glass-surface-dark)';
+                indicator.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            }
+        }
+        
+        // Update screen size on load and resize
+        window.addEventListener('load', updateScreenSize);
+        window.addEventListener('resize', updateScreenSize);
+        
+        // Auto-show mobile instructions when in mobile view
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                if (window.innerWidth <= 768) {
+                    const mobileAlert = confirm('📱 Mobile view detected! Would you like to see instructions for testing the mobile dropdown menu?');
+                    if (mobileAlert) {
+                        document.querySelector('.instruction-list').scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
