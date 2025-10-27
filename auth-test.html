@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Testing - Authentication States</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/simple-navigation.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- CLEAN NAVIGATION - Same on ALL pages -->
+    <header class="header">
+        <!-- Navigation automatically loaded by simple-navigation.js -->
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="card">
+                    <h1>🧪 Navigation Authentication Testing</h1>
+                    <p>This page allows you to test the authentication states of the navigation system.</p>
+                    
+                    <div class="hero-buttons" style="margin-top: 2rem;">
+                        <button onclick="simulateLogin()" class="btn btn-primary">
+                            🔓 Simulate Login (Show My Account)
+                        </button>
+                        <button onclick="simulateLogout()" class="btn btn-secondary">
+                            🔒 Simulate Logout (Show Sign In)
+                        </button>
+                        <button onclick="checkAuthState()" class="btn btn-outline">
+                            🔍 Check Current Auth State
+                        </button>
+                    </div>
+                    
+                    <div id="authStatus" style="margin-top: 2rem; padding: 1rem; background: var(--glass-surface-dark); border-radius: 8px;">
+                        <h3>Current Authentication Status:</h3>
+                        <p id="statusText">Loading...</p>
+                    </div>
+                    
+                    <div class="mt-xl">
+                        <h3>📋 Test Checklist:</h3>
+                        <ul class="list-styled">
+                            <li>✅ Navigation appears on same line as logo</li>
+                            <li>✅ Dropdown menus appear ON TOP of content (z-index fixed)</li>
+                            <li>🔄 "Sign In" button appears when logged out</li>
+                            <li>🔄 "My Account" dropdown appears when logged in</li>
+                            <li>🔄 All pages use identical navigation structure</li>
+                        </ul>
+                        
+                        <h3 class="mt-lg">🔗 Test Navigation Links:</h3>
+                        <p>Navigate to different pages and verify consistent navigation:</p>
+                        <div class="hero-buttons">
+                            <a href="pages/about.html" class="btn btn-outline">About</a>
+                            <a href="pages/contact.html" class="btn btn-outline">Contact</a>
+                            <a href="pages/dashboard.html" class="btn btn-outline">Dashboard</a>
+                            <a href="pages/my-pets.html" class="btn btn-outline">My Pets</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="js/utils.js"></script>
+    <script src="js/forms.js"></script>
+    <!-- SIMPLE NAVIGATION - Clean, consistent, logo and links on same line -->
+    <script src="js/simple-navigation.js"></script>
+    
+    <script>
+        function simulateLogin() {
+            localStorage.setItem('userAuthenticated', 'true');
+            sessionStorage.setItem('userAuthenticated', 'true');
+            location.reload();
+        }
+        
+        function simulateLogout() {
+            localStorage.removeItem('userAuthenticated');
+            sessionStorage.removeItem('userAuthenticated');
+            location.reload();
+        }
+        
+        function checkAuthState() {
+            const localStorageAuth = localStorage.getItem('userAuthenticated');
+            const sessionStorageAuth = sessionStorage.getItem('userAuthenticated');
+            const statusEl = document.getElementById('statusText');
+            
+            let status = '';
+            if (localStorageAuth === 'true' || sessionStorageAuth === 'true') {
+                status = '🔓 LOGGED IN - Should see "My Account" dropdown with Dashboard, My Pets, Profile, Sign Out';
+            } else {
+                status = '🔒 LOGGED OUT - Should see "Sign In" button';
+            }
+            
+            statusEl.innerHTML = status;
+        }
+        
+        // Check auth state on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(checkAuthState, 1000); // Give navigation time to load
+        });
+    </script>
+</body>
+</html>

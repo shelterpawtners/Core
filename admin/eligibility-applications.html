@@ -1,1034 +1,721 @@
-<!DOCTYPE html><!DOCTYPE html>
-
-<html lang="en"><html lang="en">
-
-<head><head>
-
-    <meta charset="UTF-8">    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Admin - Eligibility Applications - Shelter Pawtners</title>    <title>Admin - Eligibility Applications - Shelter Pawtners</title>
-
-        
-
-    <!-- Stylesheets -->    <!-- Stylesheets -->
-
-    <link rel="stylesheet" href="../css/main.css">    <link rel="stylesheet" href="../css/main.css">
-
-    <link rel="stylesheet" href="../css/navigation.css">    <link rel="stylesheet" href="../css/navigation.css">
-
-    <link rel="stylesheet" href="../css/components.css">    <link rel="stylesheet" href="../css/components.css">
-
-    <link rel="stylesheet" href="../css/responsive.css">    <link rel="stylesheet" href="../css/responsive.css">
-
-</head></head>
-
-<body><body>
-
-    <header class="header">    <header class="header">
-
-        <div class="header-container">        <div class="header-container">
-
-            <a href="../index.html" class="logo">            <a href="../index.html" class="logo">
-
-                <span class="logo-icon">🐾</span>                <span class="logo-icon">🐾</span>
-
-                <span>Shelter Pawtners Admin</span>                <span>Shelter Pawtners Admin</span>
-
-            </a>            </a>
-
-                        
-
-            <div class="nav-auth">            <div class="nav-auth">
-
-                <div class="nav-buttons">                <div id="authButtons" class="nav-buttons">
-
-                    <button id="logoutBtn" class="btn btn-outline" style="display: none;">Sign Out</button>                    <button id="logoutBtn" class="btn btn-outline" style="display: none;">Sign Out</button>
-
-                    <a href="../pages/login.html" id="loginBtn" class="btn btn-outline">Sign In</a>                </div>
-
-                </div>            </div>
-
-            </div>        </div>
-
-        </div>    </header>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Eligibility Applications - Shelter Pawtners</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners Admin</span>
+            </a>
+            
+            <div class="nav-auth">
+                <div id="authButtons" class="nav-buttons">
+                    <button id="logoutBtn" class="btn btn-outline" style="display: none;">Sign Out</button>
+                    <a href="../pages/login.html" id="loginBtn" class="btn btn-outline">Sign In</a>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main>
+    <main class="main-content">
+        <div class="container">
+            <div class="admin-header">
+                <h1>Eligibility Applications</h1>
+                <p class="subtitle">Manage and review pet adoption eligibility applications</p>
+            </div>
 
-    <main>        <section class="py-xl">
-
-        <section class="py-xl">            <div class="container">
-
-            <div class="container">                <div class="text-center" style="margin-bottom: 3rem;">
-
-                <div class="text-center" style="margin-bottom: 3rem;">                    <h1 class="hero-title text-gradient">🔍 Eligibility Applications Management</h1>
-
-                    <h1 class="hero-title text-gradient">🔍 Eligibility Applications Management</h1>                    <p class="hero-text">
-
-                    <p class="hero-text">                        Review and process ShelterCARD eligibility applications
-
-                        Review and process ShelterCARD eligibility applications                    </p>
-
-                    </p>                </div>
-
+            <!-- Admin Controls -->
+            <div class="admin-controls">
+                <div class="filter-controls">
+                    <select id="statusFilter" class="form-control">
+                        <option value="">All Applications</option>
+                        <option value="pending">Pending Review</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="needs_info">Needs More Info</option>
+                    </select>
+                    
+                    <input type="date" id="dateFilter" class="form-control" placeholder="Filter by date">
+                    
+                    <button id="refreshBtn" class="btn btn-primary">
+                        <span>🔄</span> Refresh
+                    </button>
                 </div>
 
-                <!-- Filter Controls -->
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalApplications">0</div>
+                        <div class="stat-label">Total Applications</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pendingApplications">0</div>
+                        <div class="stat-label">Pending Review</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="approvedApplications">0</div>
+                        <div class="stat-label">Approved</div>
+                    </div>
+                </div>
+            </div>
 
-                <!-- Filter Controls -->                <div class="info-card" style="margin-bottom: 2rem;">
-
-                <div class="info-card" style="margin-bottom: 2rem;">                    <h2 class="card-title">📊 Application Filters</h2>
-
-                    <h2 class="card-title">📊 Application Filters</h2>                    <div class="filter-bar">
-
-                    <div class="filter-bar">                        <div class="filter-group">
-
-                        <div class="filter-group">                            <label for="statusFilter">Status:</label>
-
-                            <label for="statusFilter">Status:</label>                            <select id="statusFilter" class="form-select">
-
-                            <select id="statusFilter" class="form-select">                                <option value="">All Applications</option>
-
-                                <option value="">All Applications</option>                                <option value="pending">Pending Review</option>
-
-                                <option value="pending">Pending Review</option>                                <option value="approved">Approved</option>
-
-                                <option value="approved">Approved</option>                                <option value="rejected">Rejected</option>
-
-                                <option value="rejected">Rejected</option>                                <option value="needs_info">Needs More Info</option>
-
-                                <option value="needs_info">Needs More Info</option>                            </select>
-
-                            </select>                        </div>
-
-                        </div>                        <div class="filter-group">
-
-                        <div class="filter-group">                            <label for="dateFilter">Date Range:</label>
-
-                            <label for="dateFilter">Date Range:</label>                            <select id="dateFilter" class="form-select">
-
-                            <select id="dateFilter" class="form-select">                                <option value="">All Time</option>
-
-                                <option value="">All Time</option>                                <option value="today">Today</option>
-
-                                <option value="today">Today</option>                                <option value="week">This Week</option>
-
-                                <option value="week">This Week</option>                                <option value="month">This Month</option>
-
-                                <option value="month">This Month</option>                            </select>
-
-                            </select>                        </div>
-
-                        </div>                        <div class="filter-group">
-
-                        <div class="filter-group">                            <button id="refreshBtn" class="btn btn-primary">🔄 Refresh</button>
-
-                            <button id="refreshBtn" class="btn btn-primary">🔄 Refresh</button>                        </div>
-
-                        </div>                    </div>
-
-                    </div>                </div>
-
+            <!-- Applications List -->
+            <div class="applications-container">
+                <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading applications...</p>
                 </div>
 
-                <!-- Applications List -->
+                <div id="applicationsGrid" class="applications-grid">
+                    <!-- Applications will be loaded here -->
+                </div>
 
-                <!-- Applications List -->                <div class="info-card">
-
-                <div class="info-card">                    <h2 class="card-title">📋 Applications</h2>
-
-                    <h2 class="card-title">📋 Applications</h2>                    <div id="loadingIndicator" class="text-center" style="padding: 2rem;">
-
-                    <div id="loadingIndicator" class="text-center" style="padding: 2rem;">                        <div style="color: #8B5CF6;">⏳ Loading applications...</div>
-
-                        <div style="color: #8B5CF6;">⏳ Loading applications...</div>                    </div>
-
-                    </div>                    <div id="applicationsContainer"></div>
-
-                    <div id="applicationsContainer"></div>                </div>
-
-                </div>            </div>
-
-            </div>        </section>
-
-        </section>    </main>
-
+                <div id="noApplications" class="no-applications" style="display: none;">
+                    <div class="no-apps-icon">📋</div>
+                    <h3>No Applications Found</h3>
+                    <p>No eligibility applications match your current filters.</p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Application Detail Modal -->
-
-    <!-- Application Detail Modal -->    <div id="applicationModal" class="modal" style="display: none;">
-
-    <div id="applicationModal" class="modal" style="display: none;">        <div class="modal-content" style="max-width: 800px;">
-
-        <div class="modal-content" style="max-width: 800px;">            <div class="modal-header">
-
-            <div class="modal-header">                <h3 id="modalTitle">Application Details</h3>
-
-                <h3 id="modalTitle">Application Details</h3>                <button class="modal-close" onclick="closeModal()">&times;</button>
-
-                <button class="modal-close" onclick="closeModal()">&times;</button>            </div>
-
-            </div>            <div class="modal-body">
-
-            <div class="modal-body">                <div id="modalContent">
-
-                <div id="modalContent"></div>                    <!-- Dynamic content will be loaded here -->
-
-            </div>                </div>
-
-            <div class="modal-footer">            </div>
-
-                <button class="btn btn-outline" onclick="closeModal()">Close</button>            <div class="modal-footer">
-
-                <button id="approveBtn" class="btn btn-success" onclick="updateApplicationStatus('approved')">✅ Approve</button>                <button class="btn btn-outline" onclick="closeModal()">Close</button>
-
-                <button id="rejectBtn" class="btn btn-danger" onclick="updateApplicationStatus('rejected')">❌ Reject</button>                <button id="approveBtn" class="btn btn-success" onclick="updateApplicationStatus('approved')">✅ Approve</button>
-
-                <button id="needsInfoBtn" class="btn btn-warning" onclick="updateApplicationStatus('needs_info')">⚠️ Needs Info</button>                <button id="rejectBtn" class="btn btn-danger" onclick="updateApplicationStatus('rejected')">❌ Reject</button>
-
-            </div>                <button id="needsInfoBtn" class="btn btn-warning" onclick="updateApplicationStatus('needs_info')">⚠️ Needs Info</button>
-
-        </div>            </div>
-
-    </div>        </div>
-
+    <div id="applicationModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Application Details</h2>
+                <button class="modal-close" onclick="closeApplicationModal()">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div id="applicationDetails">
+                    <!-- Application details will be loaded here -->
+                </div>
+                
+                <div class="modal-actions">
+                    <button id="approveBtn" class="btn btn-success" onclick="updateApplicationStatus('approved')">
+                        ✅ Approve
+                    </button>
+                    <button id="rejectBtn" class="btn btn-danger" onclick="updateApplicationStatus('rejected')">
+                        ❌ Reject
+                    </button>
+                    <button id="needsInfoBtn" class="btn btn-warning" onclick="updateApplicationStatus('needs_info')">
+                        ℹ️ Needs More Info
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeApplicationModal()">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- App Scripts -->
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/auth.js"></script>
 
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>    <!-- Supabase -->
-
-    <script src="../js/supabase-config.js"></script>    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-
-        <script src="../js/supabase-config.js"></script>
-
-    <script>    
-
-        // Initialize Supabase client    <script>
-
-        const { createClient } = supabase;        // Initialize Supabase client
-
-        const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);        const { createClient } = supabase;
-
-        const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-
+    <script>
+        // Admin functionality for eligibility applications
         let applications = [];
-
-        let currentApplicationId = null;        let applications = [];
-
-        let currentApplicationId = null;
-
-        // Check authentication
-
-        async function checkAuth() {        // Check if user is authenticated and is admin
-
-            const { data: { user } } = await supabaseClient.auth.getUser();        async function checkAuth() {
-
-                        const { data: { user } } = await supabaseClient.auth.getUser();
-
-            if (user) {            
-
-                document.getElementById('loginBtn').style.display = 'none';            if (!user) {
-
-                document.getElementById('logoutBtn').style.display = 'block';                alert('Please sign in to access the admin panel');
-
-                console.log('Logged in as:', user.email);                window.location.href = '../pages/login.html';
-
-                return true;                return false;
-
-            } else {            }
-
-                document.getElementById('loginBtn').style.display = 'block';            
-
-                document.getElementById('logoutBtn').style.display = 'none';            // Check if user has admin role (you may need to implement role checking)
-
-                console.log('Not authenticated - showing public view');            console.log('Logged in as:', user.email);
-
-                return false;            document.getElementById('logoutBtn').style.display = 'block';
-
-            }            return true;
-
-        }        }
-
-
-
-        // Load applications from Supabase        // Load applications from Supabase
-
-        async function loadApplications() {        async function loadApplications() {
-
-            try {            try {
-
-                document.getElementById('loadingIndicator').style.display = 'block';                document.getElementById('loadingIndicator').style.display = 'block';
-
-                                
-
-                let query = supabaseClient                let query = supabaseClient
-
-                    .from('eligibility_applications')                    .from('eligibility_applications')
-
-                    .select('*')                    .select('*')
-
-                    .order('submitted_at', { ascending: false });                    .order('submitted_at', { ascending: false });
-
-
-
-                // Apply filters                // Apply filters
-
-                const statusFilter = document.getElementById('statusFilter').value;                const statusFilter = document.getElementById('statusFilter').value;
-
-                if (statusFilter) {                if (statusFilter) {
-
-                    query = query.eq('application_status', statusFilter);                    query = query.eq('application_status', statusFilter);
-
-                }                }
-
-
-
-                const dateFilter = document.getElementById('dateFilter').value;                const dateFilter = document.getElementById('dateFilter').value;
-
-                if (dateFilter) {                if (dateFilter) {
-
-                    const now = new Date();                    const now = new Date();
-
-                    let startDate;                    let startDate;
-
-                                        
-
-                    switch (dateFilter) {                    switch (dateFilter) {
-
-                        case 'today':                        case 'today':
-
-                            startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());                            startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-                            break;                            break;
-
-                        case 'week':                        case 'week':
-
-                            startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);                            startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-
-                            break;                            break;
-
-                        case 'month':                        case 'month':
-
-                            startDate = new Date(now.getFullYear(), now.getMonth(), 1);                            startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-
-                            break;                            break;
-
-                    }                    }
-
-                                        
-
-                    if (startDate) {                    if (startDate) {
-
-                        query = query.gte('submitted_at', startDate.toISOString());                        query = query.gte('submitted_at', startDate.toISOString());
-
-                    }                    }
-
-                }                }
-
-
-
-                const { data, error } = await query;                const { data, error } = await query;
-
-
-
-                if (error) {                if (error) {
-
-                    throw error;                    throw error;
-
-                }                }
-
-
-
-                applications = data || [];                applications = data || [];
-
-                displayApplications(applications);                displayApplications(applications);
-
-                                
-
-            } catch (error) {            } catch (error) {
-
-                console.error('Error loading applications:', error);                console.error('Error loading applications:', error);
-
-                let errorMessage = 'Error loading applications: ' + error.message;                document.getElementById('applicationsContainer').innerHTML = `
-
-                                    <div style="color: #EF4444; text-align: center; padding: 2rem;">
-
-                if (error.message.includes('relation "eligibility_applications" does not exist')) {                        ❌ Error loading applications: ${error.message}
-
-                    errorMessage = 'Database table not found. Please run the SQL setup script first.';                    </div>
-
-                }                `;
-
-                            } finally {
-
-                document.getElementById('applicationsContainer').innerHTML = `                document.getElementById('loadingIndicator').style.display = 'none';
-
-                    <div style="color: #EF4444; text-align: center; padding: 2rem;">            }
-
-                        ❌ ${errorMessage}        }
-
-                    </div>
-
-                `;        // Display applications in the UI
-
-            } finally {        function displayApplications(apps) {
-
-                document.getElementById('loadingIndicator').style.display = 'none';            const container = document.getElementById('applicationsContainer');
-
-            }            
-
-        }            if (apps.length === 0) {
-
-                container.innerHTML = `
-
-        // Display applications in the UI                    <div style="text-align: center; padding: 2rem; color: #9CA3AF;">
-
-        function displayApplications(apps) {                        📭 No applications found matching your filters
-
-            const container = document.getElementById('applicationsContainer');                    </div>
-
-                            `;
-
-            if (apps.length === 0) {                return;
-
-                container.innerHTML = `            }
-
-                    <div style="text-align: center; padding: 2rem; color: #9CA3AF;">
-
-                        📭 No applications found matching your filters            const applicationsHTML = apps.map(app => {
-
-                    </div>                const statusColors = {
-
-                `;                    pending: '#F59E0B',
-
-                return;                    approved: '#10B981',
-
-            }                    rejected: '#EF4444',
-
-                    needs_info: '#8B5CF6'
-
-            const applicationsHTML = apps.map(app => {                };
-
-                const statusColors = {
-
-                    pending: '#F59E0B',                const statusIcons = {
-
-                    approved: '#10B981',                    pending: '⏳',
-
-                    rejected: '#EF4444',                    approved: '✅',
-
-                    needs_info: '#8B5CF6'                    rejected: '❌',
-
-                };                    needs_info: '⚠️'
-
-                };
-
-                const statusIcons = {
-
-                    pending: '⏳',                return `
-
-                    approved: '✅',                    <div class="application-card" onclick="viewApplication('${app.id}')">
-
-                    rejected: '❌',                        <div class="app-header">
-
-                    needs_info: '⚠️'                            <div class="app-info">
-
-                };                                <h4>${app.pet_name} (${app.pet_species})</h4>
-
-                                <p>Owner: ${app.owner_name}</p>
-
-                return `                                <p>Shelter: ${app.shelter_name}</p>
-
-                    <div class="application-card" onclick="viewApplication('${app.id}')">                            </div>
-
-                        <div class="app-header">                            <div class="app-status" style="color: ${statusColors[app.application_status]};">
-
-                            <div class="app-info">                                ${statusIcons[app.application_status]} ${app.application_status.replace('_', ' ').toUpperCase()}
-
-                                <h4>${app.pet_name} (${app.pet_species})</h4>                            </div>
-
-                                <p>Owner: ${app.owner_name}</p>                        </div>
-
-                                <p>Shelter: ${app.shelter_name}</p>                        <div class="app-details">
-
-                            </div>                            <span>📅 ${new Date(app.submitted_at).toLocaleDateString()}</span>
-
-                            <div class="app-status" style="color: ${statusColors[app.application_status]};">                            <span>📧 ${app.owner_email}</span>
-
-                                ${statusIcons[app.application_status]} ${app.application_status.replace('_', ' ').toUpperCase()}                            ${app.microchip_id ? `<span>🔍 ${app.microchip_id}</span>` : ''}
-
-                            </div>                        </div>
-
-                        </div>                    </div>
-
-                        <div class="app-details">                `;
-
-                            <span>📅 ${new Date(app.submitted_at).toLocaleDateString()}</span>            }).join('');
-
-                            <span>📧 ${app.owner_email}</span>
-
-                            ${app.microchip_id ? `<span>🔍 ${app.microchip_id}</span>` : ''}            container.innerHTML = applicationsHTML;
-
-                        </div>        }
-
-                    </div>
-
-                `;        // View application details in modal
-
-            }).join('');        function viewApplication(applicationId) {
-
-            const app = applications.find(a => a.id === applicationId);
-
-            container.innerHTML = applicationsHTML;            if (!app) return;
-
-        }
-
-            currentApplicationId = applicationId;
-
-        // View application details in modal            
-
-        function viewApplication(applicationId) {            const modalContent = document.getElementById('modalContent');
-
-            const app = applications.find(a => a.id === applicationId);            modalContent.innerHTML = `
-
-            if (!app) return;                <div class="application-details">
-
-                    <div class="detail-section">
-
-            currentApplicationId = applicationId;                        <h4>🐾 Pet Information</h4>
-
-                                    <p><strong>Name:</strong> ${app.pet_name}</p>
-
-            const modalContent = document.getElementById('modalContent');                        <p><strong>Species:</strong> ${app.pet_species}</p>
-
-            modalContent.innerHTML = `                        <p><strong>Microchip ID:</strong> ${app.microchip_id || 'Not provided'}</p>
-
-                <div class="application-details">                        <p><strong>Adoption Date:</strong> ${new Date(app.adoption_date).toLocaleDateString()}</p>
-
-                    <div class="detail-section">                    </div>
-
-                        <h4>🐾 Pet Information</h4>                    
-
-                        <p><strong>Name:</strong> ${app.pet_name}</p>                    <div class="detail-section">
-
-                        <p><strong>Species:</strong> ${app.pet_species}</p>                        <h4>🏥 Shelter Information</h4>
-
-                        <p><strong>Microchip ID:</strong> ${app.microchip_id || 'Not provided'}</p>                        <p><strong>Name:</strong> ${app.shelter_name}</p>
-
-                        <p><strong>Adoption Date:</strong> ${new Date(app.adoption_date).toLocaleDateString()}</p>                        <p><strong>Email:</strong> ${app.shelter_email || 'Not provided'}</p>
-
-                    </div>                        <p><strong>Phone:</strong> ${app.shelter_phone || 'Not provided'}</p>
-
-                                        </div>
-
-                    <div class="detail-section">                    
-
-                        <h4>🏥 Shelter Information</h4>                    <div class="detail-section">
-
-                        <p><strong>Name:</strong> ${app.shelter_name}</p>                        <h4>👤 Owner Information</h4>
-
-                        <p><strong>Email:</strong> ${app.shelter_email || 'Not provided'}</p>                        <p><strong>Name:</strong> ${app.owner_name}</p>
-
-                        <p><strong>Phone:</strong> ${app.shelter_phone || 'Not provided'}</p>                        <p><strong>Email:</strong> ${app.owner_email}</p>
-
-                    </div>                        <p><strong>Phone:</strong> ${app.owner_phone || 'Not provided'}</p>
-
-                                        </div>
-
-                    <div class="detail-section">                    
-
-                        <h4>👤 Owner Information</h4>                    <div class="detail-section">
-
-                        <p><strong>Name:</strong> ${app.owner_name}</p>                        <h4>📄 Documentation</h4>
-
-                        <p><strong>Email:</strong> ${app.owner_email}</p>                        <p><strong>Filename:</strong> ${app.document_filename || 'No file uploaded'}</p>
-
-                        <p><strong>Phone:</strong> ${app.owner_phone || 'Not provided'}</p>                        ${app.document_url ? `<p><a href="${app.document_url}" target="_blank" class="btn btn-outline">📎 View Document</a></p>` : ''}
-
-                    </div>                    </div>
-
-                                        
-
-                    <div class="detail-section">                    <div class="detail-section">
-
-                        <h4>📄 Documentation</h4>                        <h4>📊 Application Status</h4>
-
-                        <p><strong>Filename:</strong> ${app.document_filename || 'No file uploaded'}</p>                        <p><strong>Status:</strong> ${app.application_status.replace('_', ' ').toUpperCase()}</p>
-
-                        ${app.document_url ? `<p><a href="${app.document_url}" target="_blank" class="btn btn-outline">📎 View Document</a></p>` : ''}                        <p><strong>Submitted:</strong> ${new Date(app.submitted_at).toLocaleString()}</p>
-
-                    </div>                        ${app.processed_at ? `<p><strong>Processed:</strong> ${new Date(app.processed_at).toLocaleString()}</p>` : ''}
-
-                                            ${app.verification_notes ? `<p><strong>Notes:</strong> ${app.verification_notes}</p>` : ''}
-
-                    <div class="detail-section">                    </div>
-
-                        <h4>📊 Application Status</h4>                    
-
-                        <p><strong>Status:</strong> ${app.application_status.replace('_', ' ').toUpperCase()}</p>                    <div class="detail-section">
-
-                        <p><strong>Submitted:</strong> ${new Date(app.submitted_at).toLocaleString()}</p>                        <h4>📝 Add Verification Notes</h4>
-
-                        <p><strong>Application ID:</strong> ${app.id}</p>                        <textarea id="verificationNotes" class="form-textarea" rows="3" placeholder="Add notes about this application...">${app.verification_notes || ''}</textarea>
-
-                        ${app.processed_at ? `<p><strong>Processed:</strong> ${new Date(app.processed_at).toLocaleString()}</p>` : ''}                    </div>
-
-                        ${app.verification_notes ? `<p><strong>Notes:</strong> ${app.verification_notes}</p>` : ''}                </div>
-
-                    </div>            `;
-
-                    
-
-                    <div class="detail-section">            document.getElementById('modalTitle').textContent = `Application for ${app.pet_name}`;
-
-                        <h4>📝 Add Verification Notes</h4>            document.getElementById('applicationModal').style.display = 'flex';
-
-                        <textarea id="verificationNotes" class="form-textarea" rows="3" placeholder="Add notes about this application...">${app.verification_notes || ''}</textarea>        }
-
-                    </div>
-
-                </div>        // Update application status
-
-            `;        async function updateApplicationStatus(newStatus) {
-
-            if (!currentApplicationId) return;
-
-            document.getElementById('modalTitle').textContent = `Application for ${app.pet_name}`;
-
-            document.getElementById('applicationModal').style.display = 'flex';            try {
-
-        }                const notes = document.getElementById('verificationNotes').value;
-
-                
-
-        // Update application status                const { data, error } = await supabaseClient
-
-        async function updateApplicationStatus(newStatus) {                    .from('eligibility_applications')
-
-            if (!currentApplicationId) return;                    .update({
-
-                        application_status: newStatus,
-
-            try {                        verification_notes: notes,
-
-                const notes = document.getElementById('verificationNotes').value;                        processed_at: new Date().toISOString()
-
-                                    })
-
-                const { data, error } = await supabaseClient                    .eq('id', currentApplicationId)
-
-                    .from('eligibility_applications')                    .select();
-
-                    .update({
-
-                        application_status: newStatus,                if (error) {
-
-                        verification_notes: notes,                    throw error;
-
-                        processed_at: new Date().toISOString()                }
-
-                    })
-
-                    .eq('id', currentApplicationId)                alert(`✅ Application ${newStatus.replace('_', ' ')} successfully!`);
-
-                    .select();                closeModal();
-
-                loadApplications(); // Refresh the list
-
-                if (error) {
-
-                    throw error;            } catch (error) {
-
-                }                console.error('Error updating application:', error);
-
-                alert('❌ Error updating application: ' + error.message);
-
-                alert(`✅ Application ${newStatus.replace('_', ' ')} successfully!`);            }
-
-                closeModal();        }
-
-                loadApplications(); // Refresh the list
-
-        // Close modal
-
-            } catch (error) {        function closeModal() {
-
-                console.error('Error updating application:', error);            document.getElementById('applicationModal').style.display = 'none';
-
-                alert('❌ Error updating application: ' + error.message);            currentApplicationId = null;
-
-            }        }
-
-        }
-
-        // Event listeners
-
-        // Close modal        document.getElementById('statusFilter').addEventListener('change', loadApplications);
-
-        function closeModal() {        document.getElementById('dateFilter').addEventListener('change', loadApplications);
-
-            document.getElementById('applicationModal').style.display = 'none';        document.getElementById('refreshBtn').addEventListener('click', loadApplications);
-
-            currentApplicationId = null;
-
-        }        document.getElementById('logoutBtn').addEventListener('click', async () => {
-
-            await supabaseClient.auth.signOut();
-
-        // Event listeners            window.location.href = '../pages/login.html';
-
-        document.getElementById('statusFilter').addEventListener('change', loadApplications);        });
-
-        document.getElementById('dateFilter').addEventListener('change', loadApplications);
-
-        document.getElementById('refreshBtn').addEventListener('click', loadApplications);        // Close modal on outside click
-
-        window.addEventListener('click', function(e) {
-
-        document.getElementById('logoutBtn').addEventListener('click', async () => {            const modal = document.getElementById('applicationModal');
-
-            await supabaseClient.auth.signOut();            if (e.target === modal) {
-
-            window.location.reload();                closeModal();
-
-        });            }
-
+        let currentFilters = { status: '', date: '' };
+
+        // Initialize admin panel
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAdminAuth();
+            setupEventListeners();
+            loadApplications();
         });
 
-        // Close modal on outside click
+        function checkAdminAuth() {
+            // Check if user is authenticated and has admin privileges
+            supabase.auth.getSession().then(({ data: { session } }) => {
+                if (!session) {
+                    window.location.href = '../pages/login.html';
+                    return;
+                }
+                
+                // In a real app, you'd check admin role here
+                console.log('Admin authenticated:', session.user.email);
+                
+                // Update auth buttons
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('logoutBtn').style.display = 'block';
+            });
+        }
 
-        window.addEventListener('click', function(e) {        // Initialize
+        function setupEventListeners() {
+            // Filter controls
+            document.getElementById('statusFilter').addEventListener('change', function() {
+                currentFilters.status = this.value;
+                filterApplications();
+            });
 
-            const modal = document.getElementById('applicationModal');        checkAuth().then(isAuthenticated => {
+            document.getElementById('dateFilter').addEventListener('change', function() {
+                currentFilters.date = this.value;
+                filterApplications();
+            });
 
-            if (e.target === modal) {            if (isAuthenticated) {
+            document.getElementById('refreshBtn').addEventListener('click', loadApplications);
 
-                closeModal();                loadApplications();
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', async function() {
+                await supabase.auth.signOut();
+                window.location.href = '../pages/login.html';
+            });
+        }
 
-            }            }
+        async function loadApplications() {
+            showLoading(true);
+            
+            try {
+                const { data, error } = await supabase
+                    .from('eligibility_applications')
+                    .select('*')
+                    .order('created_at', { ascending: false });
 
-        });        });
+                if (error) {
+                    console.error('Error loading applications:', error);
+                    showError('Failed to load applications');
+                    return;
+                }
 
+                applications = data || [];
+                updateStats();
+                displayApplications(applications);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Failed to load applications');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function updateStats() {
+            const total = applications.length;
+            const pending = applications.filter(app => app.status === 'pending').length;
+            const approved = applications.filter(app => app.status === 'approved').length;
+
+            document.getElementById('totalApplications').textContent = total;
+            document.getElementById('pendingApplications').textContent = pending;
+            document.getElementById('approvedApplications').textContent = approved;
+        }
+
+        function displayApplications(apps) {
+            const grid = document.getElementById('applicationsGrid');
+            const noApps = document.getElementById('noApplications');
+
+            if (apps.length === 0) {
+                grid.style.display = 'none';
+                noApps.style.display = 'block';
+                return;
+            }
+
+            noApps.style.display = 'none';
+            grid.style.display = 'grid';
+
+            grid.innerHTML = apps.map(app => `
+                <div class="application-card" onclick="openApplicationModal('${app.id}')">
+                    <div class="app-header">
+                        <h3>${app.pet_name}</h3>
+                        <span class="status-badge status-${app.status}">${formatStatus(app.status)}</span>
+                    </div>
+                    
+                    <div class="app-details">
+                        <p><strong>Owner:</strong> ${app.owner_name}</p>
+                        <p><strong>Email:</strong> ${app.owner_email}</p>
+                        <p><strong>Phone:</strong> ${app.owner_phone}</p>
+                        <p><strong>Shelter:</strong> ${app.shelter_name}</p>
+                    </div>
+                    
+                    <div class="app-footer">
+                        <small>Applied: ${formatDate(app.created_at)}</small>
+                        ${app.updated_at && app.updated_at !== app.created_at ? 
+                            `<small>Updated: ${formatDate(app.updated_at)}</small>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterApplications() {
+            let filtered = applications;
+
+            if (currentFilters.status) {
+                filtered = filtered.filter(app => app.status === currentFilters.status);
+            }
+
+            if (currentFilters.date) {
+                filtered = filtered.filter(app => 
+                    new Date(app.created_at).toDateString() === new Date(currentFilters.date).toDateString()
+                );
+            }
+
+            displayApplications(filtered);
+        }
+
+        async function openApplicationModal(applicationId) {
+            const app = applications.find(a => a.id === applicationId);
+            if (!app) return;
+
+            const modal = document.getElementById('applicationModal');
+            const details = document.getElementById('applicationDetails');
+
+            details.innerHTML = `
+                <div class="application-full-details">
+                    <div class="detail-section">
+                        <h3>Pet Information</h3>
+                        <p><strong>Pet Name:</strong> ${app.pet_name}</p>
+                        <p><strong>Pet Type:</strong> ${app.pet_type}</p>
+                        <p><strong>Pet Age:</strong> ${app.pet_age}</p>
+                        <p><strong>Pet Breed:</strong> ${app.pet_breed || 'Not specified'}</p>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>Owner Information</h3>
+                        <p><strong>Name:</strong> ${app.owner_name}</p>
+                        <p><strong>Email:</strong> ${app.owner_email}</p>
+                        <p><strong>Phone:</strong> ${app.owner_phone}</p>
+                        <p><strong>Address:</strong> ${app.owner_address}</p>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>Shelter Information</h3>
+                        <p><strong>Shelter:</strong> ${app.shelter_name}</p>
+                        <p><strong>Adoption Date:</strong> ${formatDate(app.adoption_date)}</p>
+                        <p><strong>Adoption Fee:</strong> $${app.adoption_fee}</p>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>Application Status</h3>
+                        <p><strong>Current Status:</strong> 
+                            <span class="status-badge status-${app.status}">${formatStatus(app.status)}</span>
+                        </p>
+                        <p><strong>Submitted:</strong> ${formatDate(app.created_at)}</p>
+                        ${app.updated_at && app.updated_at !== app.created_at ? 
+                            `<p><strong>Last Updated:</strong> ${formatDate(app.updated_at)}</p>` : ''}
+                    </div>
+
+                    ${app.documents && app.documents.length > 0 ? `
+                        <div class="detail-section">
+                            <h3>Documents</h3>
+                            <div class="documents-list">
+                                ${app.documents.map(doc => `
+                                    <a href="${doc.url}" target="_blank" class="document-link">
+                                        📄 ${doc.name}
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            // Store current application ID for status updates
+            modal.dataset.applicationId = applicationId;
+        }
+
+        function closeApplicationModal() {
+            const modal = document.getElementById('applicationModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        async function updateApplicationStatus(newStatus) {
+            const modal = document.getElementById('applicationModal');
+            const applicationId = modal.dataset.applicationId;
+
+            if (!applicationId) return;
+
+            try {
+                const { error } = await supabase
+                    .from('eligibility_applications')
+                    .update({ 
+                        status: newStatus,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', applicationId);
+
+                if (error) {
+                    console.error('Error updating status:', error);
+                    showError('Failed to update application status');
+                    return;
+                }
+
+                // Update local data
+                const appIndex = applications.findIndex(app => app.id === applicationId);
+                if (appIndex !== -1) {
+                    applications[appIndex].status = newStatus;
+                    applications[appIndex].updated_at = new Date().toISOString();
+                }
+
+                // Refresh display
+                updateStats();
+                filterApplications();
+                closeApplicationModal();
+
+                showSuccess(`Application ${formatStatus(newStatus).toLowerCase()}`);
+
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Failed to update application status');
+            }
+        }
+
+        // Utility functions
+        function formatStatus(status) {
+            const statusMap = {
+                'pending': 'Pending Review',
+                'approved': 'Approved',
+                'rejected': 'Rejected',
+                'needs_info': 'Needs More Info'
+            };
+            return statusMap[status] || status;
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function showLoading(show) {
+            document.getElementById('loadingSpinner').style.display = show ? 'flex' : 'none';
+        }
+
+        function showError(message) {
+            // Simple error display - could be enhanced with a proper notification system
+            alert('Error: ' + message);
+        }
+
+        function showSuccess(message) {
+            // Simple success display - could be enhanced with a proper notification system
+            alert('Success: ' + message);
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('applicationModal');
+            if (event.target === modal) {
+                closeApplicationModal();
+            }
+        });
     </script>
 
-        // Initialize
+    <style>
+        /* Admin-specific styles */
+        .admin-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
 
-        checkAuth().then(() => {    <style>
+        .admin-header h1 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
 
-            loadApplications();        .filter-bar {
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
 
-        });            display: flex;
+        .admin-controls {
+            margin-bottom: 2rem;
+        }
 
-    </script>            gap: 2rem;
-
+        .filter-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
+        }
 
-    <style>            background: rgba(31, 41, 55, 0.8);
+        .filter-controls .form-control {
+            min-width: 150px;
+        }
 
-        .filter-bar {            padding: 1.5rem;
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
 
-            display: flex;            border-radius: 1rem;
-
-            gap: 2rem;            backdrop-filter: blur(10px);
-
-            flex-wrap: wrap;        }
-
-            background: rgba(31, 41, 55, 0.8);        
-
-            padding: 1.5rem;        .filter-group {
-
-            border-radius: 1rem;            display: flex;
-
-            backdrop-filter: blur(10px);            flex-direction: column;
-
-        }            gap: 0.5rem;
-
-                    min-width: 200px;
-
-        .filter-group {        }
-
-            display: flex;        
-
-            flex-direction: column;        .filter-group label {
-
-            gap: 0.5rem;            color: #F9FAFB;
-
-            min-width: 200px;            font-weight: 500;
-
-        }        }
-
-        
-
-        .filter-group label {        .application-card {
-
-            color: #F9FAFB;            background: rgba(31, 41, 55, 0.8);
-
-            font-weight: 500;            border: 1px solid rgba(75, 85, 99, 0.6);
-
-        }            border-radius: 1rem;
-
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
             padding: 1.5rem;
+            text-align: center;
+        }
 
-        .application-card {            margin-bottom: 1rem;
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
 
-            background: rgba(31, 41, 55, 0.8);            cursor: pointer;
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
 
-            border: 1px solid rgba(75, 85, 99, 0.6);            transition: all 0.3s ease;
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
 
-            border-radius: 1rem;        }
-
+        .application-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
             padding: 1.5rem;
-
-            margin-bottom: 1rem;        .application-card:hover {
-
-            cursor: pointer;            transform: translateY(-2px);
-
-            transition: all 0.3s ease;            border-color: rgba(139, 92, 246, 0.6);
-
-        }            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.2);
-
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .application-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
 
-            transform: translateY(-2px);        .app-header {
-
-            border-color: rgba(139, 92, 246, 0.6);            display: flex;
-
-            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.2);            justify-content: space-between;
-
-        }            align-items: flex-start;
-
-            margin-bottom: 1rem;
-
-        .app-header {        }
-
+        .app-header {
             display: flex;
-
-            justify-content: space-between;        .app-info h4 {
-
-            align-items: flex-start;            color: #F9FAFB;
-
-            margin-bottom: 1rem;            margin-bottom: 0.5rem;
-
-        }        }
-
-
-
-        .app-info h4 {        .app-info p {
-
-            color: #F9FAFB;            color: #D1D5DB;
-
-            margin-bottom: 0.5rem;            margin: 0.25rem 0;
-
-        }            font-size: 0.875rem;
-
-        }
-
-        .app-info p {
-
-            color: #D1D5DB;        .app-status {
-
-            margin: 0.25rem 0;            font-weight: 600;
-
-            font-size: 0.875rem;            font-size: 0.875rem;
-
-        }        }
-
-
-
-        .app-status {        .app-details {
-
-            font-weight: 600;            display: flex;
-
-            font-size: 0.875rem;            gap: 1rem;
-
-        }            flex-wrap: wrap;
-
-        }
-
-        .app-details {
-
-            display: flex;        .app-details span {
-
-            gap: 1rem;            color: #9CA3AF;
-
-            flex-wrap: wrap;            font-size: 0.875rem;
-
-        }        }
-
-
-
-        .app-details span {        .detail-section {
-
-            color: #9CA3AF;            margin-bottom: 1.5rem;
-
-            font-size: 0.875rem;        }
-
-        }
-
-        .detail-section h4 {
-
-        .detail-section {            color: #F9FAFB;
-
-            margin-bottom: 1.5rem;            margin-bottom: 0.75rem;
-
-        }        }
-
-
-
-        .detail-section h4 {        .detail-section p {
-
-            color: #F9FAFB;            color: #D1D5DB;
-
-            margin-bottom: 0.75rem;            margin: 0.5rem 0;
-
-        }        }
-
-
-
-        .detail-section p {        .btn-success {
-
-            color: #D1D5DB;            background: linear-gradient(135deg, #10B981, #059669);
-
-            margin: 0.5rem 0;            color: white;
-
-        }            border: 1px solid #10B981;
-
-        }
-
-        .btn-success {
-
-            background: linear-gradient(135deg, #10B981, #059669);        .btn-danger {
-
-            color: white;            background: linear-gradient(135deg, #EF4444, #DC2626);
-
-            border: 1px solid #10B981;            color: white;
-
-        }            border: 1px solid #EF4444;
-
-        }
-
-        .btn-danger {
-
-            background: linear-gradient(135deg, #EF4444, #DC2626);        .btn-warning {
-
-            color: white;            background: linear-gradient(135deg, #F59E0B, #D97706);
-
-            border: 1px solid #EF4444;            color: white;
-
-        }            border: 1px solid #F59E0B;
-
-        }
-
-        .btn-warning {
-
-            background: linear-gradient(135deg, #F59E0B, #D97706);        @media (max-width: 768px) {
-
-            color: white;            .filter-bar {
-
-            border: 1px solid #F59E0B;                flex-direction: column;
-
-        }                gap: 1rem;
-
-            }
-
-        .modal {            
-
-            position: fixed;            .filter-group {
-
-            top: 0;                min-width: auto;
-
-            left: 0;            }
-
-            width: 100%;
-
-            height: 100%;            .app-header {
-
-            background: rgba(0, 0, 0, 0.8);                flex-direction: column;
-
-            backdrop-filter: blur(5px);                gap: 1rem;
-
-            display: flex;            }
-
+            justify-content: space-between;
             align-items: center;
-
-            justify-content: center;            .modal-footer {
-
-            z-index: 1000;                flex-direction: column;
-
-        }                gap: 0.5rem;
-
-                    }
-
-        .modal-content {        }
-
-            background: rgba(31, 41, 55, 0.95);    </style>
-
-            border: 1px solid rgba(75, 85, 99, 0.6);</body>
-
-            border-radius: 1rem;</html>
-            max-width: 600px;
-            width: 90%;
-            backdrop-filter: blur(20px);
+            margin-bottom: 1rem;
         }
-        
+
+        .app-header h3 {
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: rgba(249, 158, 11, 0.2);
+            color: #F59E0B;
+            border: 1px solid #F59E0B;
+        }
+
+        .status-approved {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22C55E;
+            border: 1px solid #22C55E;
+        }
+
+        .status-rejected {
+            background: rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+            border: 1px solid #EF4444;
+        }
+
+        .status-needs_info {
+            background: rgba(99, 102, 241, 0.2);
+            color: #6366F1;
+            border: 1px solid #6366F1;
+        }
+
+        .app-details p {
+            margin: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        .app-footer {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .app-footer small {
+            color: var(--text-muted);
+            display: block;
+            margin: 0.25rem 0;
+        }
+
+        .loading-spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-applications {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .no-apps-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: rgba(31, 41, 55, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem;
-            border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .modal-header h3 {
-            color: #F9FAFB;
+
+        .modal-header h2 {
+            color: var(--text-primary);
             margin: 0;
         }
-        
+
         .modal-close {
             background: none;
             border: none;
-            color: #9CA3AF;
+            color: var(--text-secondary);
             font-size: 1.5rem;
             cursor: pointer;
+            padding: 0.5rem;
         }
-        
+
         .modal-body {
             padding: 1.5rem;
         }
-        
-        .modal-footer {
+
+        .detail-section {
+            margin-bottom: 2rem;
+        }
+
+        .detail-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .detail-section p {
+            margin: 0.75rem 0;
+            color: var(--text-secondary);
+        }
+
+        .documents-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .document-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .document-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-actions {
             display: flex;
             gap: 1rem;
             justify-content: flex-end;
-            padding: 1.5rem;
-            border-top: 1px solid rgba(75, 85, 99, 0.3);
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
         }
 
+        /* Responsive design */
         @media (max-width: 768px) {
-            .filter-bar {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .filter-group {
-                min-width: auto;
+            .applications-grid {
+                grid-template-columns: 1fr;
             }
 
-            .app-header {
+            .filter-controls {
                 flex-direction: column;
-                gap: 1rem;
+                align-items: stretch;
             }
 
-            .modal-footer {
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+
+            .modal-actions {
                 flex-direction: column;
-                gap: 0.5rem;
+            }
+
+            .stats-overview {
+                grid-template-columns: 1fr;
             }
         }
     </style>

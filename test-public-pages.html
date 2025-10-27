@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Auth & Test Public Pages</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/simple-navigation.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- CLEAN NAVIGATION - Same on ALL pages -->
+    <header class="header">
+        <!-- Navigation automatically loaded by simple-navigation.js -->
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="card">
+                    <h1>🔒 Auth State Cleaner & Public Page Tester</h1>
+                    <p><strong>Problem Fixed:</strong> ShelterCARD was incorrectly treated as authenticated page</p>
+                    
+                    <div class="hero-buttons" style="margin-top: 2rem;">
+                        <button onclick="clearAllAuth()" class="btn btn-primary">
+                            🧹 Clear ALL Auth State
+                        </button>
+                        <button onclick="checkAuthState()" class="btn btn-outline">
+                            🔍 Check Current Auth State
+                        </button>
+                    </div>
+                    
+                    <div id="authStatus" style="margin-top: 2rem; padding: 1rem; background: var(--glass-surface-dark); border-radius: 8px;">
+                        <h3>Current Authentication Status:</h3>
+                        <p id="statusText">Loading...</p>
+                    </div>
+                    
+                    <div class="mt-xl">
+                        <h3>🌐 Test PUBLIC Pages (Should Show "Sign In"):</h3>
+                        <div class="hero-buttons">
+                            <a href="pages/sheltercard.html" class="btn btn-secondary" target="_blank">
+                                💳 ShelterCARD (FIXED)
+                            </a>
+                            <a href="pages/vets.html" class="btn btn-secondary" target="_blank">
+                                🏥 Vets
+                            </a>
+                            <a href="pages/shelters.html" class="btn btn-secondary" target="_blank">
+                                🏠 Shelters
+                            </a>
+                            <a href="pages/businesses.html" class="btn btn-secondary" target="_blank">
+                                🏢 Partners/Businesses
+                            </a>
+                            <a href="pages/about.html" class="btn btn-secondary" target="_blank">
+                                ℹ️ About
+                            </a>
+                        </div>
+                        
+                        <h3 class="mt-lg">🔐 Test AUTHENTICATED Pages (Should Show "My Account"):</h3>
+                        <div class="hero-buttons">
+                            <a href="pages/dashboard.html" class="btn btn-primary" target="_blank">
+                                📊 Dashboard
+                            </a>
+                            <a href="pages/my-pets.html" class="btn btn-primary" target="_blank">
+                                🐕 My Pets
+                            </a>
+                            <a href="pages/profile.html" class="btn btn-primary" target="_blank">
+                                👤 Profile
+                            </a>
+                        </div>
+                        
+                        <div class="mt-lg" style="padding: 1rem; background: var(--glass-primary-light); border-radius: 8px;">
+                            <h4>🎯 Expected Behavior:</h4>
+                            <ul class="list-styled">
+                                <li><strong>Public Pages</strong> (ShelterCARD, Vets, Shelters, Partners, About): Show "Sign In" button</li>
+                                <li><strong>Authenticated Pages</strong> (Dashboard, My Pets, Profile): Auto-login and show "My Account" dropdown</li>
+                                <li><strong>ShelterCARD Fixed</strong>: No longer forces authentication, accessible to everyone</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="js/utils.js"></script>
+    <script src="js/forms.js"></script>
+    <!-- SIMPLE NAVIGATION - Clean, consistent, logo and links on same line -->
+    <script src="js/simple-navigation.js"></script>
+    
+    <script>
+        function clearAllAuth() {
+            // Clear localStorage
+            localStorage.removeItem('userAuthenticated');
+            
+            // Clear sessionStorage
+            sessionStorage.removeItem('userAuthenticated');
+            
+            // Clear cookies
+            document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'user_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            
+            // Clear any other potential auth cookies
+            const allCookies = document.cookie.split(';');
+            allCookies.forEach(cookie => {
+                const eqPos = cookie.indexOf('=');
+                const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
+                if (name.includes('auth') || name.includes('user') || name.includes('session')) {
+                    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+                }
+            });
+            
+            alert('🧹 All authentication state cleared!\n\nNow test:\n1. ShelterCARD page should show "Sign In"\n2. Dashboard page should auto-login');
+            
+            // Update status
+            checkAuthState();
+        }
+        
+        function checkAuthState() {
+            const localStorageAuth = localStorage.getItem('userAuthenticated');
+            const sessionStorageAuth = sessionStorage.getItem('userAuthenticated');
+            const statusEl = document.getElementById('statusText');
+            
+            let status = `
+                <strong>Storage Status:</strong><br>
+                • localStorage: ${localStorageAuth || 'null'}<br>
+                • sessionStorage: ${sessionStorageAuth || 'null'}<br>
+                • Cookies: ${document.cookie || 'none'}<br><br>
+            `;
+            
+            if (localStorageAuth === 'true' || sessionStorageAuth === 'true') {
+                status += '🔓 <strong>AUTHENTICATED</strong> - Should see "My Account" dropdown';
+            } else {
+                status += '🔒 <strong>NOT AUTHENTICATED</strong> - Should see "Sign In" button';
+            }
+            
+            statusEl.innerHTML = status;
+        }
+        
+        // Check auth state on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(checkAuthState, 1000);
+        });
+    </script>
+</body>
+</html>

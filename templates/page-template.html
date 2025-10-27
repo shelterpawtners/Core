@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PAGE_TITLE}} - Shelter Pawtners</title>
+    <meta name="description" content="{{PAGE_DESCRIPTION}}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{BASE_PATH}}css/main.css">
+    <link rel="stylesheet" href="{{BASE_PATH}}css/navigation.css">
+    <link rel="stylesheet" href="{{BASE_PATH}}css/components.css">
+    <link rel="stylesheet" href="{{BASE_PATH}}css/responsive.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Unified Navigation Header (populated by JavaScript) -->
+    <header class="header">
+        <!-- Navigation will be inserted here by unified-navigation.js -->
+    </header>
+
+    <main>
+        {{MAIN_CONTENT}}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-text">🐾 Shelter Pawtners</span>
+                    </div>
+                    <p class="footer-text">The digital backbone for post-adoption success.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">Quick Links</h4>
+                        <ul class="footer-list">
+                            <li><a href="{{BASE_PATH}}pages/how-it-works.html" class="footer-link">How It Works</a></li>
+                            <li><a href="{{BASE_PATH}}pages/about.html" class="footer-link">About Us</a></li>
+                            <li><a href="{{BASE_PATH}}pages/contact.html" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Services</h4>
+                        <ul class="footer-list">
+                            <li><a href="{{BASE_PATH}}pages/sheltercard.html" class="footer-link">ShelterCARD</a></li>
+                            <li><a href="{{BASE_PATH}}pages/vets.html" class="footer-link">Vets</a></li>
+                            <li><a href="{{BASE_PATH}}pages/shelters.html" class="footer-link">Shelters</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Legal</h4>
+                        <ul class="footer-list">
+                            <li><a href="{{BASE_PATH}}pages/privacy.html" class="footer-link">Privacy Policy</a></li>
+                            <li><a href="{{BASE_PATH}}pages/terms.html" class="footer-link">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shelter Pawtners. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{BASE_PATH}}js/utils.js"></script>
+    <script src="{{BASE_PATH}}js/navigation.js"></script>
+    <script src="{{BASE_PATH}}js/forms.js"></script>
+    <!-- UNIFIED NAVIGATION - This ensures consistent navigation across ALL pages -->
+    <script src="{{BASE_PATH}}js/unified-navigation.js"></script>
+</body>
+</html>

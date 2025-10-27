@@ -14,52 +14,14 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/simple-navigation.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
-    <!-- Header / Navigation -->
+    <!-- CLEAN NAVIGATION - Same on ALL pages -->
     <header class="header">
-        <div class="header-container">
-            <a href="../" class="logo">
-                <span class="logo-icon">🐾</span>
-                <span>Shelter Pawtners</span>
-            </a>
-            
-            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-                ☰
-            </button>
-            
-            <nav id="navigation" class="nav" aria-label="Main navigation">
-                <ul class="nav-menu" role="menubar">
-                    <li class="nav-item" role="none">
-                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
-                    </li>
-                    <li class="nav-item has-dropdown" role="none">
-                        <a href="services.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
-                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
-                            <li role="none"><a href="owners.html" class="dropdown-link" role="menuitem">Pet Owners</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item has-dropdown" role="none">
-                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
-                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem" aria-current="page">FAQ</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        <!-- Navigation automatically loaded by simple-navigation.js -->
     </header>
 
     <!-- Main Content -->
@@ -274,7 +236,9 @@
     </footer>
 
     <!-- JavaScript -->
-    <script src="../js/navigation.js"></script>
     <script src="../js/utils.js"></script>
+    <script src="../js/forms.js"></script>
+    <!-- SIMPLE NAVIGATION - Clean, consistent, logo and links on same line -->
+    <script src="../js/simple-navigation.js"></script>
 </body>
 </html>

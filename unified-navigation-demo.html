@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Unified Navigation Demo - Shelter Pawtners</title>
+    <meta name="description" content="Demonstration of the unified navigation system that ensures 100% consistency across all pages">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        .demo-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .code-block {
+            background: rgba(17, 24, 39, 0.8);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #E5E7EB;
+            margin: 1rem 0;
+            border-left: 4px solid #8B5CF6;
+            overflow-x: auto;
+        }
+        
+        .auth-toggle {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(139, 92, 246, 0.9);
+            padding: 1rem;
+            border-radius: 8px;
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-toggle:hover {
+            background: rgba(139, 92, 246, 1);
+            transform: scale(1.05);
+        }
+        
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .benefit-card {
+            background: rgba(55, 65, 81, 0.5);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .benefit-card h4 {
+            color: #8B5CF6;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Unified Navigation Header (populated by JavaScript) -->
+    <header class="header">
+        <!-- Navigation will be inserted here by unified-navigation.js -->
+    </header>
+
+    <!-- Auth Toggle Button for Demo -->
+    <button class="auth-toggle" onclick="ShelterPawtnersNavigation.toggleAuth()">
+        🔄 Toggle Auth State
+    </button>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">🎯 Unified Navigation System</h1>
+                    <p class="hero-text">
+                        One navigation component to rule them all - ensuring 100% consistency across every page.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Overview -->
+        <section class="section">
+            <div class="container">
+                <div class="demo-section">
+                    <h2 class="text-center mb-xl">✅ **SOLUTION** - Centralized Navigation Component</h2>
+                    
+                    <div class="grid grid-2 gap-xl">
+                        <!-- The Problem -->
+                        <div class="card">
+                            <h3 class="card-title text-red">❌ Old Problem</h3>
+                            <ul class="list-styled">
+                                <li>Each HTML page had its own navigation code</li>
+                                <li>Inconsistencies between pages</li>
+                                <li>Maintenance nightmare - update 20+ files</li>
+                                <li>Easy to introduce bugs and inconsistencies</li>
+                                <li>Active states often incorrect</li>
+                            </ul>
+                        </div>
+
+                        <!-- The Solution -->
+                        <div class="card">
+                            <h3 class="card-title text-green">✅ New Solution</h3>
+                            <ul class="list-styled">
+                                <li>Single JavaScript component generates navigation</li>
+                                <li>100% consistency across all pages</li>
+                                <li>Update once, apply everywhere</li>
+                                <li>Automatic active states based on current page</li>
+                                <li>Authentication-aware display logic</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How It Works -->
+                <div class="demo-section">
+                    <h2 class="text-center mb-xl">🔧 How the Unified Navigation Works</h2>
+                    
+                    <div class="grid grid-1 gap-lg">
+                        <div class="card">
+                            <h4>1. Single Source of Truth</h4>
+                            <div class="code-block">
+// unified-navigation.js - ONE file controls ALL navigation
+class ShelterPawtnersNavigation {
+    getNavigationHTML() {
+        return `&lt;nav&gt;...consistent navigation...&lt;/nav&gt;`;
+    }
+}
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h4>2. Automatic Page Detection</h4>
+                            <div class="code-block">
+getCurrentPage() {
+    const path = window.location.pathname;
+    const page = path.split('/').pop().replace('.html', '') || 'index';
+    return page; // Automatically knows current page for active states
+}
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h4>3. Smart Path Resolution</h4>
+                            <div class="code-block">
+getBasePath() {
+    const path = window.location.pathname;
+    if (path.includes('/pages/')) {
+        return '../';  // Pages in /pages/ folder
+    }
+    return './';      // Root level pages
+}
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h4>4. Authentication-Aware Display</h4>
+                            <div class="code-block">
+getAuthSection() {
+    if (this.isAuthenticated) {
+        return this.getMyAccountDropdown(); // Show My Account dropdown
+    } else {
+        return this.getSignInButton();      // Show Sign In button
+    }
+}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Implementation -->
+                <div class="demo-section">
+                    <h2 class="text-center mb-xl">📋 How to Use on Any Page</h2>
+                    
+                    <div class="card">
+                        <h4>Simple 3-Step Process:</h4>
+                        
+                        <div class="code-block">
+&lt;!-- 1. Empty header element --&gt;
+&lt;header class="header"&gt;
+    &lt;!-- Navigation will be inserted here by unified-navigation.js --&gt;
+&lt;/header&gt;
+
+&lt;!-- 2. Include the unified navigation script --&gt;
+&lt;script src="js/unified-navigation.js"&gt;&lt;/script&gt;
+
+&lt;!-- 3. That's it! Navigation automatically loads and configures itself --&gt;
+                        </div>
+                        
+                        <p class="mt-lg"><strong>Result:</strong> Perfect, consistent navigation on every page with zero maintenance overhead!</p>
+                    </div>
+                </div>
+
+                <!-- Benefits -->
+                <div class="demo-section">
+                    <h2 class="text-center mb-xl">🚀 Key Benefits</h2>
+                    
+                    <div class="benefit-grid">
+                        <div class="benefit-card">
+                            <h4>🎯 100% Consistency</h4>
+                            <p>Every page uses the exact same navigation structure with no variations.</p>
+                        </div>
+                        
+                        <div class="benefit-card">
+                            <h4>⚡ One Update, All Pages</h4>
+                            <p>Change navigation once in JavaScript, applies to all pages instantly.</p>
+                        </div>
+                        
+                        <div class="benefit-card">
+                            <h4>🔍 Smart Active States</h4>
+                            <p>Automatically detects current page and highlights correct navigation items.</p>
+                        </div>
+                        
+                        <div class="benefit-card">
+                            <h4>🔐 Authentication Aware</h4>
+                            <p>Shows My Account dropdown for authenticated users, Sign In for others.</p>
+                        </div>
+                        
+                        <div class="benefit-card">
+                            <h4>📱 Mobile Responsive</h4>
+                            <p>Consistent mobile menu behavior across all pages.</p>
+                        </div>
+                        
+                        <div class="benefit-card">
+                            <h4>♿ Accessibility Built-In</h4>
+                            <p>Proper ARIA labels and keyboard navigation on every page.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test Instructions -->
+                <div class="demo-section">
+                    <h2 class="text-center mb-xl">🧪 Test the Unified Navigation</h2>
+                    
+                    <div class="grid grid-2 gap-lg">
+                        <div class="card">
+                            <h4>Authentication Testing</h4>
+                            <p>Use the floating "🔄 Toggle Auth State" button to switch between:</p>
+                            <ul class="list-styled">
+                                <li><strong>Public View:</strong> Shows Sign In button</li>
+                                <li><strong>Authenticated View:</strong> Shows My Account dropdown</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card">
+                            <h4>Cross-Page Testing</h4>
+                            <p>Navigate to different pages and notice:</p>
+                            <ul class="list-styled">
+                                <li>Identical navigation structure</li>
+                                <li>Correct active states</li>
+                                <li>Consistent authentication behavior</li>
+                                <li>Perfect mobile responsiveness</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Pages Links -->
+                <div class="demo-section">
+                    <h2 class="text-center mb-xl">🔗 Test on Sample Pages</h2>
+                    
+                    <div class="page-links" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div class="page-link-card" style="background: rgba(55, 65, 81, 0.5); padding: 1rem; border-radius: 8px; text-align: center;">
+                            <a href="pages/dashboard.html" style="color: #E5E7EB; text-decoration: none;">📊 Dashboard</a>
+                        </div>
+                        <div class="page-link-card" style="background: rgba(55, 65, 81, 0.5); padding: 1rem; border-radius: 8px; text-align: center;">
+                            <a href="pages/my-pets.html" style="color: #E5E7EB; text-decoration: none;">🐕 My Pets</a>
+                        </div>
+                        <div class="page-link-card" style="background: rgba(55, 65, 81, 0.5); padding: 1rem; border-radius: 8px; text-align: center;">
+                            <a href="pages/how-it-works.html" style="color: #E5E7EB; text-decoration: none;">📋 How It Works</a>
+                        </div>
+                        <div class="page-link-card" style="background: rgba(55, 65, 81, 0.5); padding: 1rem; border-radius: 8px; text-align: center;">
+                            <a href="pages/about.html" style="color: #E5E7EB; text-decoration: none;">ℹ️ About</a>
+                        </div>
+                        <div class="page-link-card" style="background: rgba(55, 65, 81, 0.5); padding: 1rem; border-radius: 8px; text-align: center;">
+                            <a href="pages/businesses.html" style="color: #E5E7EB; text-decoration: none;">🤝 Partners</a>
+                        </div>
+                        <div class="page-link-card" style="background: rgba(55, 65, 81, 0.5); padding: 1rem; border-radius: 8px; text-align: center;">
+                            <a href="pages/sheltercard.html" style="color: #E5E7EB; text-decoration: none;">💳 ShelterCARD</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-text">🐾 Shelter Pawtners</span>
+                    </div>
+                    <p class="footer-text">The digital backbone for post-adoption success.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">Quick Links</h4>
+                        <ul class="footer-list">
+                            <li><a href="pages/how-it-works.html" class="footer-link">How It Works</a></li>
+                            <li><a href="pages/about.html" class="footer-link">About Us</a></li>
+                            <li><a href="pages/contact.html" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Services</h4>
+                        <ul class="footer-list">
+                            <li><a href="pages/sheltercard.html" class="footer-link">ShelterCARD</a></li>
+                            <li><a href="pages/vets.html" class="footer-link">Vets</a></li>
+                            <li><a href="pages/shelters.html" class="footer-link">Shelters</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Legal</h4>
+                        <ul class="footer-list">
+                            <li><a href="pages/privacy.html" class="footer-link">Privacy Policy</a></li>
+                            <li><a href="pages/terms.html" class="footer-link">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shelter Pawtners. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/utils.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/forms.js"></script>
+    <!-- UNIFIED NAVIGATION - This ensures consistent navigation across ALL pages -->
+    <script src="js/unified-navigation.js"></script>
+</body>
+</html>

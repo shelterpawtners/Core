@@ -13,31 +13,133 @@
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/simple-navigation.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/responsive.css">
     
     <style>
         .dashboard-header {
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
-            padding: 2rem 0;
+            padding: 1.5rem 0;
             border-bottom: 1px solid rgba(139, 92, 246, 0.2);
         }
         
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             gap: 2rem;
-            margin-top: 2rem;
+        }
+
+        .welcome-section {
+            flex: 1;
+        }
+
+        .sheltercard-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .mini-sheltercard {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            width: 240px;
+            height: 150px;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            aspect-ratio: 85.6/53.98; /* Standard credit card ratio */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-header-mini {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0;
+        }
+
+        .card-logo {
+            font-size: 1.2rem;
+        }
+
+        .card-title-mini {
+            color: #8B5CF6;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .card-number {
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            color: #F9FAFB;
+            margin: 0.5rem 0;
+            letter-spacing: 0.1em;
+        }
+
+        .card-holder {
+            color: #D1D5DB;
+            font-size: 0.75rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .card-status {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: auto;
+        }
+
+        .status-indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10B981;
+        }
+
+        .status-indicator.pending {
+            background: #F59E0B;
+        }
+
+        .status-indicator.inactive {
+            background: #6B7280;
+        }
+
+        .status-text {
+            color: #10B981;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .card-actions-mini {
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .dashboard-grid-simplified {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .pets-card-expanded {
+            grid-column: span 1;
         }
         
         .dashboard-card {
             background: rgba(17, 24, 39, 0.7);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.25);
             transition: all 0.3s ease;
         }
         
@@ -97,10 +199,10 @@
         .pet-item {
             display: flex;
             align-items: center;
-            padding: 1rem;
+            padding: 0.75rem;
             background: rgba(31, 41, 55, 0.5);
-            border-radius: 10px;
-            margin-bottom: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
         }
         
         .pet-avatar {
@@ -113,6 +215,20 @@
             justify-content: center;
             font-size: 1.5rem;
             margin-right: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .pet-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .pet-emoji,
+        .pet-emoji-fallback {
+            font-size: 1.5rem;
         }
         
         .pet-info h4 {
@@ -178,12 +294,37 @@
         }
         
         @media (max-width: 768px) {
-            .dashboard-grid {
+            .dashboard-header {
+                padding: 1rem 0;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .welcome-section h1 {
+                font-size: 1.75rem !important;
+            }
+
+            .mini-sheltercard {
+                width: 220px;
+                height: 140px;
+            }
+
+            .dashboard-grid-simplified {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .dashboard-card {
+                padding: 1rem;
             }
             
             .stats-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .quick-actions {
@@ -191,65 +332,80 @@
             }
             
             .pet-item {
-                flex-direction: column;
-                text-align: center;
+                flex-direction: row;
+                text-align: left;
+                padding: 0.5rem;
             }
             
             .pet-avatar {
-                margin: 0 0 1rem 0;
+                margin-right: 0.75rem;
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
             
-            .pet-actions {
-                margin: 1rem 0 0 0;
+            .mini-sheltercard {
+                width: 200px;
+                height: 125px;
+            }
+            
+            .card-number {
+                font-size: 0.9rem;
+            }
+
+            .pet-info h4 {
+                font-size: 1rem;
+            }
+
+            .pet-info p {
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
     <!-- Header / Navigation -->
+    <!-- CLEAN NAVIGATION - Same on ALL pages -->
     <header class="header">
-        <div class="header-container">
-            <a href="../index.html" class="logo">
-                <span class="logo-icon">🐾</span>
-                <span>Shelter Pawtners</span>
-            </a>
-            
-            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-                ☰
-            </button>
-            
-            <nav id="navigation" class="nav" aria-label="Main navigation">
-                <ul class="nav-menu" role="menubar">
-                    <li class="nav-item" role="none">
-                        <a href="dashboard.html" class="nav-link active" role="menuitem">Dashboard</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
-                    </li>
-                    <li class="nav-item has-dropdown" role="none">
-                        <a href="#" class="nav-link" role="menuitem" aria-haspopup="true">Account</a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="none"><a href="profile.html" class="dropdown-link" role="menuitem">Profile Settings</a></li>
-                            <li role="none"><a href="#" class="dropdown-link" role="menuitem" id="logoutBtn">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        <!-- Navigation automatically loaded by simple-navigation.js -->
     </header>
 
     <!-- Dashboard Header -->
     <section class="dashboard-header">
         <div class="container">
-            <h1 class="text-gradient" id="welcomeTitle" style="font-size: 2.5rem; margin-bottom: 0.5rem;">
-                Welcome Back!
-            </h1>
-            <p style="color: #D1D5DB; font-size: 1.125rem;">
-                Manage your pets' Digital Profiles and access your ShelterCARD benefits.
-            </p>
+            <div class="header-content">
+                <div class="welcome-section">
+                    <h1 class="text-gradient" id="welcomeTitle" style="font-size: 2rem; margin-bottom: 0.25rem;">
+                        Welcome Back!
+                    </h1>
+                    <p style="color: #D1D5DB; font-size: 1rem; margin: 0;">
+                        Manage your pets and access your ShelterCARD benefits.
+                    </p>
+                </div>
+                
+                <div class="sheltercard-preview">
+                    <div class="mini-sheltercard">
+                        <div class="card-header-mini">
+                            <div class="card-logo">🐾</div>
+                            <div class="card-title-mini">ShelterCARD</div>
+                        </div>
+                        <div class="card-number" id="cardNumber">•••• •••• •••• 1234</div>
+                        <div class="card-holder" id="cardHolder">Pet Parent</div>
+                        <div class="card-status" id="cardStatus">
+                            <span class="status-indicator active"></span>
+                            <span class="status-text">Active</span>
+                        </div>
+                    </div>
+                    <div class="card-actions-mini">
+                        <a href="sheltercard.html" class="btn btn-outline btn-small">View Full Card</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -261,9 +417,9 @@
                 🎉 Welcome to Shelter Pawtners! Your account has been created successfully. Start by adding your first pet to create their Digital Profile.
             </div>
 
-            <div class="dashboard-grid">
+            <div class="dashboard-grid-simplified">
                 <!-- Quick Stats Card -->
-                <div class="dashboard-card">
+                <div class="dashboard-card stats-card">
                     <div class="card-header">
                         <h2 class="card-title">Your Stats</h2>
                         <span class="card-icon">📊</span>
@@ -289,8 +445,8 @@
                     </div>
                 </div>
 
-                <!-- My Pets Card -->
-                <div class="dashboard-card">
+                <!-- My Pets Card - Expanded -->
+                <div class="dashboard-card pets-card-expanded">
                     <div class="card-header">
                         <h2 class="card-title">My Pets</h2>
                         <span class="card-icon">🐕</span>
@@ -302,43 +458,6 @@
                     
                     <div class="quick-actions" style="margin-top: 1.5rem;">
                         <a href="create-pet.html" class="btn btn-primary btn-small">Add New Pet</a>
-                        <a href="my-pets.html" class="btn btn-secondary btn-small">View All Pets</a>
-                    </div>
-                </div>
-
-                <!-- ShelterCARD Benefits Card -->
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <h2 class="card-title">ShelterCARD Benefits</h2>
-                        <span class="card-icon">💳</span>
-                    </div>
-                    
-                    <div style="margin-bottom: 1.5rem;">
-                        <div class="stat-item">
-                            <span class="stat-value">Active</span>
-                            <div class="stat-label">Card Status</div>
-                        </div>
-                    </div>
-                    
-                    <div class="quick-actions">
-                        <a href="sheltercard.html" class="btn btn-primary btn-small">View Card</a>
-                        <a href="vets.html" class="btn btn-secondary btn-small">Find Vets</a>
-                    </div>
-                </div>
-
-                <!-- Recent Activity Card -->
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <h2 class="card-title">Recent Activity</h2>
-                        <span class="card-icon">📋</span>
-                    </div>
-                    
-                    <div id="recentActivity">
-                        <div class="empty-state">
-                            <div class="empty-state-icon">📝</div>
-                            <p>No recent activity yet.</p>
-                            <p style="font-size: 0.875rem;">Activity will appear here as you use your account.</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -387,7 +506,7 @@
     <script src="../js/supabase-config.js"></script>
     <script src="../js/database.js"></script>
     <script src="../js/auth.js"></script>
-    <script src="../js/navigation.js"></script>
+    <script src="../js/simple-navigation.js"></script>
 
     <script>
         // Dashboard Logic
@@ -494,13 +613,11 @@
                 return;
             }
 
-            // Show up to 3 pets in dashboard
-            const displayPets = pets.slice(0, 3);
-            
-            petsList.innerHTML = displayPets.map(pet => `
+            // Show all pets in dashboard
+            petsList.innerHTML = pets.map(pet => `
                 <div class="pet-item">
                     <div class="pet-avatar">
-                        ${getPetEmoji(pet.species || 'dog')}
+                        ${getPetAvatar(pet)}
                     </div>
                     <div class="pet-info">
                         <h4>${pet.name}</h4>
@@ -512,24 +629,24 @@
                     </div>
                 </div>
             `).join('');
-
-            // Show "View All" if there are more pets
-            if (pets.length > 3) {
-                petsList.innerHTML += `
-                    <div class="pet-item" style="justify-content: center; border: 2px dashed rgba(139, 92, 246, 0.3);">
-                        <div style="text-align: center;">
-                            <p style="color: #9CA3AF; margin: 0;">+${pets.length - 3} more pets</p>
-                            <a href="my-pets.html" class="btn btn-secondary btn-small" style="margin-top: 0.5rem;">View All Pets</a>
-                        </div>
-                    </div>
-                `;
-            }
         }
 
         function updateDashboardStats(pets) {
             // Mock data for demo - would be real data in production
             document.getElementById('appointmentsCount').textContent = Math.floor(Math.random() * 3);
             document.getElementById('savingsAmount').textContent = `$${(pets.length * 150 + Math.floor(Math.random() * 200)).toLocaleString()}`;
+        }
+
+        function getPetAvatar(pet) {
+            // Check if pet has an uploaded image (check both possible field names)
+            const imageUrl = pet.photo_url || pet.image_url;
+            if (imageUrl && imageUrl.trim() !== '') {
+                return `<img src="${imageUrl}" alt="${pet.name}" class="pet-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="pet-emoji-fallback" style="display: none;">${getPetEmoji(pet.species || 'dog')}</div>`;
+            }
+            
+            // Fall back to emoji if no image
+            return `<div class="pet-emoji">${getPetEmoji(pet.species || 'dog')}</div>`;
         }
 
         function getPetEmoji(species) {

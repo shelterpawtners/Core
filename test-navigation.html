@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Test - Shelter Pawtners</title>
+    <meta name="description" content="Test page for the new Shelter Pawtners navigation structure">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <span class="logo-text">🐾 Shelter Pawtners</span>
+                </a>
+                
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+            
+            <nav id="navigation" class="nav" aria-label="Main navigation">
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item has-dropdown" role="none">
+                        <a href="pages/how-it-works.html" class="nav-link" role="menuitem" aria-haspopup="true">How It Works</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="pages/how-it-works.html" class="dropdown-link" role="menuitem">How It Works</a></li>
+                            <li role="none"><a href="pages/about.html" class="dropdown-link" role="menuitem">About Us</a></li>
+                            <li role="none"><a href="pages/contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
+                            <li role="none"><a href="pages/faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="pages/businesses.html" class="nav-link" role="menuitem">Partners</a>
+                    </li>
+                    <li class="nav-item has-dropdown nav-auth-only" role="none" style="display: none;">
+                        <a href="pages/dashboard.html" class="nav-link" role="menuitem" aria-haspopup="true">My Account</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="none"><a href="pages/dashboard.html" class="dropdown-link" role="menuitem">Dashboard</a></li>
+                            <li role="none"><a href="pages/my-pets.html" class="dropdown-link" role="menuitem">My Pets</a></li>
+                            <li role="none"><a href="pages/sheltercard.html" class="dropdown-link" role="menuitem">ShelterCARD</a></li>
+                            <li role="none"><a href="../pages/profile.html" class="dropdown-link" role="menuitem">User Profile</a></li>
+                            <li role="none"><a href="#" class="dropdown-link" role="menuitem" onclick="signOut()">Sign Out</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-public-only" role="none">
+                        <a href="pages/signin.html" class="nav-link nav-cta" role="menuitem">Sign In</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Navigation Test Page</h1>
+                    <p class="hero-text">
+                        This page demonstrates the new navigation structure with authentication states.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Demo Section -->
+        <section class="section">
+            <div class="container">
+                <h2 class="text-center mb-xl">Navigation Structure Test</h2>
+                
+                <div class="grid grid-2 gap-xl">
+                    <!-- Public Navigation -->
+                    <div class="card">
+                        <h3 class="card-title">🌐 Public Navigation (Default)</h3>
+                        <p class="card-text">When users are <strong>not signed in</strong>, they see:</p>
+                        <ul class="list-styled">
+                            <li><strong>How It Works</strong> (dropdown)
+                                <ul class="ml-lg mt-sm">
+                                    <li>How It Works</li>
+                                    <li>About Us</li>
+                                    <li>Contact</li>
+                                    <li>FAQ</li>
+                                </ul>
+                            </li>
+                            <li><strong>Partners</strong> (direct link)</li>
+                            <li><strong>Sign In</strong> (CTA button)</li>
+                        </ul>
+                        <button class="btn btn-outline mt-lg" onclick="toggleAuthState(false)">Test Public View</button>
+                    </div>
+
+                    <!-- Authenticated Navigation -->
+                    <div class="card">
+                        <h3 class="card-title">🔐 Authenticated Navigation</h3>
+                        <p class="card-text">When users are <strong>signed in</strong>, they see:</p>
+                        <ul class="list-styled">
+                            <li><strong>How It Works</strong> (dropdown) - same as public</li>
+                            <li><strong>Partners</strong> (direct link) - same as public</li>
+                            <li><strong>My Account</strong> (dropdown)
+                                <ul class="ml-lg mt-sm">
+                                    <li>Dashboard</li>
+                                    <li>My Pets</li>
+                                    <li>ShelterCARD</li>
+                                    <li>User Profile</li>
+                                    <li>Sign Out</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <button class="btn btn-primary mt-lg" onclick="toggleAuthState(true)">Test Authenticated View</button>
+                    </div>
+                </div>
+
+                <!-- Current State Display -->
+                <div class="card mt-xl bg-accent-light">
+                    <h3 class="card-title">📊 Current Navigation State</h3>
+                    <p id="currentState" class="card-text">
+                        <strong>Status:</strong> <span id="authStatus">Public (Not Signed In)</span><br>
+                        <strong>Visible Elements:</strong> <span id="visibleElements">How It Works dropdown, Partners link, Sign In button</span>
+                    </p>
+                    <button class="btn btn-secondary mt-md" onclick="resetNavigation()">Reset to Default</button>
+                </div>
+
+                <!-- Navigation Guidelines -->
+                <div class="card mt-xl">
+                    <h3 class="card-title">📋 Navigation Guidelines</h3>
+                    <div class="grid grid-2 gap-lg">
+                        <div>
+                            <h4 class="mb-md">🎯 Design Principles</h4>
+                            <ul class="list-styled">
+                                <li>Clean and consistent across all pages</li>
+                                <li>Authentication-aware visibility</li>
+                                <li>Logical grouping of related content</li>
+                                <li>Mobile-responsive design</li>
+                                <li>Accessible with ARIA labels</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="mb-md">🔧 Technical Features</h4>
+                            <ul class="list-styled">
+                                <li>CSS classes: <code>.nav-auth-only</code>, <code>.nav-public-only</code></li>
+                                <li>JavaScript state management</li>
+                                <li>Proper active states for current pages</li>
+                                <li>Dropdown accessibility with ARIA</li>
+                                <li>Responsive hamburger menu</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-text">🐾 Shelter Pawtners</span>
+                    </div>
+                    <p class="footer-text">The digital backbone for post-adoption success.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">Quick Links</h4>
+                        <ul class="footer-list">
+                            <li><a href="pages/how-it-works.html" class="footer-link">How It Works</a></li>
+                            <li><a href="pages/about.html" class="footer-link">About Us</a></li>
+                            <li><a href="pages/contact.html" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-title">Legal</h4>
+                        <ul class="footer-list">
+                            <li><a href="pages/privacy.html" class="footer-link">Privacy Policy</a></li>
+                            <li><a href="pages/terms.html" class="footer-link">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shelter Pawtners. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/navigation.js"></script>
+    <script>
+        // Authentication state management for testing
+        let isAuthenticated = false;
+
+        function toggleAuthState(authenticated) {
+            isAuthenticated = authenticated;
+            updateNavigationDisplay();
+            updateStateDisplay();
+        }
+
+        function updateNavigationDisplay() {
+            const authOnlyElements = document.querySelectorAll('.nav-auth-only');
+            const publicOnlyElements = document.querySelectorAll('.nav-public-only');
+
+            if (isAuthenticated) {
+                // Show authenticated elements
+                authOnlyElements.forEach(el => {
+                    el.style.display = '';
+                });
+                // Hide public-only elements
+                publicOnlyElements.forEach(el => {
+                    el.style.display = 'none';
+                });
+            } else {
+                // Hide authenticated elements
+                authOnlyElements.forEach(el => {
+                    el.style.display = 'none';
+                });
+                // Show public-only elements
+                publicOnlyElements.forEach(el => {
+                    el.style.display = '';
+                });
+            }
+        }
+
+        function updateStateDisplay() {
+            const authStatus = document.getElementById('authStatus');
+            const visibleElements = document.getElementById('visibleElements');
+
+            if (isAuthenticated) {
+                authStatus.textContent = 'Authenticated (Signed In)';
+                visibleElements.textContent = 'How It Works dropdown, Partners link, My Account dropdown';
+            } else {
+                authStatus.textContent = 'Public (Not Signed In)';
+                visibleElements.textContent = 'How It Works dropdown, Partners link, Sign In button';
+            }
+        }
+
+        function resetNavigation() {
+            toggleAuthState(false);
+        }
+
+        function signOut() {
+            alert('Sign out clicked! In a real app, this would log the user out.');
+            toggleAuthState(false);
+        }
+
+        // Initialize display
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNavigationDisplay();
+            updateStateDisplay();
+        });
+    </script>
+</body>
+</html>

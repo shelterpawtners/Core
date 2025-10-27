@@ -7,36 +7,21 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/simple-navigation.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
+    <!-- CLEAN NAVIGATION - Same on ALL pages -->
     <header class="header">
-        <div class="header-container">
-            <a href="../index.html" class="logo">
-                <span class="logo-icon">🐾</span>
-                <span>Shelter Pawtners</span>
-            </a>
-            
-            <nav class="nav">
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="dashboard.html" class="nav-link">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="my-pets.html" class="nav-link">My Pets</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        <!-- Navigation automatically loaded by simple-navigation.js -->
     </header>
 
     <main>
         <section class="py-xl">
             <div class="container">
                 <div style="max-width: 600px; margin: 0 auto;">
-                    <h1 class="hero-title text-gradient">👤 Profile Settings</h1>
+                    <h1 class="hero-title text-gradient">👤 User Profile Settings</h1>
                     
                     <div class="info-card" style="margin-top: 2rem;">
                         <h2 class="card-title">Account Information</h2>
@@ -84,6 +69,10 @@
         </section>
     </main>
 
+    <script src="../js/utils.js"></script>
+    <script src="../js/forms.js"></script>
+    <!-- SIMPLE NAVIGATION - Clean, consistent, logo and links on same line -->
+    <script src="../js/simple-navigation.js"></script>
     <script src="../js/auth.js"></script>
     <script>
         // Load user profile data

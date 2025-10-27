@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Pet Profiles - Shelter Pawtners</title>
-    <!-- Add your CSS links here -->
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
-    <header>
+    <header class="header">
         <div class="header-container">
-            <a href="../" class="logo">
+            <a href="../index.html" class="logo">
                 <span class="logo-icon">🐾</span>
                 <span>Shelter Pawtners</span>
             </a>
@@ -24,17 +29,17 @@
                         <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
                     </li>
                     <li class="nav-item" role="none">
-                        <a href="profiles.html" class="nav-link" role="menuitem" aria-current="page">Profiles</a>
+                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
                     </li>
                     <li class="nav-item" role="none">
                         <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
                     </li>
                     <li class="nav-item has-dropdown" role="none">
-                        <a href="services.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
+                        <a href="businesses.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
                         <ul class="dropdown-menu" role="menu">
                             <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
                             <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
-                            <li role="none"><a href="owners.html" class="dropdown-link" role="menuitem">Pet Owners</a></li>
+                            <li role="none"><a href="pet-owners.html" class="dropdown-link" role="menuitem">Pet Parents</a></li>
                         </ul>
                     </li>
                     <li class="nav-item has-dropdown" role="none">
@@ -45,6 +50,12 @@
                         </ul>
                     </li>
                 </ul>
+                
+                <div class="nav-auth">
+                    <div id="authButtons" class="nav-buttons">
+                        <a href="login.html" class="btn btn-outline">Sign In</a>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -372,5 +383,6 @@
     <!-- JavaScript -->
     <script src="../js/navigation.js"></script>
     <script src="../js/utils.js"></script>
+    <script src="../js/forms.js"></script>
 </body>
 </html>
