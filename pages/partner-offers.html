@@ -3,72 +3,356 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partner Offers - ShelterCARD Benefits - Shelter Pawtners</title>
+    <title>ShelterCARD Marketplace - Exclusive Pet Care Discounts - Shelter Pawtners</title>
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/navigation.css">
     <link rel="stylesheet" href="../css/simple-navigation.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/responsive.css">
+    
+    <style>
+        /* Marketplace styling for partner-offers page */
+        body {
+            background: linear-gradient(135deg, var(--gradient-primary) 0%, var(--gradient-secondary) 100%);
+            min-height: 100vh;
+        }
+        
+        main {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            margin: var(--spacing-lg) var(--spacing-md);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        /* Compact Professional Marketplace Hero Section */
+        .marketplace-hero {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 50%, #F59E0B 100%);
+            position: relative;
+            overflow: hidden;
+            padding: var(--spacing-lg) 0; /* Much shorter padding */
+        }
+        
+        .marketplace-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+            z-index: 1;
+        }
+        
+        .marketplace-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .marketplace-hero .hero-title {
+            color: #FFFFFF !important;
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.5), 0 1px 5px rgba(0, 0, 0, 0.8);
+            font-size: clamp(2rem, 4vw, 3rem); /* Smaller size */
+            font-weight: 800;
+            margin-bottom: var(--spacing-sm); /* Less margin */
+        }
+        
+        .marketplace-hero .hero-text {
+            color: #FFFFFF !important;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.9);
+            font-size: clamp(1rem, 1.5vw, 1.25rem); /* Smaller text */
+            max-width: 500px; /* Narrower width */
+            margin: 0 auto var(--spacing-sm); /* Less bottom margin */
+            line-height: 1.5;
+            font-weight: 500; /* Slightly bolder for better readability */
+        }
+        
+
+        
+        /* Transparent Filter Section with higher specificity */
+        .container .filter-bar,
+        main .filter-bar {
+            background: rgba(255, 255, 255, 0.95) !important; /* 95% transparent white */
+            backdrop-filter: blur(10px) !important;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(139, 92, 246, 0.3); /* Semi-transparent purple border */
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .filter-bar::before {
+            content: '🔍 Find Your Perfect Deals';
+            display: block;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1F2937; /* Dark gray - WCAG AA compliant */
+            margin-bottom: var(--spacing-md);
+            text-align: center;
+        }
+        
+        /* Transparent offer cards with higher specificity */
+        .offers-grid .offer-card,
+        main .offer-card {
+            background: rgba(255, 255, 255, 0.95) !important; /* 95% transparent white */
+            backdrop-filter: blur(10px) !important;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(229, 231, 235, 0.6); /* Semi-transparent light gray border */
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.15);
+            border-color: #8B5CF6; /* Purple border on hover */
+        }
+        
+        /* Form elements with better contrast */
+        .form-select {
+            border: 2px solid #6B7280 !important;
+            color: #1F2937 !important;
+            background-color: #FFFFFF !important;
+            font-weight: 500;
+        }
+        
+        .form-select:focus {
+            border-color: #8B5CF6 !important;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2) !important;
+            outline: none;
+        }
+        
+        /* Add marketplace trust indicators */
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+            flex-wrap: wrap;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: #1F2937; /* Darker for better contrast */
+            font-size: 0.875rem;
+            font-weight: 600; /* Bolder for better readability */
+            background: rgba(139, 92, 246, 0.05); /* Subtle background */
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        /* Marketplace categories */
+        .category-highlight {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-sm);
+            margin: var(--spacing-md) 0;
+        }
+        
+        @media (max-width: 768px) {
+            .marketplace-hero {
+                padding: var(--spacing-md) 0; /* Even more compact on mobile */
+            }
+            
+            .trust-indicators {
+                gap: var(--spacing-sm);
+            }
+            
+            .trust-badge {
+                font-size: 0.75rem;
+                padding: var(--spacing-xs);
+            }
+        }
+        
+        /* Fix logo icon visibility */
+        .logo-icon {
+            display: inline-block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            color: var(--color-primary) !important;
+            font-size: 1.5em;
+            margin-right: var(--spacing-xs);
+        }
+        
+        /* WCAG AA Compliant text colors for white/light backgrounds */
+        main .section-title {
+            color: #111827 !important; /* Darker for better contrast */
+            text-shadow: none !important;
+            font-weight: 700;
+        }
+        
+        main .section-text,
+        main p,
+        main h3,
+        main h4,
+        main .offer-description,
+        main .offer-validity {
+            color: #1F2937 !important; /* Darker gray - WCAG AA compliant (7:1 ratio) */
+            text-shadow: none !important;
+            font-weight: 500; /* Slightly bolder for better readability */
+        }
+        
+        /* Filter labels with high contrast */
+        .filter-group label {
+            color: #111827 !important; /* Very dark for maximum contrast */
+            font-weight: 700; /* Bold for better visibility */
+            font-size: 1rem;
+        }
+        
+        /* Card text with high contrast */
+        .offer-card .offer-title {
+            color: #111827 !important; /* Very dark for headings */
+            font-weight: 700;
+        }
+        
+        .offer-card .offer-description {
+            color: #1F2937 !important; /* Dark gray for body text */
+            font-weight: 500;
+        }
+        
+        .offer-card .offer-savings {
+            color: #059669 !important; /* Green for savings - color-blind friendly */
+            font-weight: 700;
+        }
+        
+        /* Modal text */
+        .modal-content {
+            color: #1F2937 !important;
+        }
+        
+        /* Info card text */
+        .info-card h3,
+        .info-card p {
+            color: #1F2937 !important;
+        }
+        
+        /* CTA section with white background and extra padding */
+        .bg-gradient-reverse {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            padding-top: 150px !important;
+            padding-bottom: 150px !important;
+        }
+        
+        .bg-gradient-reverse .section-title {
+            color: #111827 !important; /* Dark text for white background */
+        }
+        
+        .bg-gradient-reverse .section-text {
+            color: #1F2937 !important; /* Dark text for white background */
+        }
+        
+        /* Override any global card styles that might be causing dark backgrounds */
+        .card,
+        .glass-card,
+        .feature-box {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        
+        /* Ensure filter elements have white backgrounds */
+        .filter-group,
+        .filter-group select,
+        .form-select {
+            background: rgba(255, 255, 255, 0.98) !important;
+            color: #1F2937 !important;
+        }
+        
+        /* Ensure all text in main content is dark on light backgrounds */
+        main * {
+            color: #1F2937 !important;
+        }
+        
+        /* Specific overrides for elements that should keep their original colors */
+        main .hero-title,
+        main .hero-text,
+        .marketplace-hero * {
+            color: #FFFFFF !important;
+        }
+        
+        main .btn,
+        main .btn * {
+            color: #FFFFFF !important;
+        }
+        
+        /* Custom styling for View Offer buttons */
+        .offer-btn,
+        .btn.offer-btn {
+            background: #6B7280 !important; /* Grey background */
+            border: 2px solid transparent !important;
+            background-image: linear-gradient(#6B7280, #6B7280), var(--gradient-primary) !important;
+            background-origin: border-box !important;
+            background-clip: padding-box, border-box !important;
+            color: #FFFFFF !important;
+            font-weight: 600;
+        }
+        
+        .offer-btn:hover,
+        .btn.offer-btn:hover {
+            background: #4B5563 !important; /* Darker grey on hover */
+            background-image: linear-gradient(#4B5563, #4B5563), var(--gradient-primary) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* More transparent discount badges for better text readability */
+        .discount-badge {
+            background: rgba(139, 92, 246, 0.2) !important; /* Much more transparent purple */
+            backdrop-filter: blur(5px);
+            color: #1F2937 !important; /* Dark text for better readability */
+            font-weight: 700 !important;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            text-shadow: none !important;
+        }
+
+    </style>
 </head>
 <body>
+    <!-- CLEAN NAVIGATION - Same on ALL pages -->
     <header class="header">
-        <div class="header-container">
+        <div class="header-content">
             <a href="../index.html" class="logo">
                 <span class="logo-icon">🐾</span>
                 <span>Shelter Pawtners</span>
             </a>
             
-            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-                ☰
-            </button>
-            
-            <nav id="navigation" class="nav" aria-label="Main navigation">
-                <ul class="nav-menu" role="menubar">
-                    <li class="nav-item" role="none">
-                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
-                    </li>
-                    <li class="nav-item has-dropdown" role="none">
-                        <a href="businesses.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
-                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
-                            <li role="none"><a href="pet-owners.html" class="dropdown-link" role="menuitem">Pet Parents</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item has-dropdown" role="none">
-                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
-                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <div class="nav-auth">
-                    <div id="authButtons" class="nav-buttons">
-                        <a href="login.html" class="btn btn-outline">Sign In</a>
-                    </div>
-                </div>
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <!-- Navigation will be populated by simple-navigation.js -->
             </nav>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+            </button>
         </div>
+        
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <!-- Mobile navigation will be populated by simple-navigation.js -->
+        </nav>
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section class="py-xl bg-gradient">
+        <!-- Marketplace Hero Section -->
+        <section class="marketplace-hero">
             <div class="container">
                 <div class="text-center max-w-4xl mx-auto">
-                    <h1 class="hero-title text-gradient">💳 ShelterCARD Partner Offers</h1>
+                    <h1 class="hero-title">ShelterCARD Marketplace</h1>
                     <p class="hero-text">
-                        Exclusive discounts and benefits for shelter-adopted pets. Join thousands of families saving on quality pet care!
+                        Discover exclusive discounts from trusted national and local businesses. Save on quality pet care while supporting shelter animals with every purchase.
                     </p>
                 </div>
             </div>
@@ -111,6 +395,26 @@
                             <option value="bogo">Buy One Get One</option>
                             <option value="free">Free Services</option>
                         </select>
+                    </div>
+                </div>
+                
+                <!-- Trust Indicators -->
+                <div class="trust-indicators">
+                    <div class="trust-badge">
+                        <span>✅</span>
+                        <span>Verified Partners</span>
+                    </div>
+                    <div class="trust-badge">
+                        <span>🛡️</span>
+                        <span>Secure Transactions</span>
+                    </div>
+                    <div class="trust-badge">
+                        <span>💰</span>
+                        <span>Best Price Guarantee</span>
+                    </div>
+                    <div class="trust-badge">
+                        <span>📞</span>
+                        <span>24/7 Support</span>
                     </div>
                 </div>
             </div>
@@ -258,7 +562,7 @@
                 <div class="text-center max-w-3xl mx-auto">
                     <h2 class="section-title text-gradient">Don't have a ShelterCARD yet?</h2>
                     <p class="section-text">
-                        Join thousands of pet parents saving money while supporting shelter animals.
+                        Join thousands of families saving on pet care while supporting shelter animals. Get your ShelterCARD today and start accessing exclusive discounts.
                     </p>
                     <div class="cta-buttons">
                         <a href="eligibility-check.html" class="btn btn-primary btn-large">
@@ -296,7 +600,7 @@
         <!-- Footer content automatically loaded by simple-footer.js -->
     </footer>
 
-    <script src="../js/navigation.js"></script>
+    <script src="../js/simple-navigation.js"></script>
     <script>
         // Filter functionality
         function filterOffers() {

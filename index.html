@@ -14,7 +14,6 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/navigation.css">
     <link rel="stylesheet" href="css/simple-navigation.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -32,64 +31,38 @@
         <div class="container">
             <div class="glass-hero">
                 <div class="glass-content hero-content">
-                    <h1 class="hero-title text-gradient">Adopt. Save. Foster.</h1>
-                    <p class="hero-subhead text-readable" style="font-size: 1.25rem; margin-bottom: 1rem; font-weight: 600; color: var(--text-readable);">
-                        Incentivizing Adoption with Digital Pet Profiles that fuel discounts and savings for a lifetime! No healthy pet should die due to lack of space at the Shelter
+                    <h1 class="hero-title text-gradient" style="font-size: 2.8rem; line-height: 1.1; margin-bottom: 1rem;">Join the Movement to Support Shelter Pets</h1>
+                    <p class="hero-subhead" style="font-size: 1.25rem; margin-bottom: 1rem; font-weight: 600; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                        Be part of the digital backbone that supports shelter pets after adoption. Together, we're creating a world where choosing shelter pets first is the obvious and rewarding choice for every family.
                     </p>
-                    <p class="hero-text">
-                        ShelterPawtners digitizes shelter "Pet Report Cards" into secure Digital Pet Profiles and verifies adopted-owner eligibility for lifelong ShelterCARD savings—so families get support, pets get better care, and shelters clear space faster.
-                    </p>
-                    <div class="hero-buttons" role="group" aria-label="Get started options">
-                        <a href="pages/register.html?type=pet-parent" class="btn btn-large btn-hero-primary" aria-describedby="create-profile-desc">
-                            <span aria-hidden="true">🐾 </span>Create Your Pet Profile
-                            <span id="create-profile-desc" class="sr-only">Create a Digital Pet Profile for your adopted pet</span>
+                    <div class="hero-buttons" role="group" aria-label="Get started options" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="pages/profiles.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;" aria-describedby="pets-desc">
+                            <span aria-hidden="true" style="font-size: 3.25rem; margin-bottom: 0.3rem; display: block;">🐾</span>
+                            <span style="font-weight: 600;">Pets</span>
+                            <span id="pets-desc" class="sr-only">View pet profiles and services</span>
                         </a>
-                        <a href="pages/sheltercard.html" class="btn btn-large btn-outline" aria-describedby="sheltercard-desc">
-                            <span aria-hidden="true">💳 </span>How ShelterCARD Works
-                            <span id="sheltercard-desc" class="sr-only">Learn about exclusive lifelong savings for adopted pets</span>
+                        <a href="pages/shelters.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;" aria-describedby="shelters-desc">
+                            <span aria-hidden="true" style="font-size: 3.25rem; margin-bottom: 0.3rem; display: block;">🏠</span>
+                            <span style="font-weight: 600;">Shelters</span>
+                            <span id="shelters-desc" class="sr-only">Join our shelter network</span>
                         </a>
-                        <a href="pages/register.html?type=business-partner" class="btn btn-large btn-hero-tertiary" aria-describedby="partner-desc">
-                            <span aria-hidden="true">🤝 </span>Partner With Us
-                            <span id="partner-desc" class="sr-only">Join our network of partners supporting adopted pets</span>
+                        <a href="pages/pet-owners.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;" aria-describedby="adopters-desc">
+                            <span aria-hidden="true" style="font-size: 3.25rem; margin-bottom: 0.3rem; display: block;">👨‍👩‍👧‍👦</span>
+                            <span style="font-weight: 600;">Adopters</span>
+                            <span id="adopters-desc" class="sr-only">Get started as a pet adopter</span>
+                        </a>
+                        <a href="pages/vets.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;" aria-describedby="vets-desc">
+                            <span aria-hidden="true" style="font-size: 3.25rem; margin-bottom: 0.3rem; display: block;">🩺</span>
+                            <span style="font-weight: 600;">Vets</span>
+                            <span id="vets-desc" class="sr-only">Join as a veterinary partner</span>
+                        </a>
+                        <a href="pages/businesses.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;" aria-describedby="partners-desc">
+                            <span aria-hidden="true" style="font-size: 3.25rem; margin-bottom: 0.3rem; display: block;">🤝</span>
+                            <span style="font-weight: 600;">Partners</span>
+                            <span id="partners-desc" class="sr-only">Become a business partner</span>
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- What's a Digital Pet Profile -->
-    <section class="section" aria-labelledby="digital-profile-heading">
-        <div class="container">
-            <div class="glass-card" style="max-width: 800px; margin: 0 auto; text-align: center; padding: 3rem 2rem;">
-                <h2 id="digital-profile-heading" class="text-gradient" style="font-size: 2rem; margin-bottom: 1.5rem;">What's a Digital Pet Profile?</h2>
-                
-                <div class="grid grid-1" style="gap: 1.5rem; margin-bottom: 2rem;">
-                    <div style="display: flex; align-items: flex-start; text-align: left; gap: 1rem;">
-                        <div class="feature-icon" style="background: var(--glass-gradient-1); color: white; font-size: 1.5rem; margin-top: 0.25rem;" aria-hidden="true">�</div>
-                        <p class="text-secondary" style="font-size: 1.125rem; margin: 0;">
-                            <strong>Complete care history</strong> that travels with your pet—vaccinations, meds, allergies, behavior, compatibility.
-                        </p>
-                    </div>
-                    
-                    <div style="display: flex; align-items: flex-start; text-align: left; gap: 1rem;">
-                        <div class="feature-icon" style="background: var(--glass-gradient-2); color: white; font-size: 1.5rem; margin-top: 0.25rem;" aria-hidden="true">📱</div>
-                        <p class="text-secondary" style="font-size: 1.125rem; margin: 0;">
-                            <strong>Scan & share</strong> via microchip + QR/RFID with owner consent—ER visits, boarding, travel.
-                        </p>
-                    </div>
-                    
-                    <div style="display: flex; align-items: flex-start; text-align: left; gap: 1rem;">
-                        <div class="feature-icon" style="background: var(--glass-gradient-3); color: white; font-size: 1.5rem; margin-top: 0.25rem;" aria-hidden="true">💳</div>
-                        <p class="text-secondary" style="font-size: 1.125rem; margin: 0;">
-                            <strong>Unlock ShelterCARD:</strong> exclusive, adopted-only savings for the life of your pet.
-                        </p>
-                    </div>
-                </div>
-                
-                <a href="pages/profiles.html" class="btn btn-large btn-hero-primary">
-                    <span aria-hidden="true">👁️ </span>View Sample Profile
-                </a>
             </div>
         </div>
     </section>
@@ -98,35 +71,35 @@
     <section class="section" aria-labelledby="value-props-heading">
         <div class="container">
             <h2 id="value-props-heading" class="text-center mb-md">Helping Shelter Pets Thrive After Adoption</h2>
-            <p class="text-center mb-xl text-readable" style="font-size: 1.125rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-                The digital backbone for post-adoption success: Pet Data → Digital Pet Profiles → ShelterCARD.
-            </p>
+            <div class="text-center mb-xl">
+                <h3 class="text-gradient" style="font-size: 1.5rem; margin-bottom: 1rem;">Why We Exist</h3>
+                <p class="text-readable" style="font-size: 1.125rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+                    Every year, millions of healthy pets are euthanized simply because shelters run out of space. We believe that when someone chooses to adopt, they deserve all the support we can give them—forever.
+                </p>
+            </div>
             
             <div class="grid grid-3" role="list" aria-label="Main benefits">
                 <div class="feature-box glass-card" role="listitem">
-                    <div class="feature-icon" aria-hidden="true">🏠</div>
-                    <h3 class="feature-title">Get Pets Out of Shelters</h3>
+                    <div class="feature-icon" aria-hidden="true">📊</div>
+                    <h3 class="feature-title">Better Veterinary Care</h3>
                     <p class="feature-text text-readable">
-                        Our mission is simple: help every shelter pet find their forever home by showing that 
-                        adopted pets receive the best ongoing care and support.
+                        When your pet visits the vet, their complete medical history is instantly available. No more repeating information or risking dangerous drug interactions.
                     </p>
                 </div>
                 
                 <div class="feature-box glass-card" role="listitem">
-                    <div class="feature-icon" aria-hidden="true">🐾</div>
-                    <h3 class="feature-title">Digital Pet Profiles</h3>
+                    <div class="feature-icon" aria-hidden="true">💳</div>
+                    <h3 class="feature-title">Meaningful Savings</h3>
                     <p class="feature-text text-readable">
-                        Digitized shelter "Pet Report Cards" provide complete care history that travels with your pet, 
-                        making every vet visit faster and more informed.
+                        Because you chose to adopt, you get lifetime discounts on everything your pet needs—from vet visits to grooming to training classes.
                     </p>
                 </div>
                 
                 <div class="feature-box glass-card" role="listitem">
-                    <div class="feature-icon" aria-hidden="true">💰</div>
-                    <h3 class="feature-title">ShelterCARD Savings</h3>
+                    <div class="feature-icon" aria-hidden="true">🔬</div>
+                    <h3 class="feature-title">Advancing Pet Health</h3>
                     <p class="feature-text text-readable">
-                        Exclusive, adopted-only discounts for the life of your pet on veterinary care, nutrition, 
-                        training, grooming, and more from our verified partner network.
+                        Your pet's anonymized health data helps researchers discover new treatments and preventive care methods that benefit all animals.
                     </p>
                 </div>
             </div>
@@ -136,72 +109,128 @@
     <!-- How It Works -->
     <section class="section section-alt">
         <div class="container">
-            <h2 class="text-center mb-xl">How It Works</h2>
+            <h2 class="text-center mb-xl" style="color: white; font-size: 2.5rem; margin-bottom: 3rem;">How It Works</h2>
             
-            <div class="grid grid-3">
+            <div class="grid grid-3" style="gap: 2rem;">
                 <div class="card glass-card">
-                    <div class="card-content">
-                        <h3 class="card-title">1. Sign Up</h3>
-                        <p class="card-text">
-                            Create your free account and add your rescued pet's profile, including 
-                            microchip number and adoption information.
+                    <div class="card-content" style="text-align: center; padding: 2rem;">
+                        <div class="feature-icon" style="background: var(--glass-gradient-1); color: white; font-size: 2rem; margin: 0 auto 1rem; width: 4rem; height: 4rem; display: flex; align-items: center; justify-content: center; border-radius: 50%;" aria-hidden="true">🏠</div>
+                        <h3 class="card-title" style="color: white; margin-bottom: 1rem; font-size: 1.25rem;">1. Shelter Creates Profile</h3>
+                        <p class="card-text" style="color: white; font-size: 1rem; line-height: 1.5;">
+                            Animal shelters create complete digital profiles for every pet, including medical history, personality traits, and care needs before adoption.
                         </p>
                     </div>
                 </div>
                 
                 <div class="card glass-card">
-                    <div class="card-content">
-                        <h3 class="card-title">2. Get Verified</h3>
-                        <p class="card-text">
-                            We verify your pet's adoption status with your shelter to ensure 
-                            authenticity and build trust with our business partners.
+                    <div class="card-content" style="text-align: center; padding: 2rem;">
+                        <div class="feature-icon" style="background: var(--glass-gradient-2); color: white; font-size: 2rem; margin: 0 auto 1rem; width: 4rem; height: 4rem; display: flex; align-items: center; justify-content: center; border-radius: 50%;" aria-hidden="true">👨‍👩‍👧‍👦</div>
+                        <h3 class="card-title" style="color: white; margin-bottom: 1rem; font-size: 1.25rem;">2. Transfer to Adopter</h3>
+                        <p class="card-text" style="color: white; font-size: 1rem; line-height: 1.5;">
+                            When you adopt, the shelter transfers your pet's complete digital profile to you, giving you instant access to all their information.
                         </p>
                     </div>
                 </div>
                 
                 <div class="card glass-card">
-                    <div class="card-content">
-                        <h3 class="card-title">3. Start Saving</h3>
-                        <p class="card-text">
-                            Access lifetime discounts at participating businesses. Show your 
-                            Shelter Pawtners ID and enjoy the savings!
+                    <div class="card-content" style="text-align: center; padding: 2rem;">
+                        <div class="feature-icon" style="background: var(--glass-gradient-3); color: white; font-size: 2rem; margin: 0 auto 1rem; width: 4rem; height: 4rem; display: flex; align-items: center; justify-content: center; border-radius: 50%;" aria-hidden="true">💳</div>
+                        <h3 class="card-title" style="color: white; margin-bottom: 1rem; font-size: 1.25rem;">3. ShelterCARD Benefits</h3>
+                        <p class="card-text" style="color: white; font-size: 1rem; line-height: 1.5;">
+                            Your ShelterCARD connects to the microchip and unlocks lifetime savings at vets, pet stores, and services in our caring network.
                         </p>
                     </div>
                 </div>
             </div>
             
             <div class="text-center mt-xl">
-                <a href="pages/how-it-works.html" class="btn btn-primary btn-large">Learn More</a>
+                <a href="pages/how-it-works.html" class="btn btn-primary btn-large" style="background: var(--gradient-primary); color: white; padding: 1rem 2rem; font-weight: 600; border: none; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);">Learn More</a>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="section">
+    <!-- Who We Serve -->
+    <section class="section" aria-labelledby="who-we-serve-heading">
         <div class="container">
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-number">10,000+</div>
-                    <div class="stat-label">Rescued Pets Enrolled</div>
+            <h2 id="who-we-serve-heading" class="text-center text-gradient" style="font-size: 2.5rem; margin-bottom: 3rem;">Who We Serve</h2>
+            
+            <div class="grid grid-2" style="gap: 1.5rem;">
+                <!-- Shelters -->
+                <div class="glass-card" style="padding: 2rem 1.5rem;">
+                    <div class="feature-icon" style="background: var(--glass-gradient-1); color: white; font-size: 2rem; margin: 0 auto 1rem; width: 4rem; height: 4rem; display: flex; align-items: center; justify-content: center; border-radius: 50%;" aria-hidden="true">🏠</div>
+                    <h3 style="color: white; margin-bottom: 1rem; font-size: 1.25rem; text-align: center;">Animal Shelters</h3>
+                    <div style="color: white; text-align: left; margin-bottom: 1.5rem;">
+                        <p style="color: #F87171; font-weight: 600; margin-bottom: 0.5rem;">😰 Your Challenge:</p>
+                        <p style="font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.4;">Adopters return pets due to behavioral surprises or unexpected medical costs, creating endless cycles of stress.</p>
+                        
+                        <p style="color: #34D399; font-weight: 600; margin-bottom: 0.5rem;">✨ With Shelter Pawtners:</p>
+                        <ul style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.4;">
+                            <li style="margin-bottom: 0.3rem;">• Create detailed pet profiles that set realistic expectations</li>
+                            <li style="margin-bottom: 0.3rem;">• Provide adopters lifetime savings reducing financial stress</li>
+                            <li style="margin-bottom: 0.3rem;">• Track success data showing adoption outcomes work</li>
+                        </ul>
+                    </div>
+                    <a href="pages/shelters.html" class="btn btn-hero-primary" style="width: 100%; padding: 0.75rem;">Join Our Network</a>
                 </div>
                 
-                <div class="stat-item">
-                    <div class="stat-number">500+</div>
-                    <div class="stat-label">Partner Businesses</div>
+                <!-- Adopters -->
+                <div class="glass-card" style="padding: 2rem 1.5rem;">
+                    <div class="feature-icon" style="background: var(--glass-gradient-2); color: white; font-size: 2rem; margin: 0 auto 1rem; width: 4rem; height: 4rem; display: flex; align-items: center; justify-content: center; border-radius: 50%;" aria-hidden="true">🐾</div>
+                    <h3 style="color: white; margin-bottom: 1rem; font-size: 1.25rem; text-align: center;">Pet Adopters</h3>
+                    <div style="color: white; text-align: left; margin-bottom: 1.5rem;">
+                        <p style="color: #F87171; font-weight: 600; margin-bottom: 0.5rem;">😰 Your Challenge:</p>
+                        <p style="font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.4;">Vet visits are expensive mysteries—you don't know your pet's history, allergies, or what treatments they've had.</p>
+                        
+                        <p style="color: #34D399; font-weight: 600; margin-bottom: 0.5rem;">✨ With Shelter Pawtners:</p>
+                        <ul style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.4;">
+                            <li style="margin-bottom: 0.3rem;">• Your pet's complete history travels with them forever</li>
+                            <li style="margin-bottom: 0.3rem;">• Lifetime discounts on vet bills, grooming, and supplies</li>
+                            <li style="margin-bottom: 0.3rem;">• Emergency access to medical records anywhere</li>
+                        </ul>
+                    </div>
+                    <a href="pages/pet-owners.html" class="btn btn-hero-primary" style="width: 100%; padding: 0.75rem;">Start Saving</a>
                 </div>
                 
-                <div class="stat-item">
-                    <div class="stat-number">$2.5M+</div>
-                    <div class="stat-label">Total Savings</div>
+                <!-- Vets -->
+                <div class="glass-card" style="padding: 2rem 1.5rem;">
+                    <div class="feature-icon" style="background: var(--glass-gradient-3); color: white; font-size: 2rem; margin: 0 auto 1rem; width: 4rem; height: 4rem; display: flex; align-items: center; justify-content: center; border-radius: 50%;" aria-hidden="true">⚕️</div>
+                    <h3 style="color: white; margin-bottom: 1rem; font-size: 1.25rem; text-align: center;">Veterinarians</h3>
+                    <div style="color: white; text-align: left; margin-bottom: 1.5rem;">
+                        <p style="color: #F87171; font-weight: 600; margin-bottom: 0.5rem;">😰 Your Challenge:</p>
+                        <p style="font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.4;">Rescued pets arrive with no medical history, forcing you to repeat expensive tests and risk dangerous drug interactions.</p>
+                        
+                        <p style="color: #34D399; font-weight: 600; margin-bottom: 0.5rem;">✨ With Shelter Pawtners:</p>
+                        <ul style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.4;">
+                            <li style="margin-bottom: 0.3rem;">• Instant access to complete medical histories via microchip</li>
+                            <li style="margin-bottom: 0.3rem;">• Reduce duplicate tests and improve treatment safety</li>
+                            <li style="margin-bottom: 0.3rem;">• Attract caring families who chose rescue over breeding</li>
+                        </ul>
+                    </div>
+                    <a href="pages/vets.html" class="btn btn-hero-primary" style="width: 100%; padding: 0.75rem;">Join the Network</a>
                 </div>
                 
-                <div class="stat-item">
-                    <div class="stat-number">150+</div>
-                    <div class="stat-label">Shelter Partners</div>
+                <!-- Partners -->
+                <div class="glass-card" style="padding: 2rem 1.5rem;">
+                    <div class="feature-icon" style="background: var(--glass-gradient-1); color: white; font-size: 2rem; margin: 0 auto 1rem; width: 4rem; height: 4rem; display: flex; align-items: center; justify-content: center; border-radius: 50%;" aria-hidden="true">🤝</div>
+                    <h3 style="color: white; margin-bottom: 1rem; font-size: 1.25rem; text-align: center;">Business Partners</h3>
+                    <div style="color: white; text-align: left; margin-bottom: 1.5rem;">
+                        <p style="color: #F87171; font-weight: 600; margin-bottom: 0.5rem;">😰 Your Challenge:</p>
+                        <p style="font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.4;">Hard to find customers who share your values and want to support meaningful causes instead of just seeking discounts.</p>
+                        
+                        <p style="color: #34D399; font-weight: 600; margin-bottom: 0.5rem;">✨ With Shelter Pawtners:</p>
+                        <ul style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.4;">
+                            <li style="margin-bottom: 0.3rem;">• Connect with families who chose adoption over shopping</li>
+                            <li style="margin-bottom: 0.3rem;">• Build loyal relationships through shared mission</li>
+                            <li style="margin-bottom: 0.3rem;">• Co-market your commitment to animal welfare</li>
+                        </ul>
+                    </div>
+                    <a href="pages/businesses.html" class="btn btn-hero-primary" style="width: 100%; padding: 0.75rem;">Partner With Us</a>
                 </div>
             </div>
         </div>
     </section>
+
+
 
     <!-- Testimonials -->
     <section class="section section-alt">
@@ -253,10 +282,9 @@
         <div class="container">
             <div class="glass-hero">
                 <div class="glass-content text-center">
-                    <h2 class="mb-md text-gradient">Join the Movement to Support Shelter Pets</h2>
+                    <h2 class="mb-md text-gradient">Save Big when you Save a shelter pet!</h2>
                     <p class="mb-xl text-readable" style="font-size: 1.25rem; max-width: 650px; margin-left: auto; margin-right: auto;">
-                        Be part of the digital backbone that supports shelter pets after adoption. Together, we're creating 
-                        a world where choosing shelter pets first is the obvious and rewarding choice for every family.
+                        Help us prevent Euthanasia of Shelter Pets as we offer financial incentives to adopt and not shop! Our ShelterCARD program is a gateway to discounts and savings for your pets LIFE! Data is the key to saving—find out more now!
                     </p>
                     
                     <div class="hero-buttons">

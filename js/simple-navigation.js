@@ -73,6 +73,23 @@ class SimpleUnifiedNavigation {
                     <!-- Desktop Navigation - Same Line -->
                     <nav class="nav desktop-nav">
                         <ul class="nav-menu">
+                            <li class="nav-item">
+                                <a href="${basePath}pages/profiles.html" class="nav-link">Pet Profiles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${basePath}pages/sheltercard.html" class="nav-link">ShelterCARD</a>
+                            </li>
+                            <li class="nav-item nav-dropdown">
+                                <button class="nav-link dropdown-toggle">
+                                    Data Platform <span class="dropdown-arrow">▼</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="${basePath}pages/shelters.html" class="dropdown-link">Shelters</a></li>
+                                    <li><a href="${basePath}pages/pet-owners.html" class="dropdown-link">Adopters</a></li>
+                                    <li><a href="${basePath}pages/vets.html" class="dropdown-link">Vets</a></li>
+                                    <li><a href="${basePath}pages/businesses.html" class="dropdown-link">Partners</a></li>
+                                </ul>
+                            </li>
                             <li class="nav-item nav-dropdown">
                                 <button class="nav-link dropdown-toggle">
                                     How It Works <span class="dropdown-arrow">▼</span>
@@ -83,18 +100,6 @@ class SimpleUnifiedNavigation {
                                     <li><a href="${basePath}pages/contact.html" class="dropdown-link">Contact</a></li>
                                     <li><a href="${basePath}pages/faq.html" class="dropdown-link">FAQ</a></li>
                                 </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="${basePath}pages/sheltercard.html" class="nav-link">ShelterCARD</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="${basePath}pages/vets.html" class="nav-link">Vets</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="${basePath}pages/shelters.html" class="nav-link">Shelters</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="${basePath}pages/businesses.html" class="nav-link">Partners</a>
                             </li>
                             ${this.getAuthSection(basePath)}
                         </ul>
@@ -111,6 +116,23 @@ class SimpleUnifiedNavigation {
                 <!-- Mobile Navigation -->
                 <nav class="mobile-nav">
                     <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="${basePath}pages/profiles.html" class="nav-link">Pet Profiles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="${basePath}pages/sheltercard.html" class="nav-link">ShelterCARD</a>
+                        </li>
+                        <li class="nav-item nav-dropdown mobile-dropdown">
+                            <button class="nav-link dropdown-toggle">
+                                Data Platform <span class="dropdown-arrow">▼</span>
+                            </button>
+                            <ul class="dropdown-menu mobile-submenu">
+                                <li><a href="${basePath}pages/shelters.html" class="dropdown-link">Shelters</a></li>
+                                <li><a href="${basePath}pages/pet-owners.html" class="dropdown-link">Adopters</a></li>
+                                <li><a href="${basePath}pages/vets.html" class="dropdown-link">Vets</a></li>
+                                <li><a href="${basePath}pages/businesses.html" class="dropdown-link">Partners</a></li>
+                            </ul>
+                        </li>
                         <li class="nav-item nav-dropdown mobile-dropdown">
                             <button class="nav-link dropdown-toggle">
                                 How It Works <span class="dropdown-arrow">▼</span>
@@ -121,18 +143,6 @@ class SimpleUnifiedNavigation {
                                 <li><a href="${basePath}pages/contact.html" class="dropdown-link">Contact</a></li>
                                 <li><a href="${basePath}pages/faq.html" class="dropdown-link">FAQ</a></li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="${basePath}pages/sheltercard.html" class="nav-link">ShelterCARD</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="${basePath}pages/vets.html" class="nav-link">Vets</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="${basePath}pages/shelters.html" class="nav-link">Shelters</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="${basePath}pages/businesses.html" class="nav-link">Partners</a>
                         </li>
                         ${this.getMobileAuthSection(basePath)}
                     </ul>

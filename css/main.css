@@ -170,6 +170,11 @@ a:hover {
     padding: var(--spacing-2xl) 0;
 }
 
+/* Compact Hero Section */
+.hero {
+    padding: var(--spacing-md) 0;
+}
+
 .section-alt {
     background: var(--gradient-secondary);
 }
@@ -305,12 +310,13 @@ select:focus {
 
 .glass-hero {
     background: var(--glass-surface-light);
-    backdrop-filter: var(--blur-lg);
-    border: var(--glass-border-strong);
-    border-radius: 24px;
-    box-shadow: var(--glass-shadow-xl);
+    backdrop-filter: var(--blur-md);
+    border: var(--glass-border-light);
+    border-radius: 16px;
+    box-shadow: var(--glass-shadow-md);
     position: relative;
     overflow: hidden;
+    padding: 1.5rem 1.25rem;
 }
 
 .glass-hero::before {

@@ -186,6 +186,33 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
+/* CTA Button Groups */
+.cta-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: var(--spacing-lg);
+}
+
+.cta-buttons .btn {
+    flex: 0 1 auto;
+    min-width: 160px;
+}
+
+@media (max-width: 640px) {
+    .cta-buttons {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .cta-buttons .btn {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
 /* Cards */
 .card {
     background-color: var(--surface-color);
