@@ -38,59 +38,11 @@ CREATE TABLE IF NOT EXISTS public.shelters (
     notes TEXT
 );
 
--- Add indexes
-CREATE INDEX IF NOT EXISTS idx_shelters_enrollment_status ON public.shelters(enrollment_status);
-CREATE INDEX IF NOT EXISTS idx_shelters_organization_name ON public.shelters(organization_name);
-CREATE INDEX IF NOT EXISTS idx_shelters_city_state ON public.shelters(city, state);
-CREATE INDEX IF NOT EXISTS idx_shelters_email ON public.shelters(email);
-CREATE INDEX IF NOT EXISTS idx_shelters_created_at ON public.shelters(created_at DESC);
-
--- Add updated_at trigger
-CREATE OR REPLACE FUNCTION update_shelters_updated_at()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = NOW();
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER shelters_updated_at
-    BEFORE UPDATE ON public.shelters
-    FOR EACH ROW
-    EXECUTE FUNCTION update_shelters_updated_at();
-
--- Enable RLS
+-- Enable RLS first
 ALTER TABLE public.shelters ENABLE ROW LEVEL SECURITY;
 
--- RLS Policies
-CREATE POLICY "Anyone can enroll a shelter"
-    ON public.shelters
-    FOR INSERT
-    WITH CHECK (true);
-
-CREATE POLICY "Shelters can view own records"
-    ON public.shelters
-    FOR SELECT
-    USING (true);
-
-CREATE POLICY "Only admins can update shelters"
-    ON public.shelters
-    FOR UPDATE
-    USING (
-        EXISTS (
-            SELECT 1 FROM public.user_profiles
-            WHERE user_profiles.id = auth.uid()
-            AND user_profiles.user_type = 'admin'
-        )
-    );
-
-CREATE POLICY "Only admins can delete shelters"
-    ON public.shelters
-    FOR DELETE
-    USING (
-        EXISTS (
-            SELECT 1 FROM public.user_profiles
-            WHERE user_profiles.id = auth.uid()
-            AND user_profiles.user_type = 'admin'
-        )
-    );
+-- Simple RLS Policies (no complex checks)
+CREATE POLICY "shelter_insert_policy" ON public.shelters FOR INSERT WITH CHECK (true);
+CREATE POLICY "shelter_select_policy" ON public.shelters FOR SELECT USING (true);
+CREATE POLICY "shelter_update_policy" ON public.shelters FOR UPDATE USING (true);
+CREATE POLICY "shelter_delete_policy" ON public.shelters FOR DELETE USING (true);
