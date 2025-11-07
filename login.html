@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign in to your Shelter Pawtners account and access your Digital Pet Profiles.">
+    <title>Login - Shelter Pawtners</title>
+    
+    <!-- Preconnect to Google Fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
+
+    
+    <!-- CSS Files -->
+    
+    
+    
+    
+    
+    
+    <style>
+        .login-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .login-form {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #F9FAFB;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 10px;
+            color: #F9FAFB;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        
+        .form-input::placeholder {
+            color: #9CA3AF;
+        }
+        
+        .message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        
+        .message.success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10B981;
+        }
+        
+        .message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+        }
+        
+        .google-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1F2937;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .google-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-2px);
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(139, 92, 246, 0.3);
+        }
+        
+        .divider span {
+            background: rgba(17, 24, 39, 0.9);
+            padding: 0 1rem;
+            color: #9CA3AF;
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+        
+        .forgot-password a {
+            color: #8B5CF6;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 2rem;
+            color: #D1D5DB;
+        }
+        
+        .register-link a {
+            color: #8B5CF6;
+            text-decoration: none;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 640px) {
+            .login-container {
+                padding: 1rem;
+            }
+            
+            .login-form {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <!-- CLEAN NAVIGATION - Same on ALL pages -->
+    <header class="header">
+        <!-- Navigation automatically loaded by simple-navigation.js -->
+    </header>
+
+    <!-- Login Section -->
+    <section class="section glass-section" style="min-height: 100vh; display: flex; align-items: center; padding: 2rem 0;">
+        <div class="container">
+            <div class="login-container">
+                <div class="login-form">
+                    <div class="text-center mb-lg">
+                        <h1 class="text-gradient" style="font-size: 2.5rem; margin-bottom: 1rem;">
+                            Welcome Back
+                        </h1>
+                        <p style="color: #D1D5DB; font-size: 1.125rem;">
+                            Sign in to access your Digital Pet Profiles and ShelterCARD benefits.
+                        </p>
+                    </div>
+
+                    <div id="message" class="message"></div>
+
+                    <!-- Google Sign In -->
+                    <button type="button" id="googleSignIn" class="google-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Sign in with Google
+                    </button>
+
+                    <div class="divider">
+                        <span>or sign in with email</span>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
+                            <div class="forgot-password">
+                                <a href="#" onclick="resetPassword(); return false;">Forgot password?</a>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="btn btn-primary btn-large" style="width: 100%; margin-top: 1rem;">
+                            Sign In
+                        </button>
+                    </form>
+
+                    <div class="register-link">
+                        Don't have an account? <a href="register.html">Create one here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- UNIFIED FOOTER -->
+    <footer class="footer">
+        <!-- Footer content automatically loaded by simple-footer.js -->
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/simple-navigation.js"></script>
+
+    <script>
+        // Login Form Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize database and auth manager
+            if (!window.db) {
+                window.db = new ShelterPawtnerDB();
+            }
+            if (!window.authManager) {
+                window.authManager = new AuthManager();
+            }
+            
+            const form = document.getElementById('loginForm');
+            const messageDiv = document.getElementById('message');
+            const submitBtn = document.getElementById('submitBtn');
+            const googleBtn = document.getElementById('googleSignIn');
+
+            // Check if user is already logged in
+            if (window.authManager.isLoggedIn()) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            // Form submission
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const email = formData.get('email');
+                const password = formData.get('password');
+
+                if (!email || !password) {
+                    window.authManager.showMessage(messageDiv, 'Please enter both email and password', true);
+                    return;
+                }
+
+                // Show loading state
+                window.authManager.toggleLoading(submitBtn, true);
+
+                try {
+                    const result = await window.authManager.login(email, password);
+                    
+                    if (result.success) {
+                        window.authManager.showMessage(messageDiv, 'Login successful! Redirecting...', false);
+                        
+                        // Check for redirect URL
+                        const redirectUrl = localStorage.getItem('shelterpawtner_redirect') || 'dashboard.html';
+                        localStorage.removeItem('shelterpawtner_redirect');
+                        
+                        setTimeout(() => {
+                            window.location.href = redirectUrl;
+                        }, 1500);
+                    } else {
+                        window.authManager.showMessage(messageDiv, result.message, true);
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    window.authManager.showMessage(messageDiv, 'Login failed. Please try again.', true);
+                } finally {
+                    window.authManager.toggleLoading(submitBtn, false);
+                }
+            });
+
+            // Google sign in
+            googleBtn.addEventListener('click', async function() {
+                window.authManager.toggleLoading(googleBtn, true);
+                
+                try {
+                    const result = await window.authManager.loginWithGoogle();
+                    
+                    if (result.success) {
+                        window.authManager.showMessage(messageDiv, 'Google login successful! Redirecting...', false);
+                        
+                        // Check for redirect URL
+                        const redirectUrl = localStorage.getItem('shelterpawtner_redirect') || 'dashboard.html';
+                        localStorage.removeItem('shelterpawtner_redirect');
+                        
+                        setTimeout(() => {
+                            window.location.href = redirectUrl;
+                        }, 1500);
+                    } else {
+                        window.authManager.showMessage(messageDiv, result.message, true);
+                    }
+                } catch (error) {
+                    console.error('Google login error:', error);
+                    window.authManager.showMessage(messageDiv, 'Google login failed. Please try again.', true);
+                } finally {
+                    window.authManager.toggleLoading(googleBtn, false);
+                }
+            });
+
+            // Demo login for testing
+            if (window.location.search.includes('demo=true')) {
+                // Pre-fill with demo credentials
+                document.getElementById('email').value = 'demo@shelterpawtners.com';
+                document.getElementById('password').value = 'Demo123!';
+                
+                window.authManager.showMessage(messageDiv, 'Demo mode: Use the prefilled credentials or create a new account', false);
+            }
+        });
+
+        // Password reset function
+        async function resetPassword() {
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                const messageDiv = document.getElementById('message');
+                window.authManager.showMessage(messageDiv, 'Please enter your email address first.', true);
+                document.getElementById('email').focus();
+                return;
+            }
+            
+            try {
+                const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+                    redirectTo: window.location.origin + '/pages/login.html'
+                });
+                
+                if (error) {
+                    throw error;
+                }
+                
+                const messageDiv = document.getElementById('message');
+                window.authManager.showMessage(messageDiv, 'Password reset email sent! Check your inbox and follow the instructions.', false);
+                
+            } catch (error) {
+                console.error('Password reset error:', error);
+                const messageDiv = document.getElementById('message');
+                window.authManager.showMessage(messageDiv, 'Error sending password reset email: ' + error.message, true);
+            }
+        }
+    </script>
+    <!-- SIMPLE UNIFIED FOOTER - Consistent footer for all pages -->
+    <script src="../js/simple-footer.js"></script>
+</body>
+</html>

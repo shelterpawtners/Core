@@ -167,8 +167,7 @@ class SimpleUnifiedNavigation {
                                     <li><a href="${basePath}pages/pet-owners.html" class="dropdown-link">Adopters</a></li>
                                     <li><a href="${basePath}pages/vets.html" class="dropdown-link">Vets</a></li>
                                     <li><a href="${basePath}pages/businesses.html" class="dropdown-link">Partners</a></li>
-                                    <li><a href="${basePath}pages/partner-offers.html" class="dropdown-link">Partner Offers</a></li>
-                                    <li><a href="${basePath}pages/partner-signup.html" class="dropdown-link">🐾 Join Network</a></li>
+                                    <li><a href="${basePath}pages/business-signup.html" class="dropdown-link">🐾 Join Network</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item nav-dropdown">
@@ -212,8 +211,7 @@ class SimpleUnifiedNavigation {
                                 <li><a href="${basePath}pages/pet-owners.html" class="dropdown-link">Adopters</a></li>
                                 <li><a href="${basePath}pages/vets.html" class="dropdown-link">Vets</a></li>
                                 <li><a href="${basePath}pages/businesses.html" class="dropdown-link">Partners</a></li>
-                                <li><a href="${basePath}pages/partner-offers.html" class="dropdown-link">Partner Offers</a></li>
-                                <li><a href="${basePath}pages/partner-signup.html" class="dropdown-link">🐾 Join Network</a></li>
+                                <li><a href="${basePath}pages/business-signup.html" class="dropdown-link">🐾 Join Network</a></li>
                             </ul>
                         </li>
                         <li class="nav-item nav-dropdown mobile-dropdown">
