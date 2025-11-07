@@ -95,21 +95,18 @@ ALTER TABLE public.shelters ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Anyone can enroll a shelter"
     ON public.shelters
     FOR INSERT
-    TO public
     WITH CHECK (true);
 
 -- Policy: Shelters can view their own records (if we add user_id later)
 CREATE POLICY "Shelters can view own records"
     ON public.shelters
     FOR SELECT
-    TO authenticated
     USING (true); -- For now, authenticated users can view all
 
 -- Policy: Only admins can update shelter records
 CREATE POLICY "Only admins can update shelters"
     ON public.shelters
     FOR UPDATE
-    TO authenticated
     USING (
         EXISTS (
             SELECT 1 FROM public.user_profiles
@@ -122,7 +119,6 @@ CREATE POLICY "Only admins can update shelters"
 CREATE POLICY "Only admins can delete shelters"
     ON public.shelters
     FOR DELETE
-    TO authenticated
     USING (
         EXISTS (
             SELECT 1 FROM public.user_profiles
