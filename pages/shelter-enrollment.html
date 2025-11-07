@@ -338,13 +338,31 @@
     </main>
 
     <script src="../js/simple-navigation.js"></script>
+    
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Supabase Configuration -->
     <script>
-        document.getElementById('enrollmentForm').addEventListener('submit', function(e) {
+        // Initialize Supabase client
+        const SUPABASE_URL = 'https://yqunavkedbxxsmzannkh.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxdW5hdmtlZGJ4eHNtemFubmtoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA3NjE3NDcsImV4cCI6MjA0NjMzNzc0N30.q-VmAW7f2r6NWAc8kpLh0o1uwnRQi8o4wZxfN1j1F_Q';
+        
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+    
+    <script>
+        document.getElementById('enrollmentForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            // Get form data
+            const formData = new FormData(this);
+            
             // Validate required checkboxes
-            const animalTypes = document.querySelectorAll('input[name="animalTypes"]:checked');
-            const primaryGoals = document.querySelectorAll('input[name="primaryGoals"]:checked');
+            const animalTypes = Array.from(document.querySelectorAll('input[name="animalTypes"]:checked'))
+                .map(cb => cb.value);
+            const primaryGoals = Array.from(document.querySelectorAll('input[name="primaryGoals"]:checked'))
+                .map(cb => cb.value);
             
             if (animalTypes.length === 0) {
                 alert('Please select at least one type of animal your organization works with.');
@@ -356,11 +374,85 @@
                 return;
             }
             
-            // Show success message
-            alert('🎉 Application submitted successfully! Our partnership team will contact you within 1-2 business days to discuss next steps.');
+            // Disable submit button
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
             
-            // Redirect to thank you or confirmation page
-            window.location.href = 'shelters.html';
+            try {
+                // Build shelter data object
+                const shelterData = {
+                    // Organization Information
+                    organization_name: formData.get('organizationName'),
+                    organization_type: formData.get('organizationType'),
+                    
+                    // Contact Information
+                    contact_name: formData.get('contactName'),
+                    contact_title: formData.get('contactTitle'),
+                    email: formData.get('contactEmail'),
+                    phone: formData.get('contactPhone'),
+                    website: formData.get('website') || null,
+                    
+                    // Address
+                    street_address: formData.get('address'),
+                    city: formData.get('city'),
+                    state: formData.get('state'),
+                    zip_code: formData.get('zipCode'),
+                    
+                    // Organization Details
+                    year_founded: parseInt(formData.get('yearEstablished')),
+                    tax_id: formData.get('ein'),
+                    annual_adoptions: parseInt(formData.get('monthlyAdoptions')) * 12, // Convert monthly to annual
+                    animal_types: animalTypes,
+                    
+                    // Current software and needs
+                    existing_software: formData.get('currentSoftware') || null,
+                    integration_needs: formData.get('timelineToLaunch') || null,
+                    current_challenges: formData.get('additionalInfo') || null,
+                    
+                    // Partnership Details
+                    primary_goals: primaryGoals,
+                    
+                    // Communication Preferences
+                    agree_contact: formData.get('agreeContact') === 'on',
+                    newsletter_opt_in: formData.get('newsletterOptIn') === 'on',
+                    
+                    // Status (pending by default)
+                    status: 'pending',
+                    approved: false,
+                    verified: false
+                };
+
+                console.log('Submitting shelter data:', shelterData);
+
+                // Insert into Supabase
+                const { data, error } = await supabaseClient
+                    .from('shelters')
+                    .insert([shelterData])
+                    .select();
+
+                if (error) {
+                    console.error('Supabase error:', error);
+                    throw new Error(error.message);
+                }
+
+                console.log('Successfully saved to database:', data);
+
+                // Show success message
+                alert('🎉 Application submitted successfully! Our partnership team will contact you within 1-2 business days to discuss next steps.');
+                
+                // Redirect to thank you page
+                window.location.href = 'shelters.html?enrolled=true';
+
+            } catch (error) {
+                console.error('Error submitting enrollment:', error);
+                alert('❌ Error submitting application: ' + error.message + '\n\nPlease try again or contact support if the problem persists.');
+                
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
         });
     </script>
 
