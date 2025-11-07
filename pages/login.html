@@ -10,13 +10,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
+
     
     <!-- CSS Files -->
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/navigation.css">
-    <link rel="stylesheet" href="../css/simple-navigation.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    
+    
+    
+    
+    
     
     <style>
         .login-container {
@@ -219,7 +223,7 @@
                             <label for="password" class="form-label">Password</label>
                             <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
                             <div class="forgot-password">
-                                <a href="#forgot-password">Forgot password?</a>
+                                <a href="#" onclick="resetPassword(); return false;">Forgot password?</a>
                             </div>
                         </div>
 
@@ -348,6 +352,36 @@
                 window.authManager.showMessage(messageDiv, 'Demo mode: Use the prefilled credentials or create a new account', false);
             }
         });
+
+        // Password reset function
+        async function resetPassword() {
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                const messageDiv = document.getElementById('message');
+                window.authManager.showMessage(messageDiv, 'Please enter your email address first.', true);
+                document.getElementById('email').focus();
+                return;
+            }
+            
+            try {
+                const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+                    redirectTo: window.location.origin + '/pages/login.html'
+                });
+                
+                if (error) {
+                    throw error;
+                }
+                
+                const messageDiv = document.getElementById('message');
+                window.authManager.showMessage(messageDiv, 'Password reset email sent! Check your inbox and follow the instructions.', false);
+                
+            } catch (error) {
+                console.error('Password reset error:', error);
+                const messageDiv = document.getElementById('message');
+                window.authManager.showMessage(messageDiv, 'Error sending password reset email: ' + error.message, true);
+            }
+        }
     </script>
     <!-- SIMPLE UNIFIED FOOTER - Consistent footer for all pages -->
     <script src="../js/simple-footer.js"></script>

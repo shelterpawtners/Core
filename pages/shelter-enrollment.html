@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shelter Enrollment - Shelter Pawtners</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/navigation.css">
-    <link rel="stylesheet" href="../css/simple-navigation.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
     <header class="header">
@@ -78,13 +80,13 @@
                         
                         <form id="enrollmentForm" class="form">
                             <div class="form-group">
-                                <label for="organizationName">Organization Name *</label>
-                                <input type="text" id="organizationName" name="organizationName" class="form-input" required>
+                                <label for="organizationName" class="form-label">Organization Name *</label>
+                                <input type="text" id="organizationName" name="organizationName" class="form-control" required>
                             </div>
                             
                             <div class="form-group">
-                                <label for="organizationType">Organization Type *</label>
-                                <select id="organizationType" name="organizationType" class="form-select" required>
+                                <label for="organizationType" class="form-label">Organization Type *</label>
+                                <select id="organizationType" name="organizationType" class="form-control" required>
                                     <option value="">Select organization type</option>
                                     <option value="animal-shelter">Animal Shelter</option>
                                     <option value="rescue-organization">Rescue Organization</option>
@@ -97,13 +99,13 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="ein">EIN/Tax ID Number *</label>
-                                <input type="text" id="ein" name="ein" class="form-input" placeholder="12-3456789" required>
+                                <label for="ein" class="form-label">EIN/Tax ID Number *</label>
+                                <input type="text" id="ein" name="ein" class="form-control" placeholder="12-3456789" required>
                             </div>
                             
                             <div class="form-group">
-                                <label for="website">Website</label>
-                                <input type="url" id="website" name="website" class="form-input" placeholder="https://yourorganization.org">
+                                <label for="website" class="form-label">Website</label>
+                                <input type="url" id="website" name="website" class="form-control" placeholder="https://yourorganization.org">
                             </div>
                         </form>
                     </div>
@@ -113,23 +115,23 @@
                         <h2 class="card-title">👤 Primary Contact Information</h2>
                         
                         <div class="form-group">
-                            <label for="contactName">Contact Person Name *</label>
-                            <input type="text" id="contactName" name="contactName" class="form-input" form="enrollmentForm" required>
+                            <label for="contactName" class="form-label">Contact Person Name *</label>
+                            <input type="text" id="contactName" name="contactName" class="form-control" form="enrollmentForm" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="contactTitle">Title/Position *</label>
-                            <input type="text" id="contactTitle" name="contactTitle" class="form-input" form="enrollmentForm" required>
+                            <label for="contactTitle" class="form-label">Title/Position *</label>
+                            <input type="text" id="contactTitle" name="contactTitle" class="form-control" form="enrollmentForm" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="contactEmail">Email Address *</label>
-                            <input type="email" id="contactEmail" name="contactEmail" class="form-input" form="enrollmentForm" required>
+                            <label for="contactEmail" class="form-label">Email Address *</label>
+                            <input type="email" id="contactEmail" name="contactEmail" class="form-control" form="enrollmentForm" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="contactPhone">Phone Number *</label>
-                            <input type="tel" id="contactPhone" name="contactPhone" class="form-input" form="enrollmentForm" placeholder="(555) 123-4567" required>
+                            <label for="contactPhone" class="form-label">Phone Number *</label>
+                            <input type="tel" id="contactPhone" name="contactPhone" class="form-control" form="enrollmentForm" placeholder="(555) 123-4567" required>
                         </div>
                     </div>
 
@@ -138,18 +140,18 @@
                         <h2 class="card-title">📍 Address Information</h2>
                         
                         <div class="form-group">
-                            <label for="address">Street Address *</label>
-                            <input type="text" id="address" name="address" class="form-input" form="enrollmentForm" required>
+                            <label for="address" class="form-label">Street Address *</label>
+                            <input type="text" id="address" name="address" class="form-control" form="enrollmentForm" required>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                        <div class="form-row form-row-3">
                             <div class="form-group">
-                                <label for="city">City *</label>
-                                <input type="text" id="city" name="city" class="form-input" form="enrollmentForm" required>
+                                <label for="city" class="form-label">City *</label>
+                                <input type="text" id="city" name="city" class="form-control" form="enrollmentForm" required>
                             </div>
                             <div class="form-group">
-                                <label for="state">State *</label>
-                                <select id="state" name="state" class="form-select" form="enrollmentForm" required>
+                                <label for="state" class="form-label">State *</label>
+                                <select id="state" name="state" class="form-control" form="enrollmentForm" required>
                                     <option value="">Select state</option>
                                     <option value="TX">Texas</option>
                                     <option value="CA">California</option>
@@ -160,8 +162,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="zipCode">ZIP Code *</label>
-                                <input type="text" id="zipCode" name="zipCode" class="form-input" form="enrollmentForm" pattern="[0-9]{5}(-[0-9]{4})?" required>
+                                <label for="zipCode" class="form-label">ZIP Code *</label>
+                                <input type="text" id="zipCode" name="zipCode" class="form-control" form="enrollmentForm" pattern="[0-9]{5}(-[0-9]{4})?" required>
                             </div>
                         </div>
                     </div>
@@ -170,14 +172,14 @@
                     <div class="info-card" style="margin-top: 2rem;">
                         <h2 class="card-title">📊 Organization Details</h2>
                         
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-row form-row-2">
                             <div class="form-group">
-                                <label for="yearEstablished">Year Established *</label>
-                                <input type="number" id="yearEstablished" name="yearEstablished" class="form-input" form="enrollmentForm" min="1800" max="2024" required>
+                                <label for="yearEstablished" class="form-label">Year Established *</label>
+                                <input type="number" id="yearEstablished" name="yearEstablished" class="form-control" form="enrollmentForm" min="1800" max="2024" required>
                             </div>
                             <div class="form-group">
-                                <label for="monthlyAdoptions">Average Monthly Adoptions *</label>
-                                <input type="number" id="monthlyAdoptions" name="monthlyAdoptions" class="form-input" form="enrollmentForm" min="1" max="1000" required>
+                                <label for="monthlyAdoptions" class="form-label">Average Monthly Adoptions *</label>
+                                <input type="number" id="monthlyAdoptions" name="monthlyAdoptions" class="form-control" form="enrollmentForm" min="1" max="1000" required>
                             </div>
                         </div>
                         
@@ -213,8 +215,8 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="currentSoftware">Current Shelter Management Software</label>
-                            <select id="currentSoftware" name="currentSoftware" class="form-select" form="enrollmentForm">
+                            <label for="currentSoftware" class="form-label">Current Shelter Management Software</label>
+                            <select id="currentSoftware" name="currentSoftware" class="form-control" form="enrollmentForm">
                                 <option value="">Select if applicable</option>
                                 <option value="petpoint">PetPoint</option>
                                 <option value="shelterluv">ShelterLuv</option>
@@ -264,8 +266,8 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="timelineToLaunch">Preferred Timeline to Launch *</label>
-                            <select id="timelineToLaunch" name="timelineToLaunch" class="form-select" form="enrollmentForm" required>
+                            <label for="timelineToLaunch" class="form-label">Preferred Timeline to Launch *</label>
+                            <select id="timelineToLaunch" name="timelineToLaunch" class="form-control" form="enrollmentForm" required>
                                 <option value="">Select timeline</option>
                                 <option value="immediately">Immediately</option>
                                 <option value="1-month">Within 1 month</option>
@@ -277,8 +279,8 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="additionalInfo">Additional Information or Questions</label>
-                            <textarea id="additionalInfo" name="additionalInfo" class="form-textarea" form="enrollmentForm" rows="5" placeholder="Tell us about any specific needs, challenges, or questions you have..."></textarea>
+                            <label for="additionalInfo" class="form-label">Additional Information or Questions</label>
+                            <textarea id="additionalInfo" name="additionalInfo" class="form-control" form="enrollmentForm" rows="5" placeholder="Tell us about any specific needs, challenges, or questions you have..."></textarea>
                         </div>
                     </div>
 

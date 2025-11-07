@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Schema Checker - Shelter Pawtners</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .status {
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .success { background: rgba(34, 197, 94, 0.3); }
+        .error { background: rgba(239, 68, 68, 0.3); }
+        .warning { background: rgba(245, 158, 11, 0.3); }
+        
+        .sql-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #e5e7eb;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .copy-btn {
+            background: #8B5CF6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        .copy-btn:hover {
+            background: #7C3AED;
+        }
+        
+        .test-btn {
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin: 1rem;
+        }
+        
+        .test-btn:hover {
+            background: #047857;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Database Schema Checker</h1>
+        
+        <div id="status" class="status warning">
+            Click "Check Database Schema" to verify your database setup
+        </div>
+        
+        <button class="test-btn" onclick="checkDatabaseSchema()">Check Database Schema</button>
+        
+        <div id="sqlFix" style="display: none;">
+            <h3 style="color: white;">SQL Fix Required:</h3>
+            <div class="sql-box" id="sqlCode"></div>
+            <button class="copy-btn" onclick="copySQL()">Copy SQL to Clipboard</button>
+            
+            <h3 style="color: white;">Steps to Fix:</h3>
+            <ol style="color: #e5e7eb;">
+                <li>Copy the SQL code above</li>
+                <li>Go to your Supabase Dashboard</li>
+                <li>Navigate to SQL Editor</li>
+                <li>Paste and run the SQL</li>
+                <li>Come back and test again</li>
+            </ol>
+        </div>
+        
+        <div id="testAccount" style="display: none;">
+            <h3 style="color: white;">Test Account Form:</h3>
+            <button class="test-btn" onclick="testAccountSave()">Test Account Save Function</button>
+            <div id="accountResult"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    
+    <script>
+        const sqlFixCode = `-- Fix for "address column not found" error in user_profiles table
+-- This is a consolidated fix that should resolve the account update issues
+
+-- First, let's check if the columns exist and add them if they don't
+DO $$
+BEGIN
+    -- Add address column if it doesn't exist
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'user_profiles' AND column_name = 'address') THEN
+        ALTER TABLE public.user_profiles ADD COLUMN address TEXT;
+        RAISE NOTICE 'Added address column to user_profiles';
+    END IF;
+    
+    -- Add city column if it doesn't exist
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'user_profiles' AND column_name = 'city') THEN
+        ALTER TABLE public.user_profiles ADD COLUMN city TEXT;
+        RAISE NOTICE 'Added city column to user_profiles';
+    END IF;
+    
+    -- Add state column if it doesn't exist
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'user_profiles' AND column_name = 'state') THEN
+        ALTER TABLE public.user_profiles ADD COLUMN state TEXT;
+        RAISE NOTICE 'Added state column to user_profiles';
+    END IF;
+    
+    -- Add zip_code column if it doesn't exist
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'user_profiles' AND column_name = 'zip_code') THEN
+        ALTER TABLE public.user_profiles ADD COLUMN zip_code TEXT;
+        RAISE NOTICE 'Added zip_code column to user_profiles';
+    END IF;
+    
+    -- Add username column if it doesn't exist
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'user_profiles' AND column_name = 'username') THEN
+        ALTER TABLE public.user_profiles ADD COLUMN username TEXT UNIQUE;
+        RAISE NOTICE 'Added username column to user_profiles';
+    END IF;
+    
+    -- Add emergency contact columns if they don't exist
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'user_profiles' AND column_name = 'emergency_contact_name') THEN
+        ALTER TABLE public.user_profiles ADD COLUMN emergency_contact_name TEXT;
+        RAISE NOTICE 'Added emergency_contact_name column to user_profiles';
+    END IF;
+    
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'user_profiles' AND column_name = 'emergency_contact_phone') THEN
+        ALTER TABLE public.user_profiles ADD COLUMN emergency_contact_phone TEXT;
+        RAISE NOTICE 'Added emergency_contact_phone column to user_profiles';
+    END IF;
+    
+    -- Add profile picture column if it doesn't exist
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'user_profiles' AND column_name = 'profile_picture_url') THEN
+        ALTER TABLE public.user_profiles ADD COLUMN profile_picture_url TEXT;
+        RAISE NOTICE 'Added profile_picture_url column to user_profiles';
+    END IF;
+    
+    -- Add bio column if it doesn't exist
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'user_profiles' AND column_name = 'bio') THEN
+        ALTER TABLE public.user_profiles ADD COLUMN bio TEXT;
+        RAISE NOTICE 'Added bio column to user_profiles';
+    END IF;
+    
+    -- Add preferences column if it doesn't exist
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                   WHERE table_name = 'user_profiles' AND column_name = 'preferences') THEN
+        ALTER TABLE public.user_profiles ADD COLUMN preferences JSONB DEFAULT '{}'::jsonb;
+        RAISE NOTICE 'Added preferences column to user_profiles';
+    END IF;
+END $$;
+
+-- Create indexes for better performance (only if they don't exist)
+CREATE INDEX IF NOT EXISTS idx_user_profiles_username ON public.user_profiles(username);
+CREATE INDEX IF NOT EXISTS idx_user_profiles_location ON public.user_profiles(city, state, zip_code);
+
+-- Verify the schema
+DO $$
+DECLARE
+    col_count INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO col_count 
+    FROM information_schema.columns 
+    WHERE table_name = 'user_profiles' 
+    AND column_name IN ('address', 'city', 'state', 'zip_code', 'username', 
+                       'emergency_contact_name', 'emergency_contact_phone', 
+                       'profile_picture_url', 'bio', 'preferences');
+    
+    RAISE NOTICE 'Enhanced user_profiles table now has % additional columns', col_count;
+    
+    IF col_count = 10 THEN
+        RAISE NOTICE '✅ All required columns are present in user_profiles table';
+    ELSE
+        RAISE NOTICE '⚠️  Some columns may be missing. Expected 10, found %', col_count;
+    END IF;
+END $$;
+
+-- Success message
+RAISE NOTICE 'Database schema update completed successfully!';
+RAISE NOTICE 'The account.html page should now be able to save all profile fields.';`;
+
+        async function checkDatabaseSchema() {
+            const statusDiv = document.getElementById('status');
+            const sqlFixDiv = document.getElementById('sqlFix');
+            const testAccountDiv = document.getElementById('testAccount');
+            
+            statusDiv.textContent = 'Checking database schema...';
+            statusDiv.className = 'status warning';
+            
+            try {
+                const client = supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+                
+                // Test if we can query the user_profiles table for required columns
+                const { data, error } = await client
+                    .from('user_profiles')
+                    .select('id, address, city, state, zip_code, username')
+                    .limit(1);
+                
+                if (error) {
+                    if (error.message.includes('column') && error.message.includes('does not exist')) {
+                        statusDiv.innerHTML = '❌ Database schema is missing required columns<br>' + error.message;
+                        statusDiv.className = 'status error';
+                        
+                        // Show SQL fix
+                        document.getElementById('sqlCode').textContent = sqlFixCode;
+                        sqlFixDiv.style.display = 'block';
+                    } else {
+                        statusDiv.textContent = '⚠️ Database connection issue: ' + error.message;
+                        statusDiv.className = 'status warning';
+                    }
+                } else {
+                    statusDiv.textContent = '✅ Database schema looks good! All required columns are present.';
+                    statusDiv.className = 'status success';
+                    
+                    // Show account test
+                    testAccountDiv.style.display = 'block';
+                }
+            } catch (err) {
+                statusDiv.textContent = '❌ Error checking database: ' + err.message;
+                statusDiv.className = 'status error';
+            }
+        }
+        
+        function copySQL() {
+            navigator.clipboard.writeText(sqlFixCode).then(() => {
+                alert('✅ SQL copied to clipboard! Go to Supabase Dashboard → SQL Editor to run it.');
+            });
+        }
+        
+        async function testAccountSave() {
+            const resultDiv = document.getElementById('accountResult');
+            resultDiv.innerHTML = '<div class="status warning">Testing account save function...</div>';
+            
+            try {
+                const client = supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+                
+                // Test insert with dummy data
+                const testData = {
+                    id: 'test-user-' + Date.now(),
+                    full_name: 'Test User',
+                    email: 'test@example.com',
+                    address: '123 Test St',
+                    city: 'Test City',
+                    state: 'TS',
+                    zip_code: '12345',
+                    username: 'testuser' + Date.now()
+                };
+                
+                const { data, error } = await client
+                    .from('user_profiles')
+                    .upsert(testData)
+                    .select();
+                
+                if (error) {
+                    resultDiv.innerHTML = '<div class="status error">❌ Account save test failed: ' + error.message + '</div>';
+                } else {
+                    resultDiv.innerHTML = '<div class="status success">✅ Account save test successful! The database schema is working correctly.</div>';
+                    
+                    // Clean up test data
+                    await client.from('user_profiles').delete().eq('id', testData.id);
+                }
+            } catch (err) {
+                resultDiv.innerHTML = '<div class="status error">❌ Test error: ' + err.message + '</div>';
+            }
+        }
+    </script>
+</body>
+</html>

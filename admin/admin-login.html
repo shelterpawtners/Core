@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Shelter Pawtners</title>
+    
+    <!-- Single Master CSS File -->
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md);
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 400px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+            padding: var(--spacing-xl);
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .login-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .login-header * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-logo {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .login-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .login-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .login-form {
+            padding: var(--spacing-xl);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid #E5E7EB;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: var(--spacing-md);
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #DC2626;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-lg);
+            font-size: 0.9rem;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: var(--spacing-xs);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: var(--spacing-md);
+        }
+
+        .back-link a {
+            color: #6B7280;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: #8B5CF6;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: var(--spacing-md);
+            }
+            
+            .login-header,
+            .login-form {
+                padding: var(--spacing-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="login-logo">🐾</div>
+            <h1 class="login-title">Admin Portal</h1>
+            <p class="login-subtitle">Shelter Pawtners Management</p>
+        </div>
+        
+        <form class="login-form" id="loginForm">
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    class="form-input" 
+                    required 
+                    autocomplete="email"
+                    placeholder="admin@shelterpawtners.com"
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    class="form-input" 
+                    required 
+                    autocomplete="current-password"
+                    placeholder="Enter your password"
+                >
+            </div>
+            
+            <button type="submit" class="login-btn" id="loginBtn">
+                <span id="loginBtnText">Sign In</span>
+            </button>
+        </form>
+        
+        <div style="text-align: center; margin: 1rem 0;">
+            <a href="#" onclick="resetPassword()" style="color: #8B5CF6; text-decoration: none; font-size: 0.875rem;">
+                Forgot Password? Reset Here
+            </a>
+        </div>
+        
+        <div class="back-link">
+            <a href="../index.html">← Back to Website</a>
+        </div>
+    </div>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    
+    <script>
+        // Initialize Supabase client
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+
+        // DOM elements
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginBtnText = document.getElementById('loginBtnText');
+
+        // Check if already logged in
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Check if user is already authenticated with Supabase
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            
+            if (session) {
+                // Check if this user is an admin
+                const isAdmin = await checkAdminRole(session.user.email);
+                if (isAdmin) {
+                    window.location.href = 'partner-management.html';
+                    return;
+                } else {
+                    // User is authenticated but not an admin
+                    await supabaseClient.auth.signOut();
+                    showError('Access denied. Admin privileges required.');
+                }
+            }
+        });
+
+        // Handle form submission
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                showError('Please enter both email and password.');
+                return;
+            }
+            
+            // Show loading state
+            setLoading(true);
+            hideError();
+            
+            try {
+                // Use Supabase Auth for authentication
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) {
+                    throw error;
+                }
+
+                if (!data.user) {
+                    throw new Error('Login failed. Please try again.');
+                }
+
+                // Check if this user has admin privileges
+                const isAdmin = await checkAdminRole(data.user.email);
+                
+                if (!isAdmin) {
+                    // Not an admin, sign them out
+                    await supabaseClient.auth.signOut();
+                    throw new Error('Access denied. Admin privileges required.');
+                }
+
+                // Update last login in admin_users table
+                await supabaseClient
+                    .from('admin_users')
+                    .update({ last_login: new Date().toISOString() })
+                    .eq('email', data.user.email.toLowerCase());
+
+                // Success - redirect to admin dashboard
+                window.location.href = 'partner-management.html';
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                showError(error.message || 'Login failed. Please try again.');
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // Check if user has admin role - Simple version
+        async function checkAdminRole(email) {
+            try {
+                const { data: adminUser, error } = await supabaseClient
+                    .from('admin_users')
+                    .select('*')
+                    .eq('email', email.toLowerCase())
+                    .eq('active', true)
+                    .single();
+
+                return !error && adminUser;
+            } catch (error) {
+                console.error('Error checking admin role:', error);
+                return false;
+            }
+        }
+
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        // Hide error message
+        function hideError() {
+            errorMessage.style.display = 'none';
+        }
+
+        // Set loading state
+        function setLoading(loading) {
+            loginBtn.disabled = loading;
+            if (loading) {
+                loginBtnText.innerHTML = '<span class="loading"></span>Signing In...';
+            } else {
+                loginBtnText.textContent = 'Sign In';
+            }
+        }
+
+        // Reset password function
+        async function resetPassword() {
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                showError('Please enter your email address first.');
+                document.getElementById('email').focus();
+                return;
+            }
+            
+            try {
+                const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+                    redirectTo: window.location.origin + '/admin/login.html'
+                });
+                
+                if (error) {
+                    throw error;
+                }
+                
+                alert('Password reset email sent! Check your inbox and follow the instructions.');
+                
+            } catch (error) {
+                console.error('Password reset error:', error);
+                showError('Error sending password reset email: ' + error.message);
+            }
+        }
+
+        // Handle Enter key on password field
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loginForm.dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+</html>

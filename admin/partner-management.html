@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Management - Admin - Shelter Pawtners</title>
+    
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
+    
+    <style>
+        /* Remove all custom body styling - let main.css handle it */
+        .admin-header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+            padding: var(--spacing-xl) 0;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .admin-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;  
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .admin-header .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .admin-content {
+            padding: var(--spacing-xl);
+        }        .partner-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 150%);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            text-align: center;
+            border: 2px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-primary);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--color-text-dark);
+            font-weight: 500;
+            margin-top: var(--spacing-xs);
+        }
+
+        .partners-table {
+            background: rgb(0, 0, 0, 0);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: white;
+            padding: var(--spacing-md);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 100px 100px;
+            gap: var(--spacing-md);
+            font-weight: 600;
+        }
+
+        .partner-row {
+            padding: var(--spacing-md);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 100px 100px;
+            gap: var(--spacing-md);
+            align-items: center;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            transition: background-color 0.9s ease;
+        }
+
+        .partner-row:hover {
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .partner-info h4 {
+            margin: 0 0 var(--spacing-xs) 0;
+            color: var(--color-text-dark);
+            font-size: 1.1rem;
+        }
+
+        .partner-info p {
+            margin: 0;
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending {
+            background: rgba(249, 115, 22, 0.2);
+            color: #ea580c;
+        }
+
+        .status-active {
+            background: rgba(34, 197, 94, 0.2);
+            color: #16a34a;
+        }
+
+        .status-inactive {
+            background: rgba(107, 114, 128, 0.2);
+            color: #4b5563;
+        }
+
+        .action-btn {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-approve {
+            background: #22c55e;
+            color: white;
+        }
+
+        .btn-approve:hover {
+            background: #16a34a;
+        }
+
+        .btn-reject {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-reject:hover {
+            background: #dc2626;
+        }
+
+        .btn-toggle {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-toggle:hover {
+            background: #d97706;
+        }
+
+        .loading {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--color-primary);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--color-text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .table-header,
+            .partner-row {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header matching index page -->
+    <header class="header">
+        <div class="header-content">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <!-- Navigation will be populated by admin-navigation.js -->
+            </nav>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <!-- Mobile navigation will be populated by admin-navigation.js -->
+        </nav>
+    </header>
+
+    <main>
+                <section class="admin-header">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                    <div>
+                        <h1>Partner Management Dashboard</h1>
+                        <p>Manage partner applications and marketplace listings</p>
+                    </div>
+                                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <a href="user-management.html" class="btn btn-outline" style="background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.5); color: white;">
+                            👤 Users
+                        </a>
+                        <button onclick="logout()" class="btn btn-outline" style="background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.5); color: white;">
+                            🚪 Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="admin-content">
+            <div class="container">
+                <div class="partner-stats">
+                    <div class="stat-card">
+                        <span class="stat-number" id="totalPartners">-</span>
+                        <div class="stat-label">Total Partners</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="activePartners">-</span>
+                        <div class="stat-label">Active Partners</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="pendingPartners">-</span>
+                        <div class="stat-label">Pending Approval</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="avgDiscount">-</span>
+                        <div class="stat-label">Avg Discount %</div>
+                    </div>
+                </div>
+
+                <div class="partners-table">
+                    <div class="table-header">
+                        <div>Business Information</div>
+                        <div>Type</div>
+                        <div>Location</div>
+                        <div>Discount</div>
+                        <div>Status</div>
+                        <div>Actions</div>
+                    </div>
+                    
+                    <div id="partnersContainer">
+                        <div class="loading">Loading partners...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Admin Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Admin Pages</h4>
+                <ul>
+                    <li><a href="user-management.html">User Management</a></li>
+                    <li><a href="partner-management.html">Partner Management</a></li>
+                    <li><a href="admin-login.html">Admin Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Main Site</h4>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../pages/about.html">About</a></li>
+                    <li><a href="../pages/contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Shelter Pawtners Admin Portal | Managing the digital backbone for post-adoption success</p>
+        </div>
+    </footer>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/admin-auth.js"></script>
+    <script src="../js/admin-navigation.js"></script>
+
+    <script>
+        // Initialize Supabase client
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+
+        // Admin authentication and user management
+        let currentAdmin = null;
+        let currentUser = null;
+        let allPartners = [];
+
+        async function checkAdminAuth() {
+            const authResult = await window.checkAdminAuth();
+            if (!authResult) {
+                return false;
+            }
+            
+            currentUser = authResult.session.user;
+            currentAdmin = authResult.profile;
+            updateAdminHeader();
+            return true;
+        }
+
+        function redirectToLogin() {
+            window.location.href = 'login.html';
+        }
+
+        function updateAdminHeader() {
+            const adminTitle = document.querySelector('.admin-header h1');
+            if (adminTitle && currentAdmin) {
+                adminTitle.innerHTML = `
+                    Partner Management Dashboard
+                    <div style="font-size: 0.6em; font-weight: 400; margin-top: 0.5rem; opacity: 0.9;">
+                        Welcome, ${currentAdmin.full_name || currentAdmin.email} (Admin)
+                    </div>
+                `;
+            }
+        }
+
+        async function logout() {
+            if (confirm('Are you sure you want to log out?')) {
+                try {
+                    await supabaseClient.auth.signOut();
+                    window.location.href = 'login.html';
+                } catch (error) {
+                    console.error('Logout error:', error);
+                    // Force redirect even if logout fails
+                    window.location.href = 'login.html';
+                }
+            }
+        }
+
+        // Load all partners
+        async function loadPartners() {
+            try {
+                const { data: partners, error } = await supabaseClient
+                    .from('business_partners')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    console.error('Error loading partners:', error);
+                    showError('Error loading partners');
+                    return;
+                }
+
+                allPartners = partners;
+                displayPartners(partners);
+                updateStats(partners);
+
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error loading partners');
+            }
+        }
+
+        // Display partners in table
+        function displayPartners(partners) {
+            const container = document.getElementById('partnersContainer');
+            
+            if (!partners || partners.length === 0) {
+                container.innerHTML = '<div class="empty-state">No partners found.</div>';
+                return;
+            }
+
+            container.innerHTML = partners.map(partner => createPartnerRow(partner)).join('');
+        }
+
+        // Create partner row HTML
+        function createPartnerRow(partner) {
+            const statusClass = getStatusClass(partner);
+            const statusText = getStatusText(partner);
+            
+            return `
+                <div class="partner-row" data-id="${partner.id}">
+                    <div class="partner-info">
+                        <h4>${partner.business_name}</h4>
+                        <p>${partner.email} • ${partner.phone}</p>
+                        <p>${partner.website || 'No website'}</p>
+                    </div>
+                    <div>${getCategoryName(partner.business_type)}</div>
+                    <div>${partner.city}, ${partner.state}</div>
+                    <div>${partner.discount_percentage}%</div>
+                    <div>
+                        <span class="status-badge ${statusClass}">${statusText}</span>
+                    </div>
+                    <div>
+                        ${getActionButtons(partner)}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Get status class
+        function getStatusClass(partner) {
+            if (!partner.verified) return 'status-pending';
+            if (partner.active) return 'status-active';
+            return 'status-inactive';
+        }
+
+        // Get status text
+        function getStatusText(partner) {
+            if (!partner.verified) return 'Pending';
+            if (partner.active) return 'Active';
+            return 'Inactive';
+        }
+
+        // Get action buttons
+        function getActionButtons(partner) {
+            if (!partner.verified) {
+                return `
+                    <button class="action-btn btn-approve" onclick="approvePartner('${partner.id}')">Approve</button>
+                    <button class="action-btn btn-reject" onclick="rejectPartner('${partner.id}')">Reject</button>
+                `;
+            } else {
+                const toggleText = partner.active ? 'Deactivate' : 'Activate';
+                return `
+                    <button class="action-btn btn-toggle" onclick="togglePartner('${partner.id}')">${toggleText}</button>
+                `;
+            }
+        }
+
+        // Get category name
+        function getCategoryName(businessType) {
+            const names = {
+                'veterinarian': 'Veterinary',
+                'groomer': 'Grooming',
+                'trainer': 'Training',
+                'pet_store': 'Pet Store',
+                'boarding': 'Boarding',
+                'other': 'Other'
+            };
+            return names[businessType] || 'Other';
+        }
+
+        // Update statistics
+        function updateStats(partners) {
+            const total = partners.length;
+            const active = partners.filter(p => p.verified && p.active).length;
+            const pending = partners.filter(p => !p.verified).length;
+            const avgDiscount = partners.length > 0 
+                ? Math.round(partners.reduce((sum, p) => sum + (p.discount_percentage || 0), 0) / partners.length)
+                : 0;
+
+            document.getElementById('totalPartners').textContent = total;
+            document.getElementById('activePartners').textContent = active;
+            document.getElementById('pendingPartners').textContent = pending;
+            document.getElementById('avgDiscount').textContent = avgDiscount + '%';
+        }
+
+        // Approve partner
+        async function approvePartner(partnerId) {
+            try {
+                const { error } = await supabaseClient
+                    .from('business_partners')
+                    .update({ verified: true, active: true })
+                    .eq('id', partnerId);
+
+                if (error) throw error;
+
+                // Reload partners
+                await loadPartners();
+                alert('Partner approved successfully!');
+
+            } catch (error) {
+                console.error('Error approving partner:', error);
+                alert('Error approving partner. Please try again.');
+            }
+        }
+
+        // Reject partner
+        async function rejectPartner(partnerId) {
+            if (!confirm('Are you sure you want to reject this partner application?')) {
+                return;
+            }
+
+            try {
+                const { error } = await supabaseClient
+                    .from('business_partners')
+                    .delete()
+                    .eq('id', partnerId);
+
+                if (error) throw error;
+
+                // Reload partners
+                await loadPartners();
+                alert('Partner application rejected and removed.');
+
+            } catch (error) {
+                console.error('Error rejecting partner:', error);
+                alert('Error rejecting partner. Please try again.');
+            }
+        }
+
+        // Toggle partner active status
+        async function togglePartner(partnerId) {
+            const partner = allPartners.find(p => p.id === partnerId);
+            if (!partner) return;
+
+            const newStatus = !partner.active;
+            const action = newStatus ? 'activate' : 'deactivate';
+
+            if (!confirm(`Are you sure you want to ${action} this partner?`)) {
+                return;
+            }
+
+            try {
+                const { error } = await supabaseClient
+                    .from('business_partners')
+                    .update({ active: newStatus })
+                    .eq('id', partnerId);
+
+                if (error) throw error;
+
+                // Reload partners
+                await loadPartners();
+                alert(`Partner ${action}d successfully!`);
+
+            } catch (error) {
+                console.error(`Error ${action}ing partner:`, error);
+                alert(`Error ${action}ing partner. Please try again.`);
+            }
+        }
+
+        // Show error
+        function showError(message) {
+            const container = document.getElementById('partnersContainer');
+            container.innerHTML = `<div class="empty-state">${message}</div>`;
+        }
+
+        // Load partners on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Check authentication first
+            const isAuthenticated = await checkAdminAuth();
+            if (isAuthenticated) {
+                loadPartners();
+            }
+        });
+    </script>
+</body>
+</html>

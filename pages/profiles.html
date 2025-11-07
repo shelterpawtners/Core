@@ -4,60 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Pet Profiles - Shelter Pawtners</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/simple-navigation.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
+    <!-- CLEAN NAVIGATION - Same on ALL pages -->
     <header class="header">
-        <div class="header-container">
-            <a href="../index.html" class="logo">
-                <span class="logo-icon">🐾</span>
-                <span>Shelter Pawtners</span>
-            </a>
-            
-            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-                ☰
-            </button>
-            
-            <nav id="navigation" class="nav" aria-label="Main navigation">
-                <ul class="nav-menu" role="menubar">
-                    <li class="nav-item" role="none">
-                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
-                    </li>
-                    <li class="nav-item has-dropdown" role="none">
-                        <a href="businesses.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
-                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
-                            <li role="none"><a href="pet-owners.html" class="dropdown-link" role="menuitem">Pet Parents</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item has-dropdown" role="none">
-                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
-                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <div class="nav-auth">
-                    <div id="authButtons" class="nav-buttons">
-                        <a href="login.html" class="btn btn-outline">Sign In</a>
-                    </div>
-                </div>
-            </nav>
-        </div>
+        <!-- Navigation automatically loaded by simple-navigation.js -->
     </header>
 
     <!-- Main Content -->
@@ -67,20 +27,21 @@
             <div class="container">
                 <div class="glass-hero">
                     <div class="glass-content hero-content">
-                        <h1 class="hero-title text-gradient">Your Pet's Complete Story</h1>
+                         <h3 class="--gradient-secondary">Adopt, Support, Save!  </h3>
+                        <h1 class="hero-title text-gradient">The Value of Digital Pet Profile!</h1>
+                       
                         <p class="hero-text" style="font-size: 1.25rem; margin-bottom: 1rem;">
-                            Everything important about your pet, organized in one secure place that travels with them wherever they go.
+                            Everything important about your pet organized and linked to their Microchip ID.
+                            <br> Now critical health data and history are avaialble wherever they go.
                         </p>
                         <div class="hero-buttons" role="group" aria-label="Get started with Digital Pet Profiles">
-                            <a href="#create-profile" class="btn btn-large btn-hero-primary">
-                                <span aria-hidden="true">🐾 </span>Create Profile
+                            <a href="create-pet.html" class="btn btn-large btn-hero-primary">
+                                <span aria-hidden="true">🐾 </span>Pet Profile 
                             </a>
-                            <a href="#demo" class="btn btn-large btn-hero-secondary">
-                                <span aria-hidden="true">🏥 </span>Request Shelter Demo
+                            <a href="../pages/Sheltercard.html" class="btn btn-large btn-hero-tertiary">
+                                <span aria-hidden="true">🏥 </span>View Exclusive Offers 
                             </a>
-                            <a href="vets.html" class="btn btn-large btn-hero-tertiary">
-                                <span aria-hidden="true">⚕️ </span>Join as a Vet
-                            </a>
+                        
                         </div>
                     </div>
                 </div>
@@ -155,7 +116,7 @@
                 
                 <div class="grid grid-3">
                     <div class="glass-card text-center">
-                        <div class="feature-icon" style="background: var(--glass-gradient-1); color: white; font-size: 2rem;" aria-hidden="true">📱</div>
+                        <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1.5rem;" aria-hidden="true">📱</div>
                         <h3 class="feature-title">Microchip Scanning</h3>
                         <p class="feature-text" style="color: #E5E7EB;">
                             Vets can scan your pet's existing microchip to instantly access their complete Digital Pet Profile with your consent.
@@ -163,7 +124,7 @@
                     </div>
                     
                     <div class="glass-card text-center">
-                        <div class="feature-icon" style="background: var(--glass-gradient-2); color: white; font-size: 2rem;" aria-hidden="true">📱</div>
+                        <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1.5rem;" aria-hidden="true">📱</div>
                         <h3 class="feature-title">QR Code Access</h3>
                         <p class="feature-text" style="color: #E5E7EB;">
                             Show a secure QR code on your phone to instantly share relevant profile information with authorized care providers.
@@ -171,7 +132,7 @@
                     </div>
                     
                     <div class="glass-card text-center">
-                        <div class="feature-icon" style="background: var(--glass-gradient-3); color: white; font-size: 2rem;" aria-hidden="true">🛡️</div>
+                        <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1.5rem;" aria-hidden="true">🛡️</div>
                         <h3 class="feature-title">RFID Security</h3>
                         <p class="feature-text" style="color: #E5E7EB;">
                             Advanced RFID technology provides secure, contactless access to profile data for emergency situations and routine care.
@@ -316,14 +277,10 @@
                         Join thousands of pet families who have their pet's complete care history at their fingertips.
                     </p>
                     <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
-                        <a href="#create-profile" class="btn btn-large btn-hero-primary">
-                            <span aria-hidden="true">🐾 </span>Create Profile
+                        <a href="create-pet.html" class="btn btn-large btn-hero-primary">
+                            <span aria-hidden="true">🐾 </span>Create Pet Profile
                         </a>
-                        <a href="#demo" class="btn btn-large btn-hero-secondary">
-                            <span aria-hidden="true">🏥 </span>Request Shelter Demo
-                        </a>
-                        <a href="vets.html" class="btn btn-large btn-hero-tertiary">
-                            <span aria-hidden="true">⚕️ </span>Join as a Vet
+                      
                         </a>
                     </div>
                 </div>
@@ -339,8 +296,7 @@
 
     <!-- JavaScript -->
     <script src="../js/simple-navigation.js"></script>
-    <script src="../js/utils.js"></script>
-    <script src="../js/forms.js"></script>
     <!-- SIMPLE UNIFIED FOOTER - Consistent footer for all pages -->
     <script src="../js/simple-footer.js"></script>
 </body>
+</html>

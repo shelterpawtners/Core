@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<!--
+SUPABASE STORAGE SETUP REQUIRED:
+
+Run this SQL in your Supabase SQL Editor to create the profile-pictures bucket:
+
+-- Create storage bucket for profile pictures
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES (
+    'profile-pictures',
+    'profile-pictures', 
+    true,
+    2097152,  -- 2MB limit (compressed images should be much smaller)
+    ARRAY['image/webp', 'image/jpeg', 'image/png']
+);
+
+-- Set up RLS policy for profile pictures
+CREATE POLICY "Users can upload their own profile picture" ON storage.objects
+FOR INSERT WITH CHECK (
+    bucket_id = 'profile-pictures' 
+    AND auth.uid()::text = (storage.foldername(name))[1]
+);
+
+CREATE POLICY "Users can view all profile pictures" ON storage.objects
+FOR SELECT USING (bucket_id = 'profile-pictures');
+
+CREATE POLICY "Users can update their own profile picture" ON storage.objects
+FOR UPDATE USING (
+    bucket_id = 'profile-pictures' 
+    AND auth.uid()::text = (storage.foldername(name))[1]
+);
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings - Shelter Pawtners</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
+    
+</head>
+<body>
+    <!-- CLEAN NAVIGATION - Same on ALL pages -->
+    <header class="header">
+        <!-- Navigation automatically loaded by simple-navigation.js -->
+    </header>
+
+    <main>
+        <section class="py-xl">
+            <div class="container">
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <h1 class="hero-title text-gradient">👤 Account Settings</h1>
+                    
+                    <!-- Profile Picture Section -->
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">Profile Picture</h2>
+                        
+                        <div style="display: flex; align-items: center; gap: 2rem; margin-bottom: 1.5rem;">
+                            <div class="profile-picture-container" style="position: relative;">
+                                <img id="profilePicture" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" 
+                                     alt="Profile Picture" 
+                                     style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); transition: opacity 0.3s;">
+                                <div id="profilePictureOverlay" 
+                                     style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); 
+                                            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+                                            opacity: 0; transition: opacity 0.3s; cursor: pointer; color: white; font-size: 14px; text-align: center;">
+                                    <span id="overlayText">Change Photo</span>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="file" id="profilePictureInput" accept="image/*" style="display: none;" onchange="handleProfilePictureChange(event)">
+                                <button type="button" class="btn btn-outline" onclick="document.getElementById('profilePictureInput').click()">
+                                    📷 Change Picture
+                                </button>
+                                <p style="font-size: 14px; color: var(--text-secondary); margin-top: 0.5rem;">
+                                    JPG, PNG or GIF. Max size 5MB.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">Personal Information</h2>
+                        
+                        <form id="profileForm" onsubmit="saveProfile(event)">
+                            <div class="form-group">
+                                <label for="emailInput" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="emailInput" readonly>
+                                <small style="color: var(--text-secondary); font-size: 12px;">
+                                    Email cannot be changed. Contact support if needed.
+                                </small>
+                            </div>
+                            
+                            <div class="form-row form-row-2">
+                                <div class="form-group">
+                                    <label for="firstNameInput" class="form-label">First Name *</label>
+                                    <input type="text" class="form-control" id="firstNameInput" placeholder="John" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="lastNameInput" class="form-label">Last Name *</label>
+                                    <input type="text" class="form-control" id="lastNameInput" placeholder="Doe" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="usernameInput" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="usernameInput" placeholder="johndoe123">
+                                <small style="color: var(--text-secondary); font-size: 12px;">
+                                    Optional. Used for public profile and community features.
+                                </small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phoneInput" class="form-label">Phone Number *</label>
+                                <input type="tel" class="form-control" id="phoneInput" placeholder="(555) 123-4567" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="addressInput" class="form-label">Street Address</label>
+                                <input type="text" class="form-control" id="addressInput" placeholder="123 Main Street">
+                            </div>
+                            
+                            <div class="form-row form-row-3">
+                                <div class="form-group">
+                                    <label for="cityInput" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="cityInput" placeholder="Austin">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="stateInput" class="form-label">State</label>
+                                    <select class="form-control" id="stateInput">
+                                        <option value="">Select State</option>
+                                        <option value="AL">Alabama</option>
+                                        <option value="AK">Alaska</option>
+                                        <option value="AZ">Arizona</option>
+                                        <option value="AR">Arkansas</option>
+                                        <option value="CA">California</option>
+                                        <option value="CO">Colorado</option>
+                                        <option value="CT">Connecticut</option>
+                                        <option value="DE">Delaware</option>
+                                        <option value="FL">Florida</option>
+                                        <option value="GA">Georgia</option>
+                                        <option value="HI">Hawaii</option>
+                                        <option value="ID">Idaho</option>
+                                        <option value="IL">Illinois</option>
+                                        <option value="IN">Indiana</option>
+                                        <option value="IA">Iowa</option>
+                                        <option value="KS">Kansas</option>
+                                        <option value="KY">Kentucky</option>
+                                        <option value="LA">Louisiana</option>
+                                        <option value="ME">Maine</option>
+                                        <option value="MD">Maryland</option>
+                                        <option value="MA">Massachusetts</option>
+                                        <option value="MI">Michigan</option>
+                                        <option value="MN">Minnesota</option>
+                                        <option value="MS">Mississippi</option>
+                                        <option value="MO">Missouri</option>
+                                        <option value="MT">Montana</option>
+                                        <option value="NE">Nebraska</option>
+                                        <option value="NV">Nevada</option>
+                                        <option value="NH">New Hampshire</option>
+                                        <option value="NJ">New Jersey</option>
+                                        <option value="NM">New Mexico</option>
+                                        <option value="NY">New York</option>
+                                        <option value="NC">North Carolina</option>
+                                        <option value="ND">North Dakota</option>
+                                        <option value="OH">Ohio</option>
+                                        <option value="OK">Oklahoma</option>
+                                        <option value="OR">Oregon</option>
+                                        <option value="PA">Pennsylvania</option>
+                                        <option value="RI">Rhode Island</option>
+                                        <option value="SC">South Carolina</option>
+                                        <option value="SD">South Dakota</option>
+                                        <option value="TN">Tennessee</option>
+                                        <option value="TX">Texas</option>
+                                        <option value="UT">Utah</option>
+                                        <option value="VT">Vermont</option>
+                                        <option value="VA">Virginia</option>
+                                        <option value="WA">Washington</option>
+                                        <option value="WV">West Virginia</option>
+                                        <option value="WI">Wisconsin</option>
+                                        <option value="WY">Wyoming</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="zipInput" class="form-label">ZIP Code</label>
+                                    <input type="text" class="form-control" id="zipInput" placeholder="78701" pattern="[0-9]{5}">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="emergencyNameInput" class="form-label">Emergency Contact Name</label>
+                                <input type="text" class="form-control" id="emergencyNameInput" placeholder="Jane Doe">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="emergencyPhoneInput" class="form-label">Emergency Contact Phone</label>
+                                <input type="tel" class="form-control" id="emergencyPhoneInput" placeholder="(555) 987-6543">
+                            </div>
+                            
+                            <div class="form-actions" style="display: flex; gap: 1rem; margin-top: 2rem;">
+                                <button type="submit" class="btn btn-primary" id="saveButton">
+                                    💾 Save Changes
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                                    🔄 Reset
+                                </button>
+                                <a href="dashboard.html" class="btn btn-outline">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="info-card" style="margin-top: 2rem;">
+                        <h2 class="card-title">🔒 Security</h2>
+                        
+                        <div class="action-buttons" style="flex-direction: column; gap: 1rem;">
+                            <button type="button" class="btn btn-outline" onclick="changePassword()">
+                                Change Password
+                            </button>
+                            <button type="button" class="btn btn-outline" onclick="downloadData()">
+                                Download My Data
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="deleteAccount()">
+                                Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/forms.js"></script>
+    <!-- SIMPLE NAVIGATION - Clean, consistent, logo and links on same line -->
+    <script src="../js/simple-navigation.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        // Initialize Supabase client
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+
+        // Global variables
+        let currentUser = null;
+        let profileData = null;
+
+        // Load user profile data
+        window.addEventListener('DOMContentLoaded', async function() {
+                // First check if user is logged in via AuthManager
+                if (!window.authManager || !window.authManager.isLoggedIn()) {
+                    console.log('No auth session, redirecting to login');
+                    window.location.href = 'login.html';
+                    return;
+                }
+            
+            await loadUserProfile();
+            setupProfilePictureHover();
+        });
+
+        // Load user profile from database
+        async function loadUserProfile() {
+            try {
+                // Get current user from Supabase Auth
+                const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+                
+                if (authError || !user) {
+                    console.error('Auth error:', authError);
+                        // Clear stale session and redirect
+                        if (window.authManager) {
+                            window.authManager.clearSession();
+                        }
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                currentUser = user;
+                
+                // Load user profile from database
+                const { data: profile, error: profileError } = await supabaseClient
+                    .from('user_profiles')
+                    .select('*')
+                    .eq('id', user.id)
+                    .single();
+                
+                if (profileError) {
+                    console.error('Profile loading error:', profileError);
+                    // If profile doesn't exist, create it
+                    await createUserProfile(user);
+                    return;
+                }
+                
+                profileData = profile;
+                populateForm(profile);
+                
+            } catch (error) {
+                console.error('Error loading user profile:', error);
+                showErrorMessage('Failed to load profile. Please refresh the page.');
+            }
+        }
+
+        // Create user profile if it doesn't exist
+        async function createUserProfile(user) {
+            try {
+                const newProfile = {
+                    id: user.id,
+                    email: user.email,
+                    first_name: user.user_metadata?.first_name || '',
+                    last_name: user.user_metadata?.last_name || '',
+                    phone: user.user_metadata?.phone || '',
+                    profile_complete: false
+                };
+                
+                const { data, error } = await supabaseClient
+                    .from('user_profiles')
+                    .insert([newProfile])
+                    .select()
+                    .single();
+                
+                if (error) throw error;
+                
+                profileData = data;
+                populateForm(data);
+                
+            } catch (error) {
+                console.error('Error creating user profile:', error);
+                showErrorMessage('Failed to create profile. Please try again.');
+            }
+        }
+
+        // Populate form with user data
+        function populateForm(profile) {
+            document.getElementById('emailInput').value = profile.email || '';
+            document.getElementById('firstNameInput').value = profile.first_name || '';
+            document.getElementById('lastNameInput').value = profile.last_name || '';
+            document.getElementById('usernameInput').value = profile.username || '';
+            document.getElementById('phoneInput').value = profile.phone || '';
+            document.getElementById('addressInput').value = profile.address || '';
+            document.getElementById('cityInput').value = profile.city || '';
+            document.getElementById('stateInput').value = profile.state || '';
+            document.getElementById('zipInput').value = profile.zip_code || '';
+            document.getElementById('emergencyNameInput').value = profile.emergency_contact_name || '';
+            document.getElementById('emergencyPhoneInput').value = profile.emergency_contact_phone || '';
+            
+            // Load profile picture if exists
+            if (profile.profile_picture_url) {
+                document.getElementById('profilePicture').src = profile.profile_picture_url;
+            }
+        }
+
+        // Save profile to database
+        async function saveProfile(event) {
+            event.preventDefault();
+            
+            const saveButton = document.getElementById('saveButton');
+            const originalText = saveButton.innerHTML;
+            
+            try {
+                // Show loading state
+                saveButton.innerHTML = '⏳ Saving...';
+                saveButton.disabled = true;
+                
+                // First, let's try a minimal update to test which fields work
+                const basicData = {
+                    first_name: document.getElementById('firstNameInput').value.trim(),
+                    last_name: document.getElementById('lastNameInput').value.trim(),
+                    phone: document.getElementById('phoneInput').value.trim(),
+                    profile_complete: true,
+                    updated_at: new Date().toISOString()
+                };
+                
+                // Validate required fields
+                if (!basicData.first_name || !basicData.last_name || !basicData.phone) {
+                    throw new Error('Please fill in all required fields (First Name, Last Name, Phone).');
+                }
+                
+                // Try basic update first
+                const { data: basicUpdate, error: basicError } = await supabaseClient
+                    .from('user_profiles')
+                    .update(basicData)
+                    .eq('id', currentUser.id)
+                    .select()
+                    .single();
+                
+                if (basicError) {
+                    console.error('Basic update failed:', basicError);
+                    throw basicError;
+                }
+                
+                // If basic update succeeds, try to update additional fields one by one
+                const additionalFields = {
+                    username: document.getElementById('usernameInput').value.trim() || null,
+                };
+                
+                // Try to update username if provided
+                if (additionalFields.username) {
+                    const { error: usernameError } = await supabaseClient
+                        .from('user_profiles')
+                        .update({ username: additionalFields.username })
+                        .eq('id', currentUser.id);
+                    
+                    if (usernameError) {
+                        console.warn('Username update failed:', usernameError);
+                    }
+                }
+                
+                // Try to update address fields (these might not exist yet)
+                const addressData = {
+                    address: document.getElementById('addressInput').value.trim() || null,
+                    city: document.getElementById('cityInput').value.trim() || null,
+                    state: document.getElementById('stateInput').value || null,
+                    zip_code: document.getElementById('zipInput').value.trim() || null,
+                    emergency_contact_name: document.getElementById('emergencyNameInput').value.trim() || null,
+                    emergency_contact_phone: document.getElementById('emergencyPhoneInput').value.trim() || null,
+                };
+                
+                // Filter out empty values
+                const filteredAddressData = Object.fromEntries(
+                    Object.entries(addressData).filter(([key, value]) => value !== null && value !== '')
+                );
+                
+                if (Object.keys(filteredAddressData).length > 0) {
+                    console.log('Attempting to update address fields:', filteredAddressData);
+                    
+                    const { error: addressError } = await supabaseClient
+                        .from('user_profiles')
+                        .update(filteredAddressData)
+                        .eq('id', currentUser.id);
+                    
+                    if (addressError) {
+                        console.warn('Address fields update failed:', addressError);
+                        showErrorMessage(`Profile updated, but some fields couldn't be saved: ${addressError.message}. You may need to run the database schema update.`);
+                        return;
+                    }
+                }
+                
+                profileData = basicUpdate;
+                showSuccessMessage('Profile updated successfully!');
+                
+            } catch (error) {
+                console.error('Error saving profile:', error);
+                showErrorMessage(error.message || 'Failed to save profile. Please try again.');
+            } finally {
+                // Restore button state
+                saveButton.innerHTML = originalText;
+                saveButton.disabled = false;
+            }
+        }
+
+        // Reset form to original values
+        function resetForm() {
+            if (profileData) {
+                populateForm(profileData);
+                showInfoMessage('Form reset to saved values.');
+            }
+        }
+
+        // Handle profile picture change with efficient storage
+        async function handleProfilePictureChange(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Validate file size (5MB max)
+            if (file.size > 5 * 1024 * 1024) {
+                showErrorMessage('Image size must be less than 5MB.');
+                return;
+            }
+            
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                showErrorMessage('Please select a valid image file.');
+                return;
+            }
+
+            try {
+                // Show loading state
+                const overlayText = document.getElementById('overlayText');
+                const originalOverlayText = overlayText.textContent;
+                overlayText.textContent = 'Processing...';
+                document.getElementById('profilePictureOverlay').style.opacity = '1';
+                
+                showInfoMessage('Processing and uploading image...');
+                
+                // Compress and resize image for efficiency
+                const compressedFile = await compressImage(file, 256, 256, 0.8);
+                
+                // Preview the compressed image
+                const previewUrl = URL.createObjectURL(compressedFile);
+                document.getElementById('profilePicture').src = previewUrl;
+                
+                // Get current user
+                const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+                if (authError || !user) {
+                    showErrorMessage('Please log in to upload profile picture.');
+                    return;
+                }
+                
+                // Generate unique filename with user ID
+                const fileExtension = 'webp'; // Always convert to WebP for best compression
+                const fileName = `profile_${user.id}_${Date.now()}.${fileExtension}`;
+                // Store inside a user-specific folder to align with common RLS policies
+                const filePath = `${user.id}/${fileName}`;
+                
+                // Upload to Supabase Storage
+                const { data: uploadData, error: uploadError } = await supabaseClient.storage
+                    .from('profile-pictures')
+                    .upload(filePath, compressedFile, {
+                        cacheControl: '3600',
+                        upsert: false,
+                        contentType: 'image/webp'
+                    });
+                
+                if (uploadError) {
+                    console.error('Upload error:', uploadError);
+                    console.error('Full error details:', JSON.stringify(uploadError, null, 2));
+                    if (String(uploadError?.message || '').toLowerCase().includes('bucket not found')) {
+                        showErrorMessage('Storage bucket "profile-pictures" does not exist. Please create it in Supabase (Storage > Create bucket, public). See setup notes at top of this page.');
+                    } else if (String(uploadError?.message || '').toLowerCase().includes('row level security') || String(uploadError?.message || '').toLowerCase().includes('rls')) {
+                        showErrorMessage('Upload blocked by RLS. Ensure object path starts with your user ID and policies are applied.');
+                    } else {
+                        showErrorMessage(`Failed to upload image: ${uploadError.message}`);
+                    }
+                    // Reset overlay
+                    overlayText.textContent = originalOverlayText;
+                    document.getElementById('profilePictureOverlay').style.opacity = '0';
+                    return;
+                }
+                
+                // Get public URL
+                const { data: urlData } = supabaseClient.storage
+                    .from('profile-pictures')
+                    .getPublicUrl(filePath);
+                
+                // Update user profile with new photo URL
+                const { error: updateError } = await supabaseClient
+                    .from('user_profiles')
+                    .update({ 
+                        profile_picture_url: urlData.publicUrl,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', user.id);
+                
+                if (updateError) {
+                    console.error('Profile update error:', updateError);
+                    console.error('Full update error:', JSON.stringify(updateError, null, 2));
+                    console.log('Tried to update profile with URL:', urlData.publicUrl);
+                    showErrorMessage(`Image uploaded but failed to update profile: ${updateError.message}`);
+                    // Reset overlay
+                    overlayText.textContent = originalOverlayText;
+                    document.getElementById('profilePictureOverlay').style.opacity = '0';
+                    return;
+                }
+                
+                console.log('✅ Profile picture updated successfully!');
+                console.log('New profile picture URL:', urlData.publicUrl);
+                
+                // Clean up preview URL
+                URL.revokeObjectURL(previewUrl);
+                
+                // Reset overlay
+                document.getElementById('overlayText').textContent = originalOverlayText;
+                document.getElementById('profilePictureOverlay').style.opacity = '0';
+                
+                showSuccessMessage('Profile picture updated successfully!');
+                
+            } catch (error) {
+                console.error('Error uploading profile picture:', error);
+                showErrorMessage('Failed to process image. Please try again.');
+                
+                // Reset overlay on error
+                const overlayText = document.getElementById('overlayText');
+                overlayText.textContent = 'Change Photo';
+                document.getElementById('profilePictureOverlay').style.opacity = '0';
+            }
+        }
+
+        // Efficient image compression function
+        function compressImage(file, maxWidth, maxHeight, quality) {
+            return new Promise((resolve) => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const img = new Image();
+                
+                img.onload = function() {
+                    // Calculate new dimensions maintaining aspect ratio
+                    let { width, height } = img;
+                    
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height = (height * maxWidth) / width;
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width = (width * maxHeight) / height;
+                            height = maxHeight;
+                        }
+                    }
+                    
+                    // Set canvas dimensions
+                    canvas.width = width;
+                    canvas.height = height;
+                    
+                    // Draw and compress
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // Convert to WebP blob for maximum compression
+                    canvas.toBlob(resolve, 'image/webp', quality);
+                };
+                
+                img.src = URL.createObjectURL(file);
+            });
+        }
+
+        // Setup profile picture hover effect
+        function setupProfilePictureHover() {
+            const container = document.querySelector('.profile-picture-container');
+            const overlay = document.getElementById('profilePictureOverlay');
+            
+            container.addEventListener('mouseenter', () => {
+                overlay.style.opacity = '1';
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                overlay.style.opacity = '0';
+            });
+            
+            container.addEventListener('click', () => {
+                document.getElementById('profilePictureInput').click();
+            });
+        }
+
+        // Utility functions for user feedback
+        function showSuccessMessage(message) {
+            showMessage(message, 'success');
+        }
+
+        function showErrorMessage(message) {
+            showMessage(message, 'error');
+        }
+
+        function showInfoMessage(message) {
+            showMessage(message, 'info');
+        }
+
+        function showMessage(message, type = 'info') {
+            // Remove any existing messages
+            const existingMessage = document.querySelector('.profile-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // Create message element
+            const messageEl = document.createElement('div');
+            messageEl.className = `profile-message alert alert-${type}`;
+            messageEl.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 10000;
+                max-width: 400px;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                transition: all 0.3s ease;
+                border: 2px solid rgba(255,255,255,0.2);
+                backdrop-filter: blur(10px);
+            `;
+            
+            // Set background color based on type
+            const colors = {
+                success: '#10B981',
+                error: '#EF4444',
+                info: '#3B82F6'
+            };
+            messageEl.style.backgroundColor = colors[type] || colors.info;
+            
+            messageEl.textContent = message;
+            document.body.appendChild(messageEl);
+            
+            // Remove message after 5 seconds
+            setTimeout(() => {
+                messageEl.style.opacity = '0';
+                messageEl.style.transform = 'translateY(-20px)';
+                setTimeout(() => messageEl.remove(), 300);
+            }, 5000);
+        }
+
+        async function changePassword() {
+            const newPassword = prompt('Enter your new password (minimum 6 characters):');
+            
+            if (!newPassword) {
+                return; // User cancelled
+            }
+            
+            if (newPassword.length < 6) {
+                alert('Password must be at least 6 characters long.');
+                return;
+            }
+            
+            const confirmPassword = prompt('Confirm your new password:');
+            
+            if (newPassword !== confirmPassword) {
+                alert('Passwords do not match. Please try again.');
+                return;
+            }
+            
+            try {
+                const { data, error } = await supabaseClient.auth.updateUser({
+                    password: newPassword
+                });
+                
+                if (error) throw error;
+                
+                alert('Password changed successfully!');
+                
+            } catch (error) {
+                console.error('Password change error:', error);
+                alert('Error changing password: ' + error.message);
+            }
+        }
+
+        function downloadData() {
+            alert('Data download feature coming soon!');
+        }
+
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                alert('Account deletion feature coming soon!');
+            }
+        }
+    </script>
+
+    <!-- UNIFIED FOOTER -->
+    <footer class="footer">
+        <!-- Footer content automatically loaded by simple-footer.js -->
+    </footer>
+
+    <script src="../js/simple-footer.js"></script>
+
+    <style>
+        /* Account page specific styles */
+        .profile-picture-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-picture-container:hover .profile-picture-overlay {
+            opacity: 1 !important;
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-primary);
+            padding: 0.75rem 1rem;
+            width: 100%;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-input:read-only {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #06B6D4 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Responsive grid for form fields */
+        @media (max-width: 768px) {
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            div[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Loading and feedback styles */
+        .alert {
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px solid;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #10B981;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+        }
+
+        .alert-info {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #3B82F6;
+        }
+
+        /* Profile picture hover effect */
+        .profile-picture-container {
+            transition: transform 0.3s ease;
+        }
+
+        .profile-picture-container:hover {
+            transform: scale(1.05);
+        }
+
+        /* Form validation styles */
+        .form-input:invalid {
+            border-color: #EF4444;
+        }
+
+        .form-input:valid {
+            border-color: rgba(16, 185, 129, 0.5);
+        }
+    </style>
+</body>
+</html>

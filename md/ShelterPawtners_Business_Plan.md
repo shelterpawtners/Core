@@ -9,7 +9,7 @@ Using technology and community to solve the Shelter Pet Crisis with Power Pet Pr
 
 # ShelterPawtners is a nonprofit (pending) organization dedicated to solving the shelter pet crisis by leveraging technology to create better adoption matches, reduce return rates, and incentivize pet adoptions. Millions of healthy shelter pets are euthanized annually due to overcrowding, financial limitations, and mismatched adoptions. ShelterPawtners introduces the ShelterCARD, a program offering lifelong discounts on pet services and products to adopters(pet Owners).  ShelterPawtners works with shelters to create digital Pet Profiles, which take paper based report cards and digitize crucial pet data to help shelters find better homes for their animals. Through partnerships with shelters, veterinarians, pet service providers, and corporate sponsors, we aim to reduce the number of euthanized pets and improve pet care across the country.
 
-1,000,000 HEALTHY Pets are Euthanized in shelters annually.
+More than 1,000,000 Pets are Euthanized in shelters annually.
 
 With millions of healthy pets euthanized annually due to overcrowded shelters, ShelterPawtners steps in with a revolutionary solution. By providing shelters with the tools to digitize pet data, improve adoption matches, and incentivizing adoptions through lifelong savings, ShelterPawtners is changing the landscape for shelter pets. The goal is clear: reduce euthanasia rates and provide shelter pets with lasting homes by aligning the interests of adopters, shelters, and pet care partners.
 

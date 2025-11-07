@@ -9,12 +9,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
+
     
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/navigation.css">
-    <link rel="stylesheet" href="../css/simple-navigation.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    
+    
+    
+    
+    
 </head>
 <body>
     <!-- CLEAN NAVIGATION - Same on ALL pages -->
@@ -26,7 +30,7 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-title">Partner with Purpose</h1>
+                    <h1 class="hero-title text-gradient">Partner with Purpose</h1>
                     <p class="hero-text">
                         Join hundreds of businesses supporting rescued pets while growing your customer base 
                         and strengthening your community connection.
@@ -60,7 +64,7 @@
                     </div>
                     
                     <div class="feature-box">
-                        <div class="feature-icon">�</div>
+                        <div class="feature-icon">📈</div>
                         <h3 class="feature-title">Grow Your Business</h3>
                         <p class="feature-text">
                             Increase visibility through our directory, marketing campaigns, and engaged 
@@ -171,7 +175,7 @@
                     
                     <div class="card">
                         <div class="card-content">
-                            <h3 class="card-title">� Other Services</h3>
+                            <h3 class="card-title">🔧 Other Services</h3>
                             <ul>
                                 <li>Pet photography</li>
                                 <li>Pet taxi services</li>
@@ -237,111 +241,33 @@
                     
                     <div>
                         <div class="card">
-                            <div class="card-content">
-                                <form data-validate>
-                                    <div class="form-group">
-                                        <label for="businessName" class="form-label">Business Name *</label>
-                                        <input type="text" id="businessName" name="businessName" class="form-control" required>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="businessType" class="form-label">Business Type *</label>
-                                        <select id="businessType" name="businessType" class="form-control" required>
-                                            <option value="">Select type</option>
-                                            <option value="veterinary">Veterinary Services</option>
-                                            <option value="grooming">Grooming & Spa</option>
-                                            <option value="retail">Retail & Supplies</option>
-                                            <option value="training">Training & Behavior</option>
-                                            <option value="boarding">Boarding & Care</option>
-                                            <option value="other">Other Services</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="contactName" class="form-label">Contact Name *</label>
-                                        <input type="text" id="contactName" name="contactName" class="form-control" required>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="email" class="form-label">Business Email *</label>
-                                        <input type="email" id="email" name="email" class="form-control" required>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="phone" class="form-label">Business Phone *</label>
-                                        <input type="tel" id="phone" name="phone" class="form-control" required>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="address" class="form-label">Business Address *</label>
-                                        <input type="text" id="address" name="address" class="form-control" required>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="city" class="form-label">City *</label>
-                                        <input type="text" id="city" name="city" class="form-control" required>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="state" class="form-label">State *</label>
-                                        <input type="text" id="state" name="state" class="form-control" required>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="zipCode" class="form-label">ZIP Code *</label>
-                                        <input type="text" id="zipCode" name="zipCode" class="form-control" required pattern="[0-9]{5}" title="Please enter a 5-digit ZIP code">
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="website" class="form-label">Website</label>
-                                        <input type="url" id="website" name="website" class="form-control" placeholder="https://">
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="discount" class="form-label">Proposed Discount % *</label>
-                                        <select id="discount" name="discount" class="form-control" required>
-                                            <option value="">Select discount</option>
-                                            <option value="10">10% off</option>
-                                            <option value="15">15% off</option>
-                                            <option value="20">20% off</option>
-                                            <option value="25">25% off</option>
-                                            <option value="30">30% off</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="services" class="form-label">Services Offered *</label>
-                                        <textarea id="services" name="services" class="form-control" required placeholder="Brief description of your services"></textarea>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="partnership" class="form-label">Partnership Tier *</label>
-                                        <select id="partnership" name="partnership" class="form-control" required>
-                                            <option value="">Select tier</option>
-                                            <option value="basic">Basic (Free)</option>
-                                            <option value="featured">Featured ($49/month)</option>
-                                            <option value="premium">Premium ($99/month)</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="terms" name="terms" class="form-check-input" required>
-                                            <label for="terms" class="form-label">
-                                                I agree to the <a href="terms.html">Business Terms</a> and 
-                                                <a href="privacy.html">Privacy Policy</a> *
-                                            </label>
-                                        </div>
-                                    </div>
-                                    
-                                    <button type="submit" class="btn btn-secondary btn-large btn-block">
-                                        Submit Application
-                                    </button>
-                                    
-                                    <p class="text-center mt-md">
-                                        Already a partner? <a href="#sign-in">Sign in to your portal</a>
+                            <div class="card-content text-center">
+                                <h3 class="card-title">Ready to Join ShelterCARD?</h3>
+                                <p class="mb-lg">
+                                    Join our partner network and start supporting shelter pets while growing your business.
+                                </p>
+                                
+                                <div class="cta-buttons">
+                                    <a href="business-signup.html" class="btn btn-primary btn-large">
+                                        🐾 Join Partner Network
+                                    </a>
+                                    <a href="partner-offers.html" class="btn btn-secondary btn-large">
+                                        View Current Offers
+                                    </a>
+                                </div>
+                                
+                                <p class="text-center mt-lg">
+                                    Already a partner? <a href="login.html">Sign in to your account</a>
+                                </p>
+                                
+                                <div class="mt-lg">
+                                    <h4>Questions?</h4>
+                                    <p>Contact our partnership team:</p>
+                                    <p>
+                                        📧 <a href="mailto:partners@shelterpawtners.com">partners@shelterpawtners.com</a><br>
+                                        📞 <a href="tel:+15125551234">(512) 555-1234</a>
                                     </p>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -419,9 +345,7 @@
         <!-- Footer content automatically loaded by simple-footer.js -->
     </footer>
 
-    <script src="../js/utils.js"></script>
     <script src="../js/simple-navigation.js"></script>
-    <script src="../js/forms.js"></script>
     <!-- SIMPLE UNIFIED FOOTER - Consistent footer for all pages -->
     <script src="../js/simple-footer.js"></script>
 </body>

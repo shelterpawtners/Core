@@ -70,10 +70,6 @@ class SimpleUnifiedFooter {
                 <div class="footer-bottom">
                     <div class="footer-bottom-content">
                         <p>&copy; 2025 Shelter Pawtners. All rights reserved.</p>
-                        <ul class="footer-legal">
-                            <li><a href="${basePath}pages/privacy.html" class="footer-link">Privacy</a></li>
-                            <li><a href="${basePath}pages/terms.html" class="footer-link">Terms</a></li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -86,6 +82,12 @@ class SimpleUnifiedFooter {
     init() {
         const footer = document.querySelector('.footer');
         if (footer) {
+            // Add requested spacing above the footer
+            try {
+                footer.style.marginTop = '80px';
+            } catch (e) {
+                // no-op if styling fails
+            }
             footer.innerHTML = this.getFooterHTML();
         }
     }

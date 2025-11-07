@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test Edge Function</title></head>
+<body>
+<h1>Testing Edge Function</h1>
+<div id="output"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script>
+async function test() {
+  const output = document.getElementById('output');
+  const { createClient } = supabase;
+  const client = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+  
+  output.innerHTML = '<p>Getting session...</p>';
+  const { data: { session }, error: sessionError } = await client.auth.getSession();
+  
+  if (sessionError || !session) {
+    output.innerHTML += '<p>Error: No session found. Please log in first.</p>';
+    output.innerHTML += '<p><a href="admin/admin-login.html">Go to admin login</a></p>';
+    return;
+  }
+  
+  output.innerHTML += '<p>Session found. User: ' + session.user.email + '</p>';
+  output.innerHTML += '<p>Calling edge function...</p>';
+  
+  // Try direct fetch to see raw response
+  try {
+    const response = await fetch(`${SUPABASE_CONFIG.url}/functions/v1/admin-get-users`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${session.access_token}`,
+        'apikey': SUPABASE_CONFIG.anonKey
+      }
+    });
+    
+    const responseText = await response.text();
+    output.innerHTML += '<p>Response status: ' + response.status + '</p>';
+    output.innerHTML += '<p>Response body:</p>';
+    output.innerHTML += '<pre>' + responseText + '</pre>';
+    
+    if (response.ok) {
+      output.innerHTML += '<p style="color:green">Success!</p>';
+    } else {
+      output.innerHTML += '<p style="color:red">Function returned error status</p>';
+    }
+  } catch (e) {
+    output.innerHTML += '<p style="color:red">Fetch error: ' + e.message + '</p>';
+  }
+}
+test();
+</script>
+</body>
+</html>

@@ -5,27 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Eligibility Applications - Shelter Pawtners</title>
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/navigation.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
 </head>
 <body>
+<!-- Header matching index page -->
     <header class="header">
-        <div class="header-container">
+        <div class="header-content">
             <a href="../index.html" class="logo">
                 <span class="logo-icon">🐾</span>
-                <span>Shelter Pawtners Admin</span>
+                <span>Shelter Pawtners</span>
             </a>
             
-            <div class="nav-auth">
-                <div id="authButtons" class="nav-buttons">
-                    <button id="logoutBtn" class="btn btn-outline" style="display: none;">Sign Out</button>
-                    <a href="../pages/login.html" id="loginBtn" class="btn btn-outline">Sign In</a>
-                </div>
-            </div>
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <!-- Navigation will be populated by admin-navigation.js -->
+            </nav>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+            </button>
         </div>
+        
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <!-- Mobile navigation will be populated by admin-navigation.js -->
+        </nav>
     </header>
 
     <main class="main-content">
@@ -123,37 +131,28 @@
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
-    <!-- App Scripts -->
+    <!-- Configuration and Auth -->
     <script src="../js/supabase-config.js"></script>
-    <script src="../js/auth.js"></script>
-
-    <script>
+    <script src="../js/admin-auth.js"></script>
+    <script src="../js/auth.js"></script>    <script>
         // Admin functionality for eligibility applications
         let applications = [];
         let currentFilters = { status: '', date: '' };
 
         // Initialize admin panel
-        document.addEventListener('DOMContentLoaded', function() {
-            checkAdminAuth();
+        document.addEventListener('DOMContentLoaded', async function() {
+            const authResult = await window.checkAdminAuth();
+            if (!authResult) {
+                return; // Redirected to login
+            }
             setupEventListeners();
             loadApplications();
         });
 
         function checkAdminAuth() {
-            // Check if user is authenticated and has admin privileges
-            supabase.auth.getSession().then(({ data: { session } }) => {
-                if (!session) {
-                    window.location.href = '../pages/login.html';
-                    return;
-                }
-                
-                // In a real app, you'd check admin role here
-                console.log('Admin authenticated:', session.user.email);
-                
-                // Update auth buttons
-                document.getElementById('loginBtn').style.display = 'none';
-                document.getElementById('logoutBtn').style.display = 'block';
-            });
+            // Deprecated - now using shared admin-auth.js
+            // Kept for backwards compatibility but does nothing
+            return true;
         }
 
         function setupEventListeners() {
@@ -720,5 +719,6 @@
             }
         }
     </style>
-    <script src="js/simple-footer.js"></script>
+     <script src="../js/admin-navigation.js"></script>
+    <script src="../js/simple-footer.js"></script>
 </body>

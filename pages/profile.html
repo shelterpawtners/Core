@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Settings - Shelter Pawtners</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/navigation.css">
-    <link rel="stylesheet" href="../css/simple-navigation.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
     <!-- CLEAN NAVIGATION - Same on ALL pages -->
@@ -70,12 +72,18 @@
         </section>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
     <script src="../js/utils.js"></script>
     <script src="../js/forms.js"></script>
     <!-- SIMPLE NAVIGATION - Clean, consistent, logo and links on same line -->
     <script src="../js/simple-navigation.js"></script>
     <script src="../js/auth.js"></script>
     <script>
+        // Initialize Supabase client
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+
         // Load user profile data
         window.addEventListener('DOMContentLoaded', function() {
             loadUserProfile();
@@ -92,8 +100,38 @@
             alert('Profile settings saved! (Demo mode - changes not actually saved)');
         }
 
-        function changePassword() {
-            alert('Change password feature coming soon!');
+        async function changePassword() {
+            const newPassword = prompt('Enter your new password (minimum 6 characters):');
+            
+            if (!newPassword) {
+                return; // User cancelled
+            }
+            
+            if (newPassword.length < 6) {
+                alert('Password must be at least 6 characters long.');
+                return;
+            }
+            
+            const confirmPassword = prompt('Confirm your new password:');
+            
+            if (newPassword !== confirmPassword) {
+                alert('Passwords do not match. Please try again.');
+                return;
+            }
+            
+            try {
+                const { data, error } = await supabaseClient.auth.updateUser({
+                    password: newPassword
+                });
+                
+                if (error) throw error;
+                
+                alert('Password changed successfully!');
+                
+            } catch (error) {
+                console.error('Password change error:', error);
+                alert('Error changing password: ' + error.message);
+            }
         }
 
         function downloadData() {

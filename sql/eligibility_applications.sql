@@ -118,6 +118,12 @@ VALUES (
     allowed_mime_types = EXCLUDED.allowed_mime_types;
 
 -- Storage policies for pet documents
+-- Drop existing policies if they exist, then recreate
+DROP POLICY IF EXISTS "Anyone can upload pet documents" ON storage.objects;
+DROP POLICY IF EXISTS "Anyone can view pet documents" ON storage.objects;
+DROP POLICY IF EXISTS "Users can update their own documents" ON storage.objects;
+DROP POLICY IF EXISTS "Users can delete their own documents" ON storage.objects;
+
 CREATE POLICY "Anyone can upload pet documents" ON storage.objects
     FOR INSERT WITH CHECK (bucket_id = 'pet-documents');
 

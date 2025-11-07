@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test Admin Check</title></head>
+<body>
+<h1>Testing Admin Check</h1>
+<div id="output"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script>
+async function test() {
+  const output = document.getElementById('output');
+  const { createClient } = supabase;
+  const client = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+  
+  output.innerHTML = '<p>Getting session...</p>';
+  const { data: { session }, error: sessionError } = await client.auth.getSession();
+  
+  if (sessionError || !session) {
+    output.innerHTML += '<p>Error: No session</p>';
+    return;
+  }
+  
+  output.innerHTML += '<p>User ID: ' + session.user.id + '</p>';
+  output.innerHTML += '<p>Email: ' + session.user.email + '</p>';
+  
+  // Check admin_users table
+  const { data: adminData, error: adminError } = await client
+    .from('admin_users')
+    .select('*')
+    .or(`user_id.eq.${session.user.id},email.eq.${session.user.email}`);
+  
+  output.innerHTML += '<h2>Admin Users Query Result:</h2>';
+  if (adminError) {
+    output.innerHTML += '<p style="color:red">Error: ' + JSON.stringify(adminError) + '</p>';
+  } else {
+    output.innerHTML += '<pre>' + JSON.stringify(adminData, null, 2) + '</pre>';
+  }
+  
+  // Test update function
+  output.innerHTML += '<h2>Testing Update Function:</h2>';
+  const response = await fetch(`${SUPABASE_CONFIG.url}/functions/v1/admin-update-user`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${session.access_token}`,
+      'apikey': SUPABASE_CONFIG.anonKey,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: session.user.id,
+      updates: { user_type: 'business' }
+    })
+  });
+  
+  const result = await response.text();
+  output.innerHTML += '<p>Status: ' + response.status + '</p>';
+  output.innerHTML += '<pre>' + result + '</pre>';
+}
+test();
+</script>
+</body>
+</html>

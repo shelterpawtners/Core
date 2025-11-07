@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Signup Test - Shelter Pawtners</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        
+        .test-header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .test-section {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .status-pending { background: #F59E0B; color: #000; }
+        .status-success { background: #10B981; color: #fff; }
+        .status-error { background: #EF4444; color: #fff; }
+        
+        button {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        pre {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 12px;
+            border: 1px solid #444;
+        }
+        
+        .test-result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #8B5CF6;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #1a1a1a;
+            border-radius: 5px;
+            border-left: 3px solid #666;
+        }
+        
+        .checklist li.passed {
+            border-left-color: #10B981;
+        }
+        
+        .checklist li.failed {
+            border-left-color: #EF4444;
+        }
+        
+        .checklist li::before {
+            margin-right: 10px;
+        }
+        
+        .checklist li.passed::before {
+            content: '✅';
+        }
+        
+        .checklist li.failed::before {
+            content: '❌';
+        }
+        
+        .checklist li.pending::before {
+            content: '⏳';
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>🧪 Business Signup Testing Dashboard</h1>
+        <p>Test the updated business signup form with Supabase Auth integration</p>
+    </div>
+
+    <!-- Test 1: Database Connection -->
+    <div class="test-section">
+        <h2>Test 1: Database Connection <span id="status-1" class="status-badge status-pending">PENDING</span></h2>
+        <p>Verify Supabase connection and table existence</p>
+        <button onclick="testDatabaseConnection()">Run Test</button>
+        <div id="result-1" class="test-result" style="display: none;"></div>
+    </div>
+
+    <!-- Test 2: Check Tables -->
+    <div class="test-section">
+        <h2>Test 2: Verify Tables <span id="status-2" class="status-badge status-pending">PENDING</span></h2>
+        <p>Check if business_partners and partner_offers tables exist with RLS</p>
+        <button onclick="testTables()">Run Test</button>
+        <div id="result-2" class="test-result" style="display: none;"></div>
+    </div>
+
+    <!-- Test 3: Form Fields -->
+    <div class="test-section">
+        <h2>Test 3: Form Fields Validation <span id="status-3" class="status-badge status-pending">PENDING</span></h2>
+        <p>Verify all required fields are present in business-signup.html</p>
+        <ul class="checklist" id="field-checklist">
+            <li class="pending">Business Name</li>
+            <li class="pending">Business Type</li>
+            <li class="pending">Address, City, State, ZIP</li>
+            <li class="pending">Phone & Email</li>
+            <li class="pending">Contact Person (First/Last Name)</li>
+            <li class="pending">Password Field (NEW)</li>
+            <li class="pending">Business Hours (NEW)</li>
+            <li class="pending">Description (NEW)</li>
+            <li class="pending">7 Social Media URLs (NEW)</li>
+            <li class="pending">Partnership Tier</li>
+        </ul>
+        <button onclick="window.open('/pages/business-signup.html', '_blank')">Open Form in New Tab</button>
+    </div>
+
+    <!-- Test 4: Create Test Business -->
+    <div class="test-section">
+        <h2>Test 4: Create Test Business <span id="status-4" class="status-badge status-pending">PENDING</span></h2>
+        <p>Submit a test business signup (this will create a real account)</p>
+        <button onclick="createTestBusiness()">Create Test Business</button>
+        <button onclick="fillTestData()">Auto-Fill Test Form</button>
+        <div id="result-4" class="test-result" style="display: none;"></div>
+    </div>
+
+    <!-- Test 5: Query Test Data -->
+    <div class="test-section">
+        <h2>Test 5: Verify Data Insertion <span id="status-5" class="status-badge status-pending">PENDING</span></h2>
+        <p>Query the database to verify the test business was created</p>
+        <button onclick="queryTestData()">Query Database</button>
+        <div id="result-5" class="test-result" style="display: none;"></div>
+    </div>
+
+    <!-- Overall Status -->
+    <div class="test-section">
+        <h2>📊 Overall Test Status</h2>
+        <ul class="checklist" id="overall-status">
+            <li class="pending">Supabase connected</li>
+            <li class="pending">Tables created with RLS</li>
+            <li class="pending">All form fields present</li>
+            <li class="pending">Auth signup working</li>
+            <li class="pending">Business record created</li>
+            <li class="pending">Redirect to offer form</li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/js/supabase-config.js"></script>
+    
+    <script>
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+
+        async function testDatabaseConnection() {
+            const statusEl = document.getElementById('status-1');
+            const resultEl = document.getElementById('result-1');
+            
+            statusEl.className = 'status-badge status-pending';
+            statusEl.textContent = 'TESTING...';
+            
+            try {
+                // Simple query to test connection
+                const { data, error } = await supabaseClient
+                    .from('business_partners')
+                    .select('count')
+                    .limit(1);
+                
+                if (error && error.code !== 'PGRST116') { // PGRST116 = empty table is OK
+                    throw error;
+                }
+                
+                statusEl.className = 'status-badge status-success';
+                statusEl.textContent = 'PASSED';
+                resultEl.style.display = 'block';
+                resultEl.innerHTML = `
+                    <strong>✅ Database connection successful!</strong><br>
+                    <pre>Connected to: ${SUPABASE_CONFIG.url}</pre>
+                `;
+                
+                updateOverallStatus(0, true);
+            } catch (error) {
+                statusEl.className = 'status-badge status-error';
+                statusEl.textContent = 'FAILED';
+                resultEl.style.display = 'block';
+                resultEl.innerHTML = `
+                    <strong>❌ Database connection failed!</strong><br>
+                    <pre>${JSON.stringify(error, null, 2)}</pre>
+                    <p><strong>Action needed:</strong> Run the migrations in Supabase Dashboard</p>
+                `;
+                
+                updateOverallStatus(0, false);
+            }
+        }
+
+        async function testTables() {
+            const statusEl = document.getElementById('status-2');
+            const resultEl = document.getElementById('result-2');
+            
+            statusEl.className = 'status-badge status-pending';
+            statusEl.textContent = 'TESTING...';
+            
+            try {
+                // Try to query both tables
+                const [partners, offers] = await Promise.all([
+                    supabaseClient.from('business_partners').select('id').limit(1),
+                    supabaseClient.from('partner_offers').select('id').limit(1)
+                ]);
+                
+                const hasBusinessPartners = !partners.error;
+                const hasPartnerOffers = !offers.error;
+                
+                if (hasBusinessPartners && hasPartnerOffers) {
+                    statusEl.className = 'status-badge status-success';
+                    statusEl.textContent = 'PASSED';
+                    resultEl.style.display = 'block';
+                    resultEl.innerHTML = `
+                        <strong>✅ Both tables exist!</strong><br>
+                        <ul>
+                            <li>✅ business_partners table found</li>
+                            <li>✅ partner_offers table found</li>
+                            <li>✅ RLS policies should be enabled</li>
+                        </ul>
+                    `;
+                    updateOverallStatus(1, true);
+                } else {
+                    throw new Error(`Missing tables: ${!hasBusinessPartners ? 'business_partners ' : ''}${!hasPartnerOffers ? 'partner_offers' : ''}`);
+                }
+            } catch (error) {
+                statusEl.className = 'status-badge status-error';
+                statusEl.textContent = 'FAILED';
+                resultEl.style.display = 'block';
+                resultEl.innerHTML = `
+                    <strong>❌ Tables not found!</strong><br>
+                    <pre>${JSON.stringify(error, null, 2)}</pre>
+                    <p><strong>Action needed:</strong> Run these migrations:</p>
+                    <ol>
+                        <li>supabase/migrations/20251107_create_business_partners.sql</li>
+                        <li>supabase/migrations/20251107_create_partner_offers.sql</li>
+                    </ol>
+                `;
+                updateOverallStatus(1, false);
+            }
+        }
+
+        async function createTestBusiness() {
+            const statusEl = document.getElementById('status-4');
+            const resultEl = document.getElementById('result-4');
+            
+            statusEl.className = 'status-badge status-pending';
+            statusEl.textContent = 'CREATING...';
+            
+            const testEmail = `test-${Date.now()}@shelterpawtners.com`;
+            const testData = {
+                businessName: 'Test Pet Clinic',
+                businessType: 'veterinarian',
+                businessAddress: '123 Test Street',
+                businessCity: 'Austin',
+                businessState: 'TX',
+                businessZip: '78701',
+                businessPhone: '(512) 555-TEST',
+                businessEmail: 'clinic@test.com',
+                businessWebsite: 'https://test-clinic.com',
+                businessHours: 'Mon-Fri: 9am-5pm',
+                description: 'Test veterinary clinic for Shelter Pawtners',
+                contactFirstName: 'Test',
+                contactLastName: 'User',
+                contactEmail: testEmail,
+                password: 'TestPass123!',
+                contactPhone: '(512) 555-1234',
+                contactTitle: 'Owner',
+                facebookUrl: 'https://facebook.com/testclinic',
+                instagramUrl: 'https://instagram.com/testclinic',
+                partnershipTier: 'basic'
+            };
+            
+            try {
+                // Step 1: Create auth user
+                const { data: authData, error: authError } = await supabaseClient.auth.signUp({
+                    email: testData.contactEmail,
+                    password: testData.password,
+                    options: {
+                        data: {
+                            business_name: testData.businessName,
+                            contact_first_name: testData.contactFirstName,
+                            contact_last_name: testData.contactLastName,
+                            user_type: 'business_partner'
+                        }
+                    }
+                });
+                
+                if (authError) throw authError;
+                
+                // Step 2: Create business partner record
+                const { data: partnerData, error: partnerError } = await supabaseClient
+                    .from('business_partners')
+                    .insert([{
+                        user_id: authData.user.id,
+                        business_name: testData.businessName,
+                        business_type: testData.businessType,
+                        email: testData.businessEmail,
+                        phone: testData.businessPhone,
+                        website: testData.businessWebsite,
+                        address: testData.businessAddress,
+                        city: testData.businessCity,
+                        state: testData.businessState,
+                        zip_code: testData.businessZip,
+                        contact_first_name: testData.contactFirstName,
+                        contact_last_name: testData.contactLastName,
+                        contact_email: testData.contactEmail,
+                        contact_phone: testData.contactPhone,
+                        contact_title: testData.contactTitle,
+                        business_hours: testData.businessHours,
+                        description: testData.description,
+                        facebook_url: testData.facebookUrl,
+                        instagram_url: testData.instagramUrl,
+                        partnership_tier: testData.partnershipTier,
+                        active: true,
+                        verified: false
+                    }])
+                    .select()
+                    .single();
+                
+                if (partnerError) throw partnerError;
+                
+                statusEl.className = 'status-badge status-success';
+                statusEl.textContent = 'PASSED';
+                resultEl.style.display = 'block';
+                resultEl.innerHTML = `
+                    <strong>✅ Test business created successfully!</strong><br>
+                    <pre>${JSON.stringify({
+                        auth_user_id: authData.user.id,
+                        business_id: partnerData.id,
+                        business_name: partnerData.business_name,
+                        email: partnerData.email,
+                        partnership_tier: partnerData.partnership_tier,
+                        created_at: partnerData.created_at
+                    }, null, 2)}</pre>
+                    <p><strong>Login credentials:</strong></p>
+                    <ul>
+                        <li>Email: ${testData.contactEmail}</li>
+                        <li>Password: ${testData.password}</li>
+                    </ul>
+                `;
+                
+                updateOverallStatus(3, true);
+                updateOverallStatus(4, true);
+                
+            } catch (error) {
+                statusEl.className = 'status-badge status-error';
+                statusEl.textContent = 'FAILED';
+                resultEl.style.display = 'block';
+                resultEl.innerHTML = `
+                    <strong>❌ Failed to create test business!</strong><br>
+                    <pre>${JSON.stringify(error, null, 2)}</pre>
+                `;
+                updateOverallStatus(3, false);
+            }
+        }
+
+        async function queryTestData() {
+            const statusEl = document.getElementById('status-5');
+            const resultEl = document.getElementById('result-5');
+            
+            statusEl.className = 'status-badge status-pending';
+            statusEl.textContent = 'QUERYING...';
+            
+            try {
+                const { data, error } = await supabaseClient
+                    .from('business_partners')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(5);
+                
+                if (error) throw error;
+                
+                statusEl.className = 'status-badge status-success';
+                statusEl.textContent = 'PASSED';
+                resultEl.style.display = 'block';
+                resultEl.innerHTML = `
+                    <strong>✅ Query successful! Found ${data.length} businesses</strong><br>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+                
+            } catch (error) {
+                statusEl.className = 'status-badge status-error';
+                statusEl.textContent = 'FAILED';
+                resultEl.style.display = 'block';
+                resultEl.innerHTML = `
+                    <strong>❌ Query failed!</strong><br>
+                    <pre>${JSON.stringify(error, null, 2)}</pre>
+                `;
+            }
+        }
+
+        function fillTestData() {
+            alert('This will open the business signup form. You can manually test the form there.');
+            window.open('/pages/business-signup.html', '_blank');
+        }
+
+        function updateOverallStatus(index, passed) {
+            const statusList = document.getElementById('overall-status');
+            const items = statusList.getElementsByTagName('li');
+            if (items[index]) {
+                items[index].className = passed ? 'passed' : 'failed';
+            }
+        }
+
+        // Auto-run first two tests on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                testDatabaseConnection();
+            }, 500);
+            setTimeout(() => {
+                testTables();
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

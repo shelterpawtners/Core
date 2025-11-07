@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Admin - Shelter Pawtners</title>
+    
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
+    
+    <style>
+        /* Remove all custom body styling - let main.css handle it */
+        .admin-header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+            padding: var(--spacing-xl) 0;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .admin-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;  
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .admin-header .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .admin-content {
+            padding: var(--spacing-xl);
+        }
+
+        .user-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 150%);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            text-align: center;
+            border: 2px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-primary);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--color-text-dark);
+            font-weight: 500;
+            margin-top: var(--spacing-xs);
+        }
+
+        .users-table {
+            background: rgb(0, 0, 0, 0);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: white;
+            padding: var(--spacing-md);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--spacing-md);
+            font-weight: 600;
+        }
+
+        .user-row {
+            padding: var(--spacing-md);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--spacing-md);
+            align-items: center;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            transition: background-color 0.9s ease;
+        }
+
+        .user-row:hover {
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .user-email {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .user-created {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .user-type-select {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .status-active {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22C55E;
+            border: 1px solid rgba(34, 197, 94, 0.35);
+        }
+
+        .status-locked {
+            background: rgba(250, 204, 21, 0.15);
+            color: #F59E0B;
+            border: 1px solid rgba(250, 204, 21, 0.35);
+        }
+
+        .status-removed {
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
+            border: 1px solid rgba(239, 68, 68, 0.35);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing-xs);
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-lock {
+            background: rgba(250, 204, 21, 0.18);
+            border-color: rgba(250, 204, 21, 0.35);
+            color: #F59E0B;
+        }
+
+        .btn-unlock {
+            background: rgba(34, 197, 94, 0.18);
+            border-color: rgba(34, 197, 94, 0.35);
+            color: #22C55E;
+        }
+
+        .btn-remove {
+            background: rgba(239, 68, 68, 0.18);
+            border-color: rgba(239, 68, 68, 0.35);
+            color: #EF4444;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .tools {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-primary);
+            font-size: 1rem;
+            min-width: 250px;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        .btn-refresh {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-refresh:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, #F59E0B, #D97706);
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-save:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .user-row.modified {
+            background: rgba(245, 158, 11, 0.08);
+            border-left: 3px solid #F59E0B;
+        }
+
+        .loading, .empty {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--text-secondary);
+            grid-column: 1 / -1;
+        }
+
+        .empty {
+            color: var(--text-muted);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            width: min(520px, 92%);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            background: linear-gradient(135deg, #1f2937 0%, #334155 100%);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            padding: var(--spacing-lg);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+        }
+
+        .modal-body {
+            padding: var(--spacing-lg);
+            color: var(--text-primary);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: flex-end;
+            padding: var(--spacing-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-modal-cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-modal-confirm {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-modal-cancel:hover, .btn-modal-confirm:hover {
+            transform: translateY(-1px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .admin-content {
+                padding: var(--spacing-lg);
+            }
+
+            .user-stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: var(--spacing-md);
+            }
+
+            .table-header, .user-row {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
+            }
+
+            .user-info {
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+
+            .tools {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-input {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header matching index page -->
+    <header class="header">
+        <div class="header-content">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Shelter Pawtners</span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <!-- Navigation will be populated by admin-navigation.js -->
+            </nav>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <!-- Mobile navigation will be populated by admin-navigation.js -->
+        </nav>
+    </header>
+
+    <main>
+        <!-- Admin Header -->
+        <section class="admin-header">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                    <div>
+                        <h1>User Management Dashboard</h1>
+                        <p>Set user type, lock accounts, or remove profiles</p>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <a href="partner-management.html" class="btn btn-primary">👥 Partners</a>
+                        <button class="btn btn-outline" onclick="logout()">🚪 Logout</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="admin-content">
+            <div class="container">
+                <!-- User Stats -->
+                <div class="user-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="statTotal">-</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="statActive">-</div>
+                        <div class="stat-label">Active</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="statLocked">-</div>
+                        <div class="stat-label">Locked</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="statRemoved">-</div>
+                        <div class="stat-label">Removed</div>
+                    </div>
+                </div>
+
+                <!-- Users Table -->
+                <div class="users-table">
+                    <div class="tools">
+                        <input id="searchInput" type="search" class="search-input" placeholder="Search by email or name" aria-label="Search users">
+                        <button id="refreshBtn" class="btn-refresh">🔄 Refresh</button>
+                        <button id="saveChangesBtn" class="btn-save" style="display: none;">💾 Save Changes (<span id="changeCount">0</span>)</button>
+                    </div>
+                    <div class="table-header">
+                        <div>User</div>
+                        <div>Type</div>
+                        <div>Status</div>
+                        <div>Actions</div>
+                    </div>
+                    <div id="usersContainer">
+                        <div class="loading">Loading users...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- UNIFIED FOOTER -->
+    <footer class="footer">
+        <!-- Footer content automatically loaded by simple-footer.js -->
+    </footer>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Confirm action</h3>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancel" id="modalCancel">Cancel</button>
+                <button class="btn-modal-confirm" id="modalConfirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/admin-navigation.js"></script>
+    <script src="../js/admin-users-dashboard.js"></script>
+    <!-- UNIFIED FOOTER -->
+    <script src="../js/simple-footer.js"></script>
+</body>
+</html>

@@ -155,9 +155,25 @@ class ShelterPawtnerDB {
             
             if (authError) throw authError;
             
+                // Fetch user profile data
+                const { data: profile, error: profileError } = await this.supabase
+                    .from('user_profiles')
+                    .select('*')
+                    .eq('id', authData.user.id)
+                    .single();
+            
+                // Merge profile data with user data
+                const userData = {
+                    ...authData.user,
+                    first_name: profile?.first_name || authData.user.user_metadata?.first_name,
+                    last_name: profile?.last_name || authData.user.user_metadata?.last_name,
+                    phone: profile?.phone || authData.user.user_metadata?.phone,
+                    profile_complete: profile?.profile_complete || false
+                };
+            
             return {
                 success: true,
-                user: authData.user,
+                    user: userData,
                 session: authData.session,
                 message: 'Login successful'
             };

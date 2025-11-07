@@ -10,13 +10,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
+
     
     <!-- CSS Files -->
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/navigation.css">
-    <link rel="stylesheet" href="../css/simple-navigation.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    
+    
+    
+    
+    
     
     <style>
         .dashboard-header {
@@ -497,11 +501,23 @@
                 return;
             }
 
+                // Verify Supabase session is still valid
+                if (window.db && window.db.supabase) {
+                    const { data: { session }, error } = await window.db.supabase.auth.getSession();
+                    if (error || !session) {
+                        console.log('Supabase session invalid, clearing and redirecting');
+                        window.authManager.clearSession();
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                }
+
             const user = window.authManager.getCurrentUser();
             
             // Update welcome title with user's name
-            if (user && user.name) {
-                document.getElementById('welcomeTitle').textContent = `Welcome back, ${user.name.split(' ')[0]}!`;
+                if (user) {
+                    const firstName = user.first_name || (user.name ? user.name.split(' ')[0] : 'User');
+                    document.getElementById('welcomeTitle').textContent = `Welcome back, ${firstName}!`;
             }
             
             // Show welcome message for new users (registered in last 24 hours)

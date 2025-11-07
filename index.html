@@ -7,16 +7,17 @@
     <meta name="keywords" content="pet adoption, shelter pets, pet care discounts, veterinary savings, rescued animals">
     <title>Shelter Pawtners - Lifetime Benefits for Rescued Pets</title>
     
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="favicon.svg">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
     <!-- Preconnect to Google Fonts for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/simple-navigation.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="css/master.css">
 </head>
 <body>
     <!-- Unified Navigation Header (populated by JavaScript) -->
@@ -31,36 +32,37 @@
         <div class="container">
             <div class="glass-hero">
                 <div class="glass-content hero-content">
-                    <h1 class="hero-title text-gradient" style="font-size: 2.8rem; line-height: 1.1; margin-bottom: 1rem;">Join the Movement to Support Shelter Pets</h1>
-                    <p class="hero-subhead" style="font-size: 1.25rem; margin-bottom: 1rem; font-weight: 600; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
-                        Be part of the digital backbone that supports shelter pets after adoption. Together, we're creating a world where choosing shelter pets first is the obvious and rewarding choice for every family.
+                    <h1 class="hero-title text-gradient" style="font-size: 3.8rem; line-height: 1.1; margin-bottom: 1rem;">Adopting has Reward$ </h1>
+                    <p class="hero-subhead" style="font-size: 2.00rem; margin-bottom: 1rem; font-weight: 800; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                         Exclusive offers for adopters of shelter pets! 
                     </p>
+
+                    
                     <div class="hero-buttons" role="group" aria-label="Get started options" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="pages/profiles.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;" aria-describedby="pets-desc">
+                        <a href="pages/profiles.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;">
                             <span aria-hidden="true" style="font-size: 3.25rem; margin-bottom: 0.3rem; display: block;">🐾</span>
                             <span style="font-weight: 600;">Pets</span>
-                            <span id="pets-desc" class="sr-only">View pet profiles and services</span>
                         </a>
-                        <a href="pages/shelters.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;" aria-describedby="shelters-desc">
+                        <a href="pages/shelters.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;">
                             <span aria-hidden="true" style="font-size: 3.25rem; margin-bottom: 0.3rem; display: block;">🏠</span>
                             <span style="font-weight: 600;">Shelters</span>
-                            <span id="shelters-desc" class="sr-only">Join our shelter network</span>
                         </a>
-                        <a href="pages/pet-owners.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;" aria-describedby="adopters-desc">
+                        <a href="pages/pet-owners.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;">
                             <span aria-hidden="true" style="font-size: 3.25rem; margin-bottom: 0.3rem; display: block;">👨‍👩‍👧‍👦</span>
                             <span style="font-weight: 600;">Adopters</span>
-                            <span id="adopters-desc" class="sr-only">Get started as a pet adopter</span>
                         </a>
-                        <a href="pages/vets.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;" aria-describedby="vets-desc">
+                        <a href="pages/vets.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;">
                             <span aria-hidden="true" style="font-size: 3.25rem; margin-bottom: 0.3rem; display: block;">🩺</span>
                             <span style="font-weight: 600;">Vets</span>
-                            <span id="vets-desc" class="sr-only">Join as a veterinary partner</span>
                         </a>
-                        <a href="pages/businesses.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;" aria-describedby="partners-desc">
+                        <a href="pages/businesses.html" class="btn btn-hero-primary" style="padding: 1rem 0.5rem; font-size: 0.95rem; min-width: 105px; flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; text-align: center;">
                             <span aria-hidden="true" style="font-size: 3.25rem; margin-bottom: 0.3rem; display: block;">🤝</span>
                             <span style="font-weight: 600;">Partners</span>
-                            <span id="partners-desc" class="sr-only">Become a business partner</span>
                         </a>
+
+                        <p class="hero-subhead" style="font-size: 0.75 rem; margin-bottom: 1rem; font-weight: 400; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                          The ShelterCARD Program certifies adoption, and grants access to exclusive offers and rewards, creating financial incentive to adopt from shelters.
+                    </p>
                     </div>
                 </div>
             </div>

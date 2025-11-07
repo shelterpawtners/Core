@@ -110,7 +110,19 @@ class AuthManager {
     }
 
     logout() {
+        // Clear Supabase session if available
+        if (window.db && window.db.supabase) {
+            window.db.supabase.auth.signOut().catch(err => {
+                console.error('Error signing out from Supabase:', err);
+            });
+        }
+        
+        // Clear local session
         this.clearSession();
+        
+        // Clear any other stored data
+        localStorage.removeItem('shelterpawtner_redirect');
+        
         // Redirect to homepage
         window.location.href = '/index.html';
     }
@@ -246,7 +258,7 @@ function updateNavigationForLoggedInUser(user) {
             <ul class="dropdown-menu" role="menu">
                 <li role="none"><a href="/pages/dashboard.html" class="dropdown-link" role="menuitem">Dashboard</a></li>
                 <li role="none"><a href="/pages/my-pets.html" class="dropdown-link" role="menuitem">My Pets</a></li>
-                <li role="none"><a href="/pages/profile.html" class="dropdown-link" role="menuitem">Profile</a></li>
+                <li role="none"><a href="/pages/account.html" class="dropdown-link" role="menuitem">Account</a></li>
                 <li role="none"><a href="#" class="dropdown-link logout-btn" role="menuitem">Logout</a></li>
             </ul>
         `;

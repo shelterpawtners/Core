@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Supabase Storage - Shelter Pawtners</title>
+    <link rel="stylesheet" href="css/master.css">
+    <style>
+        .setup-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        .log {
+            background: #1F2937;
+            color: #E5E7EB;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin: 1rem 0;
+        }
+        .log-entry {
+            margin: 0.25rem 0;
+        }
+        .log-success { color: #10B981; }
+        .log-error { color: #EF4444; }
+        .log-info { color: #06B6D4; }
+    </style>
+</head>
+<body>
+    <div class="setup-container">
+        <h1 class="hero-title text-gradient">🔧 Setup Supabase Storage</h1>
+        
+        <div class="card" style="margin: 2rem 0;">
+            <h2>Automatic Storage Bucket Setup</h2>
+            <p style="margin: 1rem 0;">
+                This will automatically create the <strong>profile-pictures</strong> storage bucket 
+                and configure the necessary security policies in your Supabase project.
+            </p>
+            
+            <button id="setupBtn" class="btn btn-primary btn-large" onclick="setupStorage()">
+                🚀 Create Storage Bucket
+            </button>
+        </div>
+
+        <div id="logContainer" style="display: none;">
+            <h3>Setup Log</h3>
+            <div id="log" class="log"></div>
+        </div>
+
+        <div class="card" style="margin: 2rem 0;">
+            <h3>Manual Setup (Alternative)</h3>
+            <p>If automatic setup doesn't work, run this SQL in your Supabase SQL Editor:</p>
+            <pre style="background: #1F2937; color: #E5E7EB; padding: 1rem; border-radius: 0.5rem; overflow-x: auto;"><code>-- Create storage bucket for profile pictures
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES (
+    'profile-pictures',
+    'profile-pictures', 
+    true,
+    2097152,
+    ARRAY['image/webp', 'image/jpeg', 'image/png']
+)
+ON CONFLICT (id) DO NOTHING;
+
+-- Set up RLS policies
+CREATE POLICY "Users can upload their own profile picture" ON storage.objects
+FOR INSERT WITH CHECK (
+    bucket_id = 'profile-pictures' 
+    AND auth.uid()::text = (storage.foldername(name))[1]
+);
+
+CREATE POLICY "Users can view all profile pictures" ON storage.objects
+FOR SELECT USING (bucket_id = 'profile-pictures');
+
+CREATE POLICY "Users can update their own profile picture" ON storage.objects
+FOR UPDATE USING (
+    bucket_id = 'profile-pictures' 
+    AND auth.uid()::text = (storage.foldername(name))[1]
+);</code></pre>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script>
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+
+        function addLog(message, type = 'info') {
+            const logContainer = document.getElementById('logContainer');
+            const log = document.getElementById('log');
+            logContainer.style.display = 'block';
+            
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        async function setupStorage() {
+            const btn = document.getElementById('setupBtn');
+            btn.disabled = true;
+            btn.innerHTML = '⏳ Setting up...';
+            
+            try {
+                addLog('Starting storage bucket setup...', 'info');
+                
+                // Try to create the bucket using RPC or direct SQL
+                addLog('Creating profile-pictures bucket...', 'info');
+                
+                const { data, error } = await supabaseClient.rpc('create_storage_bucket', {
+                    bucket_name: 'profile-pictures',
+                    is_public: true
+                });
+                
+                if (error) {
+                    // If RPC doesn't exist, provide SQL instructions
+                    addLog('⚠️ Cannot create bucket automatically. Please use manual SQL setup below.', 'error');
+                    addLog(`Error: ${error.message}`, 'error');
+                    btn.innerHTML = '❌ Automatic Setup Failed - Use Manual SQL';
+                    btn.disabled = false;
+                    return;
+                }
+                
+                addLog('✅ Storage bucket created successfully!', 'success');
+                addLog('Testing bucket access...', 'info');
+                
+                // Test bucket access
+                const { data: buckets, error: listError } = await supabaseClient.storage.listBuckets();
+                
+                if (listError) {
+                    addLog(`Warning: ${listError.message}`, 'error');
+                } else {
+                    const bucket = buckets?.find(b => b.id === 'profile-pictures');
+                    if (bucket) {
+                        addLog('✅ Bucket verified and accessible!', 'success');
+                        addLog(`Bucket details: ${JSON.stringify(bucket)}`, 'info');
+                    } else {
+                        addLog('⚠️ Bucket created but not found in list. May need manual verification.', 'error');
+                    }
+                }
+                
+                addLog('', 'info');
+                addLog('=== Setup Complete! ===', 'success');
+                addLog('You can now upload profile pictures on the account page.', 'success');
+                addLog('', 'info');
+                addLog('Note: RLS policies still need to be created manually via SQL Editor.', 'info');
+                
+                btn.innerHTML = '✅ Setup Complete!';
+                
+                setTimeout(() => {
+                    if (confirm('Setup complete! Go to account page now?')) {
+                        window.location.href = '/pages/account.html';
+                    }
+                }, 2000);
+                
+            } catch (error) {
+                addLog(`Error during setup: ${error.message}`, 'error');
+                addLog('Please use the manual SQL setup method below.', 'error');
+                btn.innerHTML = '❌ Setup Failed - Use Manual SQL';
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

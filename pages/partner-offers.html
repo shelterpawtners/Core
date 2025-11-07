@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShelterCARD Marketplace - Exclusive Pet Care Discounts - Shelter Pawtners</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/simple-navigation.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/responsive.css">
     
     <style>
         /* Marketplace styling for partner-offers page */
@@ -29,10 +32,11 @@
         
         /* Compact Professional Marketplace Hero Section */
         .marketplace-hero {
-            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 50%, #F59E0B 100%);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(217, 70, 239, 0.25) 50%, rgba(6, 182, 212, 0.3) 100%); /* Subtle gradient overlay */
+            background-color: #1F2937; /* Dark base for text contrast */
             position: relative;
             overflow: hidden;
-            padding: var(--spacing-lg) 0; /* Much shorter padding */
+            padding: var(--spacing-lg) 0; /* Reduced from xl to lg for smaller height */
         }
         
         .marketplace-hero::before {
@@ -43,9 +47,8 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.25) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%);
             z-index: 1;
         }
         
@@ -54,22 +57,162 @@
             z-index: 2;
         }
         
+        /* Hero content layout - text left, card right */
+        .hero-content-wrapper {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr; /* Give more space to text, less to card */
+            gap: var(--spacing-lg); /* Reduced gap */
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero-text-content {
+            text-align: left;
+        }
+        
         .marketplace-hero .hero-title {
-            color: #FFFFFF !important;
-            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.5), 0 1px 5px rgba(0, 0, 0, 0.8);
-            font-size: clamp(2rem, 4vw, 3rem); /* Smaller size */
+            background: linear-gradient(135deg, #22D3EE 0%, #06B6D4 20%, #3B82F6 50%, #A855F7 80%, #EC4899 100%); /* Bright cyan-blue-purple-pink gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none !important; /* Remove all shadows for crisp text */
+            font-size: clamp(1.75rem, 3.5vw, 2.75rem); /* Reduced by ~25% */
             font-weight: 800;
-            margin-bottom: var(--spacing-sm); /* Less margin */
+            margin-bottom: var(--spacing-sm); /* Reduced spacing */
+            filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.3)); /* Add glow for more pop */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         .marketplace-hero .hero-text {
-            color: #FFFFFF !important;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.9);
-            font-size: clamp(1rem, 1.5vw, 1.25rem); /* Smaller text */
-            max-width: 500px; /* Narrower width */
-            margin: 0 auto var(--spacing-sm); /* Less bottom margin */
-            line-height: 1.5;
-            font-weight: 500; /* Slightly bolder for better readability */
+            color: #F3F4F6 !important; /* Bright light gray for excellent readability */
+            text-shadow: none !important; /* Remove all shadows for crisp text */
+            font-size: clamp(0.95rem, 1.25vw, 1.15rem); /* Reduced by ~15% */
+            line-height: 1.5; /* Tighter line height */
+            font-weight: 500;
+            filter: none !important;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* ShelterCARD visual mockup - Purple-blue gradient matching brand theme */
+        .sheltercard-visual {
+            background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 30%, #A78BFA 60%, #06B6D4 100%); /* Purple-blue gradient with cyan */
+            border-radius: 16px; /* Slightly smaller radius */
+            padding: var(--spacing-lg); /* Reduced padding for smaller card */
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2);
+            position: relative;
+            aspect-ratio: 1.586; /* Credit card ratio (85.6mm x 53.98mm) */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%; /* Fill available space */
+            max-width: 420px; /* Wider - credit card proportions */
+            margin-left: auto; /* Align to right side of grid column */
+        }
+        
+        .sheltercard-visual::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #3B82F6, #06b6d4, #8B5CF6, #D946EF);
+            border-radius: 18px;
+            z-index: -1;
+            opacity: 0.8;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .card-logo {
+            font-size: 1.1rem; /* Reduced from 1.5rem */
+            font-weight: 800;
+            color: #FFFFFF; /* Pure white text */
+            text-shadow: none !important; /* Remove shadow for crisp text */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .card-type {
+            font-size: 0.625rem; /* Reduced from 0.75rem */
+            font-weight: 700;
+            color: #FFFFFF; /* Bright white instead of light blue */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.2rem 0.4rem; /* Slightly smaller padding */
+            border-radius: 3px;
+            text-shadow: none !important;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .card-body {
+            text-align: left;
+        }
+        
+        .card-name {
+            font-size: 0.95rem; /* Reduced from 1.25rem */
+            font-weight: 700;
+            color: #FFFFFF; /* Pure white text */
+            margin-bottom: calc(var(--spacing-xs) * 0.5); /* Smaller margin */
+            text-shadow: none !important; /* Remove shadow for crisp text */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .card-number {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem; /* Reduced from 1rem */
+            font-weight: 600;
+            color: #FFFFFF; /* Pure white for maximum clarity */
+            letter-spacing: 0.08em; /* Slightly tighter */
+            text-shadow: none !important;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        .card-valid {
+            font-size: 0.625rem; /* Reduced from 0.75rem */
+            color: #FFFFFF; /* Bright white */
+            text-shadow: none !important;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .card-chip {
+            width: 35px; /* Reduced from 50px */
+            height: 28px; /* Reduced from 40px */
+            background: linear-gradient(135deg, #FCD34D, #F59E0B);
+            border-radius: 6px; /* Slightly smaller radius */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .hero-content-wrapper {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+            
+            .hero-text-content {
+                text-align: center;
+            }
+            
+            .sheltercard-visual {
+                max-width: 400px;
+                margin: 0 auto;
+            }
         }
         
 
@@ -315,6 +458,212 @@
             text-shadow: none !important;
         }
 
+        /* Modal Styling - Branded popup */
+        .modal {
+            display: none !important;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: var(--radius-xl);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+            padding: 1.5rem;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            z-index: 1;
+        }
+
+        .modal-header * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .modal-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 2rem;
+            color: #e2e8f0;
+        }
+
+        .modal-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-info h4 {
+            color: #8B5CF6;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-info p {
+            color: #cbd5e1;
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .modal-offer-details {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .modal-offer-details h5 {
+            color: #06B6D4;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .modal-footer .btn {
+            min-width: 120px;
+        }
+
+        .btn-modal-primary {
+            background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-modal-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-modal-secondary {
+            background: transparent;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+            color: #8B5CF6;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-modal-secondary:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: #8B5CF6;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px) scale(0.8);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 1rem;
+                max-width: calc(100% - 2rem);
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+            }
+            
+            .modal-footer .btn {
+                width: 100%;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -349,11 +698,36 @@
         <!-- Marketplace Hero Section -->
         <section class="marketplace-hero">
             <div class="container">
-                <div class="text-center max-w-4xl mx-auto">
-                    <h1 class="hero-title">ShelterCARD Marketplace</h1>
-                    <p class="hero-text">
-                        Discover exclusive discounts from trusted national and local businesses. Save on quality pet care while supporting shelter animals with every purchase.
-                    </p>
+                <div class="hero-content-wrapper">
+                    <!-- Text content on the left -->
+                    <div class="hero-text-content">
+                        <h1 class="hero-title">ShelterCARD Marketplace</h1>
+                        <p class="hero-text">
+                            Discover exclusive discounts from trusted national and local businesses. Save on quality pet care while supporting shelter animals with every purchase.
+                        </p>
+                    </div>
+                    
+                    <!-- ShelterCARD visual on the right -->
+                    <div class="sheltercard-visual">
+                        <div class="card-header">
+                            <div class="card-logo">🐾 ShelterCARD</div>
+                            <div class="card-type">Member</div>
+                        </div>
+                        <div class="card-chip"></div>
+                        <div class="card-body">
+                            <div class="card-name">Your Pet's Name</div>
+                            <div class="card-number">**** **** **** 1234</div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-valid">
+                                <div style="font-size: 0.65rem; margin-bottom: 2px;">MEMBER SINCE</div>
+                                <div style="font-weight: 600;">2024</div>
+                            </div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #FFFFFF;">
+                                Shelter Pawtners
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -366,35 +740,33 @@
                         <label for="categoryFilter">Category:</label>
                         <select id="categoryFilter" class="form-select">
                             <option value="">All Offers</option>
-                            <option value="veterinary">Veterinary Care</option>
-                            <option value="food">Pet Food & Treats</option>
-                            <option value="grooming">Grooming & Spa</option>
-                            <option value="training">Training & Behavior</option>
-                            <option value="supplies">Pet Supplies</option>
-                            <option value="boarding">Boarding & Daycare</option>
+                            <option value="veterinarian">Veterinary Care</option>
+                            <option value="groomer">Pet Grooming</option>
+                            <option value="trainer">Pet Training</option>
+                            <option value="pet_store">Pet Store/Supplies</option>
+                            <option value="boarding">Pet Boarding/Daycare</option>
+                            <option value="other">Other Pet Services</option>
                         </select>
                     </div>
                     <div class="filter-group">
                         <label for="locationFilter">Location:</label>
-                        <select id="locationFilter" class="form-select">
-                            <option value="">All Locations</option>
-                            <option value="austin">Austin, TX</option>
-                            <option value="dallas">Dallas, TX</option>
-                            <option value="houston">Houston, TX</option>
-                            <option value="san-antonio">San Antonio, TX</option>
-                            <option value="online">Online/Nationwide</option>
-                        </select>
+                        <input type="text" id="locationFilter" class="form-select" placeholder="Enter city or state...">
                     </div>
                     <div class="filter-group">
                         <label for="discountFilter">Discount:</label>
                         <select id="discountFilter" class="form-select">
                             <option value="">All Discounts</option>
+                            <option value="5-9">5-9% Off</option>
                             <option value="10-19">10-19% Off</option>
                             <option value="20-29">20-29% Off</option>
-                            <option value="30-plus">30%+ Off</option>
-                            <option value="bogo">Buy One Get One</option>
-                            <option value="free">Free Services</option>
+                            <option value="30-49">30-49% Off</option>
+                            <option value="50-plus">50%+ Off</option>
                         </select>
+                    </div>
+                    <div class="filter-group">
+                        <button onclick="clearFilters()" class="btn btn-outline" style="margin-top: 1.5rem;">
+                            Clear Filters
+                        </button>
                     </div>
                 </div>
                 
@@ -423,126 +795,15 @@
         <!-- Offers Grid -->
         <section class="py-lg">
             <div class="container">
-                <div class="offers-grid">
-                    <!-- Veterinary Offers -->
-                    <div class="offer-card" data-category="veterinary" data-location="austin" data-discount="20-29">
-                        <div class="offer-header">
-                            <div class="partner-logo">🏥</div>
-                            <div class="discount-badge">25% OFF</div>
-                        </div>
-                        <h3 class="offer-title">Austin Animal Hospital</h3>
-                        <p class="offer-description">
-                            Comprehensive veterinary care with 25% off first visit for ShelterCARD holders.
-                        </p>
-                        <div class="offer-details">
-                            <span class="location">📍 Austin, TX</span>
-                            <span class="category">Veterinary Care</span>
-                        </div>
-                        <div class="offer-validity">Valid until: Dec 31, 2024</div>
-                        <button class="btn btn-primary offer-btn" onclick="showOffer('austin-animal-hospital')">
-                            View Offer
-                        </button>
-                    </div>
+                <!-- Loading Message -->
+                <div id="loadingMessage" class="info-card text-center">
+                    <h3>Loading partner offers...</h3>
+                    <p>Please wait while we fetch the latest discounts from our database.</p>
+                </div>
 
-                    <!-- Pet Food Offers -->
-                    <div class="offer-card" data-category="food" data-location="online" data-discount="20-29">
-                        <div class="offer-header">
-                            <div class="partner-logo">🥘</div>
-                            <div class="discount-badge">20% OFF</div>
-                        </div>
-                        <h3 class="offer-title">Premium Pet Nutrition</h3>
-                        <p class="offer-description">
-                            High-quality, natural pet food with ongoing 20% discount for ShelterCARD members.
-                        </p>
-                        <div class="offer-details">
-                            <span class="location">📍 Nationwide Shipping</span>
-                            <span class="category">Pet Food</span>
-                        </div>
-                        <div class="offer-validity">Ongoing benefit</div>
-                        <button class="btn btn-primary offer-btn" onclick="showOffer('premium-pet-nutrition')">
-                            View Offer
-                        </button>
-                    </div>
-
-                    <!-- Grooming Offers -->
-                    <div class="offer-card" data-category="grooming" data-location="dallas" data-discount="30-plus">
-                        <div class="offer-header">
-                            <div class="partner-logo">✂️</div>
-                            <div class="discount-badge">30% OFF</div>
-                        </div>
-                        <h3 class="offer-title">Pawsome Grooming Spa</h3>
-                        <p class="offer-description">
-                            Full-service grooming with luxury spa treatments. 30% off all services.
-                        </p>
-                        <div class="offer-details">
-                            <span class="location">📍 Dallas, TX</span>
-                            <span class="category">Grooming</span>
-                        </div>
-                        <div class="offer-validity">Valid until: Mar 31, 2025</div>
-                        <button class="btn btn-primary offer-btn" onclick="showOffer('pawsome-grooming')">
-                            View Offer
-                        </button>
-                    </div>
-
-                    <!-- Training Offers -->
-                    <div class="offer-card" data-category="training" data-location="houston" data-discount="bogo">
-                        <div class="offer-header">
-                            <div class="partner-logo">🎾</div>
-                            <div class="discount-badge">BOGO</div>
-                        </div>
-                        <h3 class="offer-title">Happy Tails Training</h3>
-                        <p class="offer-description">
-                            Professional dog training classes. Buy one session, get one free for shelter pets.
-                        </p>
-                        <div class="offer-details">
-                            <span class="location">📍 Houston, TX</span>
-                            <span class="category">Training</span>
-                        </div>
-                        <div class="offer-validity">Valid until: Jun 30, 2024</div>
-                        <button class="btn btn-primary offer-btn" onclick="showOffer('happy-tails-training')">
-                            View Offer
-                        </button>
-                    </div>
-
-                    <!-- Pet Supplies Offers -->
-                    <div class="offer-card" data-category="supplies" data-location="online" data-discount="10-19">
-                        <div class="offer-header">
-                            <div class="partner-logo">🎒</div>
-                            <div class="discount-badge">15% OFF</div>
-                        </div>
-                        <h3 class="offer-title">Pet Essentials Plus</h3>
-                        <p class="offer-description">
-                            Everything your pet needs - toys, accessories, and more with 15% ongoing savings.
-                        </p>
-                        <div class="offer-details">
-                            <span class="location">📍 Online Store</span>
-                            <span class="category">Pet Supplies</span>
-                        </div>
-                        <div class="offer-validity">Ongoing benefit</div>
-                        <button class="btn btn-primary offer-btn" onclick="showOffer('pet-essentials-plus')">
-                            View Offer
-                        </button>
-                    </div>
-
-                    <!-- Boarding Offers -->
-                    <div class="offer-card" data-category="boarding" data-location="san-antonio" data-discount="free">
-                        <div class="offer-header">
-                            <div class="partner-logo">🏨</div>
-                            <div class="discount-badge">FREE</div>
-                        </div>
-                        <h3 class="offer-title">Cozy Paws Boarding</h3>
-                        <p class="offer-description">
-                            Premium pet boarding and daycare. First night free for ShelterCARD members.
-                        </p>
-                        <div class="offer-details">
-                            <span class="location">📍 San Antonio, TX</span>
-                            <span class="category">Boarding</span>
-                        </div>
-                        <div class="offer-validity">Valid until: Sep 30, 2024</div>
-                        <button class="btn btn-primary offer-btn" onclick="showOffer('cozy-paws-boarding')">
-                            View Offer
-                        </button>
-                    </div>
+                <!-- Offers Grid (populated dynamically from database) -->
+                <div class="offers-grid" style="display: none;">
+                    <!-- Cards will be dynamically inserted here from business_partners table -->
                 </div>
 
                 <!-- No Results Message -->
@@ -577,21 +838,19 @@
         </section>
     </main>
 
-    <!-- Offer Modal -->
-    <div id="offerModal" class="modal" style="display: none;">
+    <!-- Branded Offer Modal -->
+    <div id="offerModal" class="modal" style="display: none !important;">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modalTitle">Offer Details</h3>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <h3 class="modal-title" id="modalTitle">Partner Offer Details</h3>
+                <button class="modal-close" onclick="closeModal()" aria-label="Close modal">&times;</button>
             </div>
-            <div class="modal-body">
-                <div id="modalContent">
-                    <!-- Dynamic content will be loaded here -->
-                </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamic content will be loaded here -->
             </div>
             <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeModal()">Close</button>
-                <button class="btn btn-primary" onclick="redeemOffer()">Redeem Offer</button>
+                <button class="btn-modal-secondary" onclick="closeModal()">Close</button>
+                <button class="btn-modal-primary" id="redeemBtn">Redeem Offer</button>
             </div>
         </div>
     </div>
@@ -602,46 +861,15 @@
 
     <script src="../js/simple-navigation.js"></script>
     <script>
-        // Filter functionality
-        function filterOffers() {
-            const categoryFilter = document.getElementById('categoryFilter').value;
-            const locationFilter = document.getElementById('locationFilter').value;
-            const discountFilter = document.getElementById('discountFilter').value;
-            
-            const offers = document.querySelectorAll('.offer-card');
-            let visibleCount = 0;
-            
-            offers.forEach(offer => {
-                const category = offer.dataset.category;
-                const location = offer.dataset.location;
-                const discount = offer.dataset.discount;
-                
-                const matchesCategory = !categoryFilter || category === categoryFilter;
-                const matchesLocation = !locationFilter || location === locationFilter;
-                const matchesDiscount = !discountFilter || discount === discountFilter;
-                
-                if (matchesCategory && matchesLocation && matchesDiscount) {
-                    offer.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    offer.style.display = 'none';
-                }
-            });
-            
-            // Show/hide no results message
-            const noResults = document.getElementById('noResults');
-            if (visibleCount === 0) {
-                noResults.style.display = 'block';
-            } else {
-                noResults.style.display = 'none';
-            }
-        }
-        
+        // Clear filters function
         function clearFilters() {
             document.getElementById('categoryFilter').value = '';
             document.getElementById('locationFilter').value = '';
             document.getElementById('discountFilter').value = '';
-            filterOffers();
+            
+            // Reset to show all partners
+            filteredPartners = allPartners;
+            displayOffers(allPartners);
         }
         
         // Add event listeners to filters
@@ -886,7 +1114,369 @@
             }
         }
     </style>
-    <!-- SIMPLE UNIFIED FOOTER - Consistent footer for all pages -->
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/simple-navigation.js"></script>
     <script src="../js/simple-footer.js"></script>
+
+    <script>
+        // Initialize Supabase client
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+
+        // Global variables
+        let allPartners = [];
+        let filteredPartners = [];
+
+        // Load partner offers from Supabase
+        async function loadPartnerOffers() {
+            try {
+                console.log('Starting to load partner offers...');
+                
+                const { data: partners, error } = await supabaseClient
+                    .from('business_partners')
+                    .select('*')
+                    .order('business_name');
+
+                if (error) {
+                    console.error('Supabase error:', error);
+                    showNoResults('Database error: ' + error.message);
+                    return;
+                }
+
+                console.log('Raw partners data:', partners);
+                console.log('Number of partners loaded:', partners ? partners.length : 0);
+
+                if (!partners || partners.length === 0) {
+                    console.log('No partners found in database');
+                    showNoResults('No partner offers found in the database. Please check if the business_partners table has data.');
+                    return;
+                }
+
+                // Validate data structure
+                const validPartners = partners.filter(partner => {
+                    const hasRequiredFields = partner.business_name && partner.business_type && typeof partner.discount_percentage === 'number';
+                    if (!hasRequiredFields) {
+                        console.warn('Partner missing required fields:', partner);
+                    }
+                    return hasRequiredFields;
+                });
+
+                console.log('Valid partners after filtering:', validPartners.length);
+
+                allPartners = validPartners;
+                filteredPartners = validPartners;
+                displayOffers(validPartners);
+
+            } catch (error) {
+                console.error('JavaScript error:', error);
+                showNoResults('Error loading partner offers: ' + error.message);
+            }
+        }
+
+        // Display offers in the grid
+        function displayOffers(partners) {
+            const offersGrid = document.querySelector('.offers-grid');
+            const noResults = document.getElementById('noResults');
+
+            if (!partners || partners.length === 0) {
+                showNoResults('No partner offers match your current filters.');
+                return;
+            }
+
+            // Hide no results message
+            noResults.style.display = 'none';
+
+            // Generate HTML for all offers
+            offersGrid.innerHTML = partners.map(partner => createOfferCard(partner)).join('');
+        }
+
+        // Create offer card HTML
+        function createOfferCard(partner) {
+            const discountText = getDiscountText(partner.discount_percentage);
+            const categoryIcon = getCategoryIcon(partner.business_type);
+            const categoryName = getCategoryName(partner.business_type);
+            
+            return `
+                <div class="offer-card" data-category="${partner.business_type}" data-location="${partner.city?.toLowerCase().replace(/\s+/g, '-')}" data-discount="${getDiscountRange(partner.discount_percentage)}">
+                    <div class="offer-header">
+                        <div class="partner-logo">${categoryIcon}</div>
+                        <div class="discount-badge">${discountText}</div>
+                    </div>
+                    <h3 class="offer-title">${partner.business_name}</h3>
+                    <p class="offer-description">
+                        ${partner.services && partner.services.length > 0 ? partner.services[0] : `Professional ${categoryName.toLowerCase()} services with exclusive ShelterCARD discount.`}
+                    </p>
+                    <div class="offer-details">
+                        <span class="location">📍 ${partner.city}, ${partner.state}</span>
+                        <span class="category">${categoryName}</span>
+                    </div>
+                    <div class="offer-validity">Ongoing benefit</div>
+                    <button class="btn btn-primary offer-btn" onclick="showPartnerOffer('${partner.id}')">
+                        View Offer
+                    </button>
+                </div>
+            `;
+        }
+
+        // Helper functions
+        function getDiscountText(percentage) {
+            if (percentage >= 50) return 'HUGE SAVINGS';
+            if (percentage >= 30) return `${percentage}% OFF`;
+            if (percentage >= 20) return `${percentage}% OFF`;
+            if (percentage >= 10) return `${percentage}% OFF`;
+            return 'DISCOUNT';
+        }
+
+        function getDiscountRange(percentage) {
+            if (percentage >= 50) return '50-plus';
+            if (percentage >= 30) return '30-49';
+            if (percentage >= 20) return '20-29';
+            if (percentage >= 10) return '10-19';
+            if (percentage >= 5) return '5-9';
+            return 'other';
+        }
+
+        function getCategoryIcon(businessType) {
+            const icons = {
+                'veterinarian': '🏥',
+                'groomer': '✂️',
+                'trainer': '🎾',
+                'pet_store': '🎒',
+                'boarding': '🏨',
+                'other': '🐾'
+            };
+            return icons[businessType] || '🐾';
+        }
+
+        function getCategoryName(businessType) {
+            const names = {
+                'veterinarian': 'Veterinary Care',
+                'groomer': 'Pet Grooming',
+                'trainer': 'Pet Training',
+                'pet_store': 'Pet Supplies',
+                'boarding': 'Pet Boarding',
+                'other': 'Pet Services'
+            };
+            return names[businessType] || 'Pet Services';
+        }
+
+        // Show partner offer details in branded modal
+        function showPartnerOffer(partnerId) {
+            const partner = allPartners.find(p => p.id === partnerId);
+            if (!partner) return;
+
+            showBrandedModal(partner);
+        }
+
+        // Show branded modal with partner details
+        function showBrandedModal(partner) {
+            const modal = document.getElementById('offerModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            const redeemBtn = document.getElementById('redeemBtn');
+
+            // Set modal title
+            modalTitle.textContent = `${partner.business_name} - ${partner.discount_percentage}% Off`;
+
+            // Create modal content
+            const categoryIcon = getCategoryIcon(partner.business_type);
+            const categoryName = getCategoryName(partner.business_type);
+            
+            modalBody.innerHTML = `
+                <div class="modal-info">
+                    <h4>${categoryIcon} ${partner.business_name}</h4>
+                    <p><strong>Offer:</strong> ${partner.discount_percentage}% off ${partner.services && partner.services.length > 0 ? partner.services[0] : 'services'}</p>
+                    <p><strong>Address:</strong> ${partner.address}, ${partner.city}, ${partner.state} ${partner.zip_code}</p>
+                    <p><strong>Phone:</strong> ${partner.phone}</p>
+                    ${partner.email ? `<p><strong>Email:</strong> ${partner.email}</p>` : ''}
+                    ${partner.website ? `<p><strong>Website:</strong> <a href="${partner.website}" target="_blank" style="color: #06B6D4;">${partner.website}</a></p>` : ''}
+                </div>
+                
+                <div class="modal-offer-details">
+                    <h5>🎉 How to Redeem</h5>
+                    <p>Show your ShelterCARD when scheduling your appointment or making your purchase to receive your exclusive discount.</p>
+                    <p><strong>Terms:</strong> Valid for new clients only. Cannot be combined with other offers.</p>
+                </div>
+            `;
+
+            // Set up redeem button
+            redeemBtn.onclick = function() {
+                // You can add tracking or redirect logic here
+                if (partner.phone) {
+                    window.open(`tel:${partner.phone}`, '_self');
+                } else if (partner.website) {
+                    window.open(partner.website, '_blank');
+                }
+                closeModal();
+            };
+
+            // Show modal
+            modal.style.display = 'flex';
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        // Close modal function
+        function closeModal() {
+            const modal = document.getElementById('offerModal');
+            modal.classList.remove('show');
+            modal.style.display = 'none';
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('offerModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Show no results message
+        function showNoResults(message) {
+            const offersGrid = document.querySelector('.offers-grid');
+            const noResults = document.getElementById('noResults');
+            
+            offersGrid.innerHTML = '';
+            noResults.style.display = 'block';
+            noResults.querySelector('.info-card p').textContent = message;
+        }
+
+        // Filter functionality
+        function filterOffers() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const locationFilter = document.getElementById('locationFilter').value;
+            const discountFilter = document.getElementById('discountFilter').value;
+
+            filteredPartners = allPartners.filter(partner => {
+                const matchesCategory = !categoryFilter || partner.business_type === categoryFilter;
+                const matchesLocation = !locationFilter || 
+                    partner.city?.toLowerCase().includes(locationFilter.toLowerCase()) ||
+                    partner.state?.toLowerCase().includes(locationFilter.toLowerCase());
+                const matchesDiscount = !discountFilter || getDiscountRange(partner.discount_percentage) === discountFilter;
+
+                return matchesCategory && matchesLocation && matchesDiscount;
+            });
+
+            displayOffers(filteredPartners);
+        }
+
+        // Event listeners for filters
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ensure modal is hidden on page load
+            const modal = document.getElementById('offerModal');
+            if (modal) {
+                modal.classList.remove('show');
+                modal.style.display = 'none';
+            }
+
+            // Load offers on page load
+            loadPartnerOffers();
+
+            // Add filter event listeners
+            document.getElementById('categoryFilter')?.addEventListener('change', filterOffers);
+            document.getElementById('locationFilter')?.addEventListener('input', filterOffers);
+            document.getElementById('discountFilter')?.addEventListener('change', filterOffers);
+        });
+
+        // Legacy function for backward compatibility with hardcoded demo
+        function showOffer(offerId) {
+            // Handle legacy demo offers with branded modal
+            const demoOffers = {
+                'austin-animal-hospital': {
+                    business_name: 'Austin Animal Hospital',
+                    discount_percentage: 25,
+                    business_type: 'veterinarian',
+                    address: '123 Pet Care Lane',
+                    city: 'Austin',
+                    state: 'TX',
+                    zip_code: '78701',
+                    phone: '(512) 555-PETS',
+                    email: 'info@austinanimalhospital.com',
+                    website: 'https://austinanimalhospital.com',
+                    services: ['Comprehensive veterinary care with 25% off first visit for ShelterCARD holders']
+                },
+                'premium-pet-nutrition': {
+                    business_name: 'Premium Pet Nutrition',
+                    discount_percentage: 20,
+                    business_type: 'pet_store',
+                    address: 'Online Store',
+                    city: 'Nationwide',
+                    state: 'Shipping',
+                    zip_code: '',
+                    phone: '(800) 555-FOOD',
+                    email: 'orders@premiumpetnutrition.com',
+                    website: 'https://premiumpetnutrition.com',
+                    services: ['High-quality, natural pet food with ongoing 20% discount']
+                },
+                'pawsome-grooming': {
+                    business_name: 'Pawsome Grooming Spa',
+                    discount_percentage: 30,
+                    business_type: 'groomer',
+                    address: '456 Grooming Ave',
+                    city: 'Dallas',
+                    state: 'TX',
+                    zip_code: '75201',
+                    phone: '(214) 555-GROOM',
+                    email: 'appointments@pawsomegroomingspa.com',
+                    website: 'https://pawsomegroomingspa.com',
+                    services: ['Full-service grooming with luxury spa treatments']
+                },
+                'happy-tails-training': {
+                    business_name: 'Happy Tails Training',
+                    discount_percentage: 50,
+                    business_type: 'trainer',
+                    address: '789 Training Blvd',
+                    city: 'Houston',
+                    state: 'TX', 
+                    zip_code: '77002',
+                    phone: '(713) 555-TRAIN',
+                    email: 'trainers@happytailstraining.com',
+                    website: 'https://happytailstraining.com',
+                    services: ['Professional dog training - Buy one session, get one free']
+                },
+                'pet-essentials-plus': {
+                    business_name: 'Pet Essentials Plus',
+                    discount_percentage: 15,
+                    business_type: 'pet_store',
+                    address: 'Online Store',
+                    city: 'Nationwide',
+                    state: 'Shipping',
+                    zip_code: '',
+                    phone: '(800) 555-PETS',
+                    email: 'customer@petessentialsplus.com',
+                    website: 'https://petessentialsplus.com',
+                    services: ['Pet toys, accessories, and supplies with ongoing savings']
+                },
+                'cozy-paws-boarding': {
+                    business_name: 'Cozy Paws Boarding',
+                    discount_percentage: 100,
+                    business_type: 'boarding',
+                    address: '321 Boarding Lane',
+                    city: 'San Antonio',
+                    state: 'TX',
+                    zip_code: '78201',
+                    phone: '(210) 555-BOARD',
+                    email: 'reservations@cozypawsboarding.com',
+                    website: 'https://cozypawsboarding.com',
+                    services: ['Premium pet boarding - First night free for ShelterCARD members']
+                }
+            };
+            
+            if (demoOffers[offerId]) {
+                showBrandedModal(demoOffers[offerId]);
+            }
+        }
+    </script>
 </body>
 </html>

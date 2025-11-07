@@ -4,67 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShelterCARD Eligibility Check - Shelter Pawtners</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Single Master CSS File -->
+    <link rel="stylesheet" href="../css/master.css">
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/navigation.css">
-    <link rel="stylesheet" href="../css/simple-navigation.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
-    <header class="header">
-        <div class="header-container">
-            <a href="../index.html" class="logo">
-                <span class="logo-icon">🐾</span>
-                <span>Shelter Pawtners</span>
-            </a>
-            
-            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-                ☰
-            </button>
-            
-            <nav id="navigation" class="nav" aria-label="Main navigation">
-                <ul class="nav-menu" role="menubar">
-                    <li class="nav-item" role="none">
-                        <a href="how-it-works.html" class="nav-link" role="menuitem">How It Works</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="my-pets.html" class="nav-link" role="menuitem">My Pets</a>
-                    </li>
-                    <li class="nav-item" role="none">
-                        <a href="sheltercard.html" class="nav-link" role="menuitem">ShelterCARD</a>
-                    </li>
-                    <li class="nav-item has-dropdown" role="none">
-                        <a href="businesses.html" class="nav-link" role="menuitem" aria-haspopup="true">Partners</a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="none"><a href="vets.html" class="dropdown-link" role="menuitem">Veterinarians</a></li>
-                            <li role="none"><a href="shelters.html" class="dropdown-link" role="menuitem">Shelters</a></li>
-                            <li role="none"><a href="pet-owners.html" class="dropdown-link" role="menuitem">Pet Parents</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item has-dropdown" role="none">
-                        <a href="about.html" class="nav-link" role="menuitem" aria-haspopup="true">About</a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="none"><a href="contact.html" class="dropdown-link" role="menuitem">Contact</a></li>
-                            <li role="none"><a href="faq.html" class="dropdown-link" role="menuitem">FAQ</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <div class="nav-auth">
-                    <div id="authButtons" class="nav-buttons">
-                        <a href="login.html" class="btn btn-outline">Sign In</a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <!-- Navigation will be injected here by simple-navigation.js -->
+    <header class="header"></header>
 
     <main>
         <section class="py-xl">
             <div class="container">
-                <div style="max-width: 700px; margin: 0 auto;">
+                <div style="max-width: 1200px; margin: 0 auto;">
                     <div class="text-center" style="margin-bottom: 3rem;">
                         <h1 class="hero-title text-gradient">🎫 ShelterCARD Eligibility Check</h1>
                         <p class="hero-text">
@@ -86,28 +43,27 @@
                                     <p class="section-description">Tell us about your adopted pet</p>
                                 </div>
 
+                                <!-- Row 1: Pet Name, Species, Age (3 columns on desktop, 2 on tablet) -->
                                 <div class="form-row">
                                     <div class="form-field">
                                         <label for="petName" class="field-label">
-                                            What is your pet's name? <span class="required">*</span>
+                                            Pet Name <span class="required">*</span>
                                         </label>
                                         <input type="text" 
                                                id="petName" 
                                                name="petName" 
                                                class="field-input" 
-                                               placeholder="Enter your pet's name"
+                                               placeholder="Enter pet's name"
                                                required>
-                                        <div class="field-help">This should match the name on your adoption papers</div>
+                                        <div class="field-help">Must match adoption papers</div>
                                     </div>
-                                </div>
 
-                                <div class="form-row">
                                     <div class="form-field">
                                         <label for="petSpecies" class="field-label">
-                                            What type of animal is your pet? <span class="required">*</span>
+                                            Pet Type <span class="required">*</span>
                                         </label>
                                         <select id="petSpecies" name="petSpecies" class="field-select" required>
-                                            <option value="">Please select your pet's species</option>
+                                            <option value="">Select species</option>
                                             <option value="dog">Dog</option>
                                             <option value="cat">Cat</option>
                                             <option value="rabbit">Rabbit</option>
@@ -115,12 +71,10 @@
                                             <option value="other">Other</option>
                                         </select>
                                     </div>
-                                </div>
 
-                                <div class="form-row">
                                     <div class="form-field">
                                         <label for="petAge" class="field-label">
-                                            How old is your pet? <span class="required">*</span>
+                                            Pet Age <span class="required">*</span>
                                         </label>
                                         <input type="text" 
                                                id="petAge" 
@@ -131,31 +85,30 @@
                                     </div>
                                 </div>
 
+                                <!-- Row 2: Breed and Microchip -->
                                 <div class="form-row">
                                     <div class="form-field">
                                         <label for="petBreed" class="field-label">
-                                            What breed is your pet?
+                                            Breed
                                         </label>
                                         <input type="text" 
                                                id="petBreed" 
                                                name="petBreed" 
                                                class="field-input" 
                                                placeholder="e.g., Labrador Mix, Domestic Shorthair">
-                                        <div class="field-help">If mixed breed or unknown, just describe what you know</div>
+                                        <div class="field-help">Mixed breed or unknown is fine</div>
                                     </div>
-                                </div>
 
-                                <div class="form-row">
                                     <div class="form-field">
                                         <label for="microchipId" class="field-label">
-                                            Does your pet have a microchip? If yes, what's the ID number?
+                                            Microchip Number
                                         </label>
                                         <input type="text" 
                                                id="microchipId" 
                                                name="microchipId" 
                                                class="field-input" 
-                                               placeholder="Enter microchip number if available">
-                                        <div class="field-help">Check with your vet if you're not sure - this helps with verification</div>
+                                               placeholder="Enter microchip ID if available">
+                                        <div class="field-help">Optional - helps with verification</div>
                                     </div>
                                 </div>
                             </div>
@@ -170,10 +123,11 @@
                                     <p class="section-description">Information about where and when you adopted your pet</p>
                                 </div>
 
-                                <div class="form-row">
+                                <!-- Full width for shelter name -->
+                                <div class="form-row full-width">
                                     <div class="form-field">
                                         <label for="shelterName" class="field-label">
-                                            What shelter or rescue did you adopt from? <span class="required">*</span>
+                                            Shelter or Rescue Name <span class="required">*</span>
                                         </label>
                                         <input type="text" 
                                                id="shelterName" 
@@ -181,28 +135,27 @@
                                                class="field-input" 
                                                placeholder="Enter the full name of the shelter or rescue organization"
                                                required>
-                                        <div class="field-help">This should match exactly what's on your adoption paperwork</div>
+                                        <div class="field-help">Must match adoption paperwork exactly</div>
                                     </div>
                                 </div>
 
+                                <!-- Row: Adoption Date and Fee -->
                                 <div class="form-row">
                                     <div class="form-field">
                                         <label for="adoptionDate" class="field-label">
-                                            When did you adopt your pet? <span class="required">*</span>
+                                            Adoption Date <span class="required">*</span>
                                         </label>
                                         <input type="date" 
                                                id="adoptionDate" 
                                                name="adoptionDate" 
                                                class="field-input" 
                                                required>
-                                        <div class="field-help">The date you officially adopted and took your pet home</div>
+                                        <div class="field-help">Date you took your pet home</div>
                                     </div>
-                                </div>
 
-                                <div class="form-row">
                                     <div class="form-field">
                                         <label for="adoptionFee" class="field-label">
-                                            What was the adoption fee? <span class="required">*</span>
+                                            Adoption Fee <span class="required">*</span>
                                         </label>
                                         <div class="input-group">
                                             <span class="input-prefix">$</span>
@@ -215,28 +168,27 @@
                                                    step="0.01"
                                                    required>
                                         </div>
-                                        <div class="field-help">Even if it was $0, please enter the amount from your paperwork</div>
+                                        <div class="field-help">Enter amount from paperwork</div>
                                     </div>
                                 </div>
 
+                                <!-- Row: Shelter Contact Info -->
                                 <div class="form-row">
                                     <div class="form-field">
                                         <label for="shelterEmail" class="field-label">
-                                            Do you have the shelter's email address?
+                                            Shelter Email Address
                                         </label>
                                         <input type="email" 
                                                id="shelterEmail" 
                                                name="shelterEmail" 
                                                class="field-input" 
                                                placeholder="shelter@example.com">
-                                        <div class="field-help">This helps us verify your adoption faster</div>
+                                        <div class="field-help">Helps verify adoption faster</div>
                                     </div>
-                                </div>
 
-                                <div class="form-row">
                                     <div class="form-field">
                                         <label for="shelterPhone" class="field-label">
-                                            Do you have the shelter's phone number?
+                                            Shelter Phone Number
                                         </label>
                                         <input type="tel" 
                                                id="shelterPhone" 
@@ -257,10 +209,10 @@
                                     <p class="section-description">Upload a photo or scan of your adoption papers for verification</p>
                                 </div>
 
-                                <div class="form-row">
-                                    <div class="form-field">
+                                <div class="form-row full-width">
+                                    <div class="form-field full-width">
                                         <label for="adoptionPapers" class="field-label">
-                                            Please upload your adoption paperwork <span class="required">*</span>
+                                            Upload Adoption Paperwork <span class="required">*</span>
                                         </label>
                                         <div class="file-upload-container">
                                             <input type="file" 
@@ -295,25 +247,24 @@
                                     <p class="section-description">How can we reach you with verification results?</p>
                                 </div>
 
+                                <!-- Row: Name, Email, Phone (3 columns on desktop) -->
                                 <div class="form-row">
                                     <div class="form-field">
                                         <label for="ownerName" class="field-label">
-                                            What is your full name? <span class="required">*</span>
+                                            Full Name <span class="required">*</span>
                                         </label>
                                         <input type="text" 
                                                id="ownerName" 
                                                name="ownerName" 
                                                class="field-input" 
-                                               placeholder="Enter your first and last name"
+                                               placeholder="First and last name"
                                                required>
-                                        <div class="field-help">This should match the name on your adoption paperwork</div>
+                                        <div class="field-help">Must match adoption paperwork</div>
                                     </div>
-                                </div>
 
-                                <div class="form-row">
                                     <div class="form-field">
                                         <label for="ownerEmail" class="field-label">
-                                            What is your email address? <span class="required">*</span>
+                                            Email Address <span class="required">*</span>
                                         </label>
                                         <input type="email" 
                                                id="ownerEmail" 
@@ -321,36 +272,35 @@
                                                class="field-input" 
                                                placeholder="your.email@example.com"
                                                required>
-                                        <div class="field-help">We'll send your verification results and ShelterCARD details here</div>
+                                        <div class="field-help">For verification results</div>
                                     </div>
-                                </div>
 
-                                <div class="form-row">
                                     <div class="form-field">
                                         <label for="ownerPhone" class="field-label">
-                                            What is your phone number?
+                                            Phone Number
                                         </label>
                                         <input type="tel" 
                                                id="ownerPhone" 
                                                name="ownerPhone" 
                                                class="field-input" 
                                                placeholder="(555) 123-4567">
-                                        <div class="field-help">Optional - in case we need to contact you about verification</div>
+                                        <div class="field-help">Optional</div>
                                     </div>
                                 </div>
 
-                                <div class="form-row">
-                                    <div class="form-field">
+                                <!-- Full width for address -->
+                                <div class="form-row full-width">
+                                    <div class="form-field full-width">
                                         <label for="ownerAddress" class="field-label">
-                                            What is your current address? <span class="required">*</span>
+                                            Current Address <span class="required">*</span>
                                         </label>
                                         <textarea id="ownerAddress" 
                                                   name="ownerAddress" 
                                                   class="field-textarea" 
-                                                  placeholder="Enter your street address, city, state, and zip code"
+                                                  placeholder="Street address, city, state, and zip code"
                                                   rows="3"
                                                   required></textarea>
-                                        <div class="field-help">This helps verify your identity and eligibility for local benefits</div>
+                                        <div class="field-help">For identity verification and local benefits</div>
                                     </div>
                                 </div>
                             </div>
@@ -403,7 +353,6 @@
     <!-- Supabase -->
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-config.js"></script>
-    <script src="../js/auth.js"></script>
     
     <script>
         // Initialize Supabase client
@@ -606,7 +555,10 @@
             gap: 0.75rem;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--text-primary);
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 0 0 0.5rem 0;
         }
 
@@ -621,13 +573,56 @@
             opacity: 0.8;
         }
 
-        /* Form Rows and Fields */
+        /* Form Rows and Fields - Responsive Grid Layout */
         .form-row {
-            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            align-items: start; /* Align fields to top for consistent spacing */
+        }
+
+        /* 2 columns on tablets */
+        @media (min-width: 768px) {
+            .form-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            /* Full width for certain fields */
+            .form-row.full-width {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-field.full-width {
+                grid-column: 1 / -1;
+            }
+        }
+
+        /* 3 columns on desktop */
+        @media (min-width: 1200px) {
+            .form-row {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            /* Full width for certain fields */
+            .form-row.full-width {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-field.full-width {
+                grid-column: 1 / -1;
+            }
         }
 
         .form-row:last-child {
             margin-bottom: 0;
+        }
+
+        .form-field {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%; /* Ensure consistent height */
         }
 
         .form-field {
@@ -969,6 +964,8 @@
     <footer class="footer">
         <!-- Footer content automatically loaded by simple-footer.js -->
     </footer>
-
+    
+    <!-- Load navigation and footer scripts -->
+    <script src="../js/simple-navigation.js"></script>
     <script src="../js/simple-footer.js"></script>
 </body>
