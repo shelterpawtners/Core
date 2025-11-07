@@ -1135,10 +1135,28 @@
             try {
                 console.log('Starting to load partner offers...');
                 
-                const { data: partners, error } = await supabaseClient
-                    .from('business_partners')
-                    .select('*')
-                    .order('business_name');
+                // Query partner_offers with business_partners join
+                const { data: offers, error } = await supabaseClient
+                    .from('partner_offers')
+                    .select(`
+                        *,
+                        business:business_partners (
+                            id,
+                            business_name,
+                            business_type,
+                            city,
+                            state,
+                            phone,
+                            email,
+                            website,
+                            services
+                        )
+                    `)
+                    .eq('active', true)
+                    .eq('approved', true)
+                    .or('valid_until.is.null,valid_until.gte.' + new Date().toISOString())
+                    .order('featured', { ascending: false })
+                    .order('created_at', { ascending: false });
 
                 if (error) {
                     console.error('Supabase error:', error);
@@ -1146,29 +1164,35 @@
                     return;
                 }
 
-                console.log('Raw partners data:', partners);
-                console.log('Number of partners loaded:', partners ? partners.length : 0);
+                console.log('Raw offers data:', offers);
+                console.log('Number of offers loaded:', offers ? offers.length : 0);
 
-                if (!partners || partners.length === 0) {
-                    console.log('No partners found in database');
-                    showNoResults('No partner offers found in the database. Please check if the business_partners table has data.');
+                if (!offers || offers.length === 0) {
+                    console.log('No offers found in database');
+                    showNoResults('No active partner offers available yet. Check back soon!');
                     return;
                 }
 
-                // Validate data structure
-                const validPartners = partners.filter(partner => {
-                    const hasRequiredFields = partner.business_name && partner.business_type && typeof partner.discount_percentage === 'number';
-                    if (!hasRequiredFields) {
-                        console.warn('Partner missing required fields:', partner);
-                    }
-                    return hasRequiredFields;
-                });
+                // Flatten the data structure for easier use
+                const formattedOffers = offers.map(offer => ({
+                    ...offer,
+                    business_name: offer.business?.business_name || 'Unknown Business',
+                    business_type: offer.business?.business_type || 'other',
+                    city: offer.business?.city || '',
+                    state: offer.business?.state || '',
+                    phone: offer.business?.phone || '',
+                    email: offer.business?.email || '',
+                    website: offer.business?.website || '',
+                    // Calculate discount percentage for display
+                    discount_percentage: offer.discount_type === 'percentage' ? offer.discount_percentage : 
+                                       offer.discount_type === 'fixed_amount' ? Math.round((offer.discount_value / 100) * 100) : 25
+                }));
 
-                console.log('Valid partners after filtering:', validPartners.length);
+                console.log('Formatted offers:', formattedOffers.length);
 
-                allPartners = validPartners;
-                filteredPartners = validPartners;
-                displayOffers(validPartners);
+                allPartners = formattedOffers;
+                filteredPartners = formattedOffers;
+                displayOffers(formattedOffers);
 
             } catch (error) {
                 console.error('JavaScript error:', error);
@@ -1194,40 +1218,72 @@
         }
 
         // Create offer card HTML
-        function createOfferCard(partner) {
-            const discountText = getDiscountText(partner.discount_percentage);
-            const categoryIcon = getCategoryIcon(partner.business_type);
-            const categoryName = getCategoryName(partner.business_type);
+        function createOfferCard(offer) {
+            const discountText = getDiscountText(offer);
+            const categoryIcon = getCategoryIcon(offer.business_type);
+            const categoryName = getCategoryName(offer.business_type);
+            
+            // Determine offer description
+            let offerDesc = offer.offer_description || '';
+            if (!offerDesc && offer.services && offer.services.length > 0) {
+                offerDesc = `${offer.services[0]} - ${offer.offer_title}`;
+            }
+            if (!offerDesc) {
+                offerDesc = `Professional ${categoryName.toLowerCase()} services with exclusive ShelterCARD discount.`;
+            }
             
             return `
-                <div class="offer-card" data-category="${partner.business_type}" data-location="${partner.city?.toLowerCase().replace(/\s+/g, '-')}" data-discount="${getDiscountRange(partner.discount_percentage)}">
+                <div class="offer-card" data-category="${offer.business_type}" data-location="${offer.city?.toLowerCase().replace(/\s+/g, '-')}" data-discount="${getDiscountRange(offer.discount_percentage)}">
                     <div class="offer-header">
                         <div class="partner-logo">${categoryIcon}</div>
                         <div class="discount-badge">${discountText}</div>
                     </div>
-                    <h3 class="offer-title">${partner.business_name}</h3>
-                    <p class="offer-description">
-                        ${partner.services && partner.services.length > 0 ? partner.services[0] : `Professional ${categoryName.toLowerCase()} services with exclusive ShelterCARD discount.`}
-                    </p>
+                    <h3 class="offer-title">${offer.business_name}</h3>
+                    <p class="offer-subtitle">${offer.offer_title}</p>
+                    <p class="offer-description">${offerDesc}</p>
                     <div class="offer-details">
-                        <span class="location">📍 ${partner.city}, ${partner.state}</span>
+                        <span class="location">📍 ${offer.city}, ${offer.state}</span>
                         <span class="category">${categoryName}</span>
                     </div>
-                    <div class="offer-validity">Ongoing benefit</div>
-                    <button class="btn btn-primary offer-btn" onclick="showPartnerOffer('${partner.id}')">
+                    <div class="offer-validity">${getValidityText(offer)}</div>
+                    <button class="btn btn-primary offer-btn" onclick="showPartnerOffer('${offer.id}')">
                         View Offer
                     </button>
                 </div>
             `;
         }
 
+        // Get validity text for offer
+        function getValidityText(offer) {
+            if (!offer.valid_until) {
+                return 'Ongoing benefit';
+            }
+            const validUntil = new Date(offer.valid_until);
+            const now = new Date();
+            const daysLeft = Math.ceil((validUntil - now) / (1000 * 60 * 60 * 24));
+            
+            if (daysLeft < 0) return 'Expired';
+            if (daysLeft === 0) return 'Expires today';
+            if (daysLeft === 1) return 'Expires tomorrow';
+            if (daysLeft <= 7) return `${daysLeft} days left`;
+            if (daysLeft <= 30) return `${Math.ceil(daysLeft / 7)} weeks left`;
+            return `Valid until ${validUntil.toLocaleDateString()}`;
+        }
+
         // Helper functions
-        function getDiscountText(percentage) {
-            if (percentage >= 50) return 'HUGE SAVINGS';
-            if (percentage >= 30) return `${percentage}% OFF`;
-            if (percentage >= 20) return `${percentage}% OFF`;
-            if (percentage >= 10) return `${percentage}% OFF`;
-            return 'DISCOUNT';
+        function getDiscountText(offer) {
+            if (offer.discount_type === 'percentage') {
+                const percentage = offer.discount_percentage;
+                if (percentage >= 50) return 'HUGE SAVINGS';
+                return `${percentage}% OFF`;
+            } else if (offer.discount_type === 'fixed_amount') {
+                return `$${offer.discount_value} OFF`;
+            } else if (offer.discount_type === 'bogo') {
+                return 'BOGO';
+            } else if (offer.discount_type === 'free_item') {
+                return 'FREE ITEM';
+            }
+            return 'SPECIAL OFFER';
         }
 
         function getDiscountRange(percentage) {
@@ -1264,51 +1320,96 @@
         }
 
         // Show partner offer details in branded modal
-        function showPartnerOffer(partnerId) {
-            const partner = allPartners.find(p => p.id === partnerId);
-            if (!partner) return;
+        function showPartnerOffer(offerId) {
+            const offer = allPartners.find(p => p.id === offerId);
+            if (!offer) return;
 
-            showBrandedModal(partner);
+            showBrandedModal(offer);
         }
 
         // Show branded modal with partner details
-        function showBrandedModal(partner) {
+        function showBrandedModal(offer) {
             const modal = document.getElementById('offerModal');
             const modalTitle = document.getElementById('modalTitle');
             const modalBody = document.getElementById('modalBody');
             const redeemBtn = document.getElementById('redeemBtn');
 
             // Set modal title
-            modalTitle.textContent = `${partner.business_name} - ${partner.discount_percentage}% Off`;
+            const discountText = getDiscountText(offer);
+            modalTitle.textContent = `${offer.business_name} - ${discountText}`;
 
             // Create modal content
-            const categoryIcon = getCategoryIcon(partner.business_type);
-            const categoryName = getCategoryName(partner.business_type);
+            const categoryIcon = getCategoryIcon(offer.business_type);
+            const categoryName = getCategoryName(offer.business_type);
+            
+            // Build services list
+            let servicesHTML = '';
+            if (offer.services && offer.services.length > 0) {
+                servicesHTML = `<p><strong>Eligible Services:</strong> ${offer.services.join(', ')}</p>`;
+            }
+            
+            // Build redemption instructions
+            let redemptionHTML = '';
+            if (offer.redemption_instructions) {
+                redemptionHTML = `<p>${offer.redemption_instructions}</p>`;
+            } else {
+                redemptionHTML = `<p>Show your ShelterCARD when scheduling your appointment or making your purchase to receive your exclusive discount.</p>`;
+            }
+            
+            // Build redemption code if exists
+            let codeHTML = '';
+            if (offer.redemption_code) {
+                codeHTML = `
+                    <div style="background: rgba(139, 92, 246, 0.2); padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center;">
+                        <strong>Redemption Code:</strong> 
+                        <span style="font-size: 1.5rem; color: #8B5CF6; font-weight: bold;">${offer.redemption_code}</span>
+                    </div>
+                `;
+            }
+            
+            // Build restrictions if exists
+            let restrictionsHTML = '';
+            if (offer.restrictions) {
+                restrictionsHTML = `<p><strong>Terms:</strong> ${offer.restrictions}</p>`;
+            } else {
+                restrictionsHTML = `<p><strong>Terms:</strong> Valid for ShelterCARD holders only. Cannot be combined with other offers.</p>`;
+            }
             
             modalBody.innerHTML = `
                 <div class="modal-info">
-                    <h4>${categoryIcon} ${partner.business_name}</h4>
-                    <p><strong>Offer:</strong> ${partner.discount_percentage}% off ${partner.services && partner.services.length > 0 ? partner.services[0] : 'services'}</p>
-                    <p><strong>Address:</strong> ${partner.address}, ${partner.city}, ${partner.state} ${partner.zip_code}</p>
-                    <p><strong>Phone:</strong> ${partner.phone}</p>
-                    ${partner.email ? `<p><strong>Email:</strong> ${partner.email}</p>` : ''}
-                    ${partner.website ? `<p><strong>Website:</strong> <a href="${partner.website}" target="_blank" style="color: #06B6D4;">${partner.website}</a></p>` : ''}
+                    <h4>${categoryIcon} ${offer.business_name}</h4>
+                    <p><strong>Offer:</strong> ${offer.offer_title}</p>
+                    ${offer.offer_description ? `<p>${offer.offer_description}</p>` : ''}
+                    ${servicesHTML}
+                    <p><strong>Address:</strong> ${offer.address || 'Contact business for location'}, ${offer.city}, ${offer.state} ${offer.zip_code || ''}</p>
+                    <p><strong>Phone:</strong> ${offer.phone || 'Not provided'}</p>
+                    ${offer.email ? `<p><strong>Email:</strong> ${offer.email}</p>` : ''}
+                    ${offer.website ? `<p><strong>Website:</strong> <a href="${offer.website}" target="_blank" style="color: #06B6D4;">${offer.website}</a></p>` : ''}
+                    ${offer.available_online ? '<p>✅ Available Online</p>' : ''}
+                    ${offer.available_in_store ? '<p>✅ Available In-Store</p>' : ''}
                 </div>
                 
                 <div class="modal-offer-details">
                     <h5>🎉 How to Redeem</h5>
-                    <p>Show your ShelterCARD when scheduling your appointment or making your purchase to receive your exclusive discount.</p>
-                    <p><strong>Terms:</strong> Valid for new clients only. Cannot be combined with other offers.</p>
+                    ${redemptionHTML}
+                    ${codeHTML}
+                    ${restrictionsHTML}
+                    <p><strong>Valid:</strong> ${getValidityText(offer)}</p>
                 </div>
             `;
 
             // Set up redeem button
             redeemBtn.onclick = function() {
-                // You can add tracking or redirect logic here
-                if (partner.phone) {
-                    window.open(`tel:${partner.phone}`, '_self');
-                } else if (partner.website) {
-                    window.open(partner.website, '_blank');
+                // Track redemption
+                trackOfferClick(offer.id);
+                
+                // Redirect to contact method
+                if (offer.website && offer.available_online) {
+                    window.open(offer.website, '_blank');
+                } else if (offer.phone) {
+                    window.open(`tel:${offer.phone}`, '_self');
+                } else if (offer.email) {
+                    window.open(`mailto:${offer.email}`, '_self');
                 }
                 closeModal();
             };
@@ -1317,6 +1418,21 @@
             modal.style.display = 'flex';
             modal.classList.add('show');
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        // Track offer click (increment analytics)
+        async function trackOfferClick(offerId) {
+            try {
+                // Increment click_count in database
+                const { error } = await supabaseClient
+                    .rpc('increment_offer_clicks', { offer_id: offerId });
+                
+                if (error) {
+                    console.warn('Failed to track offer click:', error);
+                }
+            } catch (err) {
+                console.warn('Error tracking offer click:', err);
+            }
         }
 
         // Close modal function
